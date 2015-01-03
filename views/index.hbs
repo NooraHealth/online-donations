@@ -1,2 +1,48 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript" src="./javascripts/submitDonation.js"></script>
+
+<script type="text/javascript">
+  // This itentifies your website in the createToken call below
+  Stripe.setPublishableKey('pk_test__y4XPVW7eG98vkn2FgtsonNYt');
+</script>
+
+
+<form role="form" action="/payments/submit" method="POST" id="payment-form">
+  <span class="payment-errors"></span>
+
+  <div class="panel btn-group" role="group" aria-label="...">
+    <button type="button" class="btn btn-default">$10</button>
+    <button type="button" class="btn btn-default">$20</button>
+    <button type="button" class="btn btn-default">$50</button>
+    <button type="button" class="btn btn-default">$100</button>
+    <button type="button" class="btn btn-default">$250</button>
+    <button type="button" class="btn btn-default">$500</button>
+    <button type="button" class="btn btn-default">$1000</button>
+  </div>
+ 
+  <div class="form-group">
+      <label> Email </label>
+      <input type="text" size="20"/>
+  </div>
+  
+  <div class="form-group">
+      <label>Card Number</label>
+      <input type="text" size="20" data-stripe="number"/>
+      
+      <label>CVC</label>
+      <input type="text" size="4" data-stripe="cvc"/>
+  </div>
+
+  <div class="form-group">
+  </div>
+
+  <div class="form-group">
+      <label>Expiration (MM/YYYY)</label>
+      <input type="text" size="2" data-stripe="exp-month"/>
+    <label> / </label>
+    <input type="text" size="4" data-stripe="exp-year"/>
+  </div>
+
+  <button type="submit">Donate!</button>
+</form>
+

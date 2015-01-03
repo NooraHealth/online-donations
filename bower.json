@@ -1,0 +1,21 @@
+{
+  "name": "NooraDonations",
+  "version": "0.0.0",
+  "authors": [
+    "Lucy Richards <lucyannerichards@gmail.com>"
+  ],
+  "description": "Online web portal for accepting donations to Noora Health. Built using Stripe, Node.js, and Express",
+  "main": "app.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.1"
+  }
+}
