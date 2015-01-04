@@ -10,6 +10,7 @@ router.post '/submit', (req, res) ->
   donationAmount = req.body.donationAmount
   console.log stripeToken
   console.log donationAmount
+  #res.redirect '/'
 
 
 module.exports = router
