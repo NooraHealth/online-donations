@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var coffeescript = require('coffee-script').register();
+var mongoose = require('mongoose');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -11,7 +12,11 @@ var donations = require('./routes/donations');
 
 var app = express();
 
-// view engine setup
+//Mongoose config
+mongoose.connect(process.env.MONGO_URL 
+                 || 'mongodb://lucyanne:artichokes@lighthouse.0.mongolayer.com:10104/production');
+
+                 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
