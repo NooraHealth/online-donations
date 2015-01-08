@@ -18,8 +18,9 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         {{#if user}}
-          <li><img alt="profpic" class="navthumbnail img-circle" src="./uploads/{{user.photo}}"></li>
           <li><a href="/logout" class="nav-elements"><i class="fa fa-lg fa-mail-reply"></i>  Logout</a></li>
+        {{else}}
+          <li><a href="/login" class="nav-elements"><i class="fa fa-lg fa-mail-reply"></i>  Login </a></li>
         {{/if}}
         </ul>
     </div><!-- /.navbar-collapse -->

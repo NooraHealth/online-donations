@@ -1,52 +1,76 @@
-<h3> You are about to make a donation to NooraHealth! Good for you! </h3>
 <script type="text/javascript">
   // This itentifies your website in the createToken call below
   Stripe.setPublishableKey('pk_test_y4XPVW7eG98vkn2FgtsonNYt');
 </script>
-  
-<div class="panel col-lg-6 col-md-6 col-sm-6">
-  <img src="http://grass-roots-science.info/VascularContent/Images/carecaregiver.png"/>
+
+<div class="row">
+  <a class="navbar-brand">
+    <img alt="Brand" src="../images/NHlogo.png" width="155px" height="92px"/>
+  </a>
+  <ul class="nav navbar-nav navbar-right">
+    {{#if user}}
+      <li><a href="/logout" class="nav-elements"><i class="fa fa-lg fa-mail-reply"></i>  Logout</a></li>
+    {{else}}
+      <li><a href="/login" class="nav-elements"><i class="fa fa-lg fa-mail-reply"></i>  Login </a></li>
+    {{/if}}
+  </ul>
 </div>
 
-<div class="panel col-lg-6 col-md-6 col-sm-6">
-  <form role="form" class="form-inline" action="/donations/submit" method="POST" id="payment-form">
-    <span class="payment-errors"></span>
-    <input class="hidden" name="donationAmount" value="">
-
-    <div class="row ">
-      <input type="checkbox" name="member" size="20"/>
-      <label> Make me a member! </label>
-    </div>
-  <!--  <div class="panel btn-group" id="donation-options" role="group" aria-label="...">-->
-      <!--<button type="button" class="btn btn-default" value="1000">$10</button>-->
-      <!--<button type="button" class="btn btn-default" value="2000">$20</button>-->
-      <!--<button type="button" class="btn btn-default" value="5000">$50</button>-->
-      <!--<button type="button" class="btn btn-default" value="10000">$100</button>-->
-      <!--<button type="button" class="btn btn-default" value="25000">$250</button>-->
-      <!--<button type="button" class="btn btn-default" value="50000">$500</button>-->
-      <!--<button type="button" class="btn btn-default" value="2000">$1000</button>-->
-    <!--</d/iv>-->
-    <div class="row form-row">
-      <input type="text" class=" col-lg-12 col-md-12 col-sm-12" name="name" class="" placeholder="Your name"/>
-    </div>
-
-    <div class="row form-row">
-      <input type="text" class="col-lg-6 col-sm-6 col-md-6" name="email" class="" placeholder="Email"/>
-      <input type="text"  class="col-lg-5 col-sm-6 col-md-6" name="password" class="" placeholder="Password"/>
-    </div>
-    
-    <div class="row form-row">
-      <input type="text" class="col-lg-6 col-md-6 col-sm-6" size="20" class="" placeholder="Card Number" data-stripe="number"/>
-      
-      <input type="text" class="col-lg-2 col-md-2 col-sm-2" size="4" class="" placeholder="CVC" data-stripe="cvc"/>
-      
-      <input type="text" class="col-lg-2 col-md-2 col-sm-2" size="2" class="" placeholder="mm" data-stripe="exp-month"/>
-      <input type="text" class="col-lg-2 col-md-2 col-sm-2" size="4" class="" placeholder="yyyy" data-stripe="exp-year"/>
-    </div>
-
-
-    <div class="row">
-    <button type="submit" class="btn btn-primary" style="width:100%" id="submit-form">Donate!</button>
+<div class="row padding-bottom">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <h3> You are about to make a donation to NooraHealth. With this money we
+    will do awesome things.</h3>
   </div>
-  </form>
+</div>
+
+<div class="row"> 
+  <div class="col-lg-12 col-md-12 col-sm-12">
+
+    <div class="pull-left fixed-panel">
+      <img class="panel-img" src="http://grass-roots-science.info/VascularContent/Images/carecaregiver.png"/>
+    </div>
+
+    <div class="pull-right fixed-panel padding-top">
+      <form role="form" class="form-inline" action="/donations/submit" method="POST" id="payment-form">
+        <span class="payment-errors"></span>
+        <input class="hidden" name="donationAmount" value="">
+
+        <div class="row ">
+          <input type="checkbox" name="member" size="20"/>
+          <label> Make this donation monthly! </label>
+        </div>
+      <!--  <div class="panel btn-group" id="donation-options" role="group" aria-label="...">-->
+          <!--<button type="button" class="btn btn-default" value="1000">$10</button>-->
+          <!--<button type="button" class="btn btn-default" value="2000">$20</button>-->
+          <!--<button type="button" class="btn btn-default" value="5000">$50</button>-->
+          <!--<button type="button" class="btn btn-default" value="10000">$100</button>-->
+          <!--<button type="button" class="btn btn-default" value="25000">$250</button>-->
+          <!--<button type="button" class="btn btn-default" value="50000">$500</button>-->
+          <!--<button type="button" class="btn btn-default" value="2000">$1000</button>-->
+        <!--</d/iv>-->
+        <div class="row form-row">
+          <input type="text" class=" col-lg-12 col-md-12 col-sm-12" name="name" class="" placeholder="Your name"/>
+        </div>
+
+        <div class="row form-row">
+          <input type="text" class="col-lg-6 col-sm-6 col-md-6" name="email" class="" placeholder="Email"/>
+          <input type="text"  class="col-lg-5 col-sm-6 col-md-6" name="password" class="" placeholder="Password"/>
+        </div>
+        
+        <div class="row form-row">
+          <input type="text" class="col-lg-5 col-md-5 col-sm-5" size="20" class="" placeholder="Card Number" data-stripe="number"/>
+        </div>
+        
+        <div class="row form-row">
+          <input type="text" class="col-lg-3 col-md-4 col-sm-4" size="4" class="" placeholder="CVC" data-stripe="cvc"/>
+          <input type="text" class="col-lg-2 col-md-2 col-sm-2" size="2" class="" placeholder="mm" data-stripe="exp-month"/>
+          <input type="text" class="col-lg-3 col-md-3 col-sm-3" size="4" class="" placeholder="yyyy " data-stripe="exp-year"/>
+        </div>
+
+        <div class="row padding-top-sm">
+          <button type="submit" class="btn btn-primary" style="width:100%" id="submit-form">DONATE</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
