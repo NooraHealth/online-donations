@@ -7,9 +7,9 @@
     <span class="payment-errors"></span>
     <input class="hidden" name="donationAmount" value="">
 
-    <div class="form-group">
-      <label> Make me a member! </label>
+    <div class="row ">
       <input type="checkbox" name="member" size="20"/>
+      <label> Make me a member! </label>
     </div>
   <!--  <div class="panel btn-group" id="donation-options" role="group" aria-label="...">-->
       <!--<button type="button" class="btn btn-default" value="1000">$10</button>-->
@@ -20,21 +20,21 @@
       <!--<button type="button" class="btn btn-default" value="50000">$500</button>-->
       <!--<button type="button" class="btn btn-default" value="2000">$1000</button>-->
     <!--</d/iv>-->
-    <div class="row">
+    <div class="row form-row">
       <input type="text" class=" col-lg-12 col-md-12 col-sm-12" name="name" class="" placeholder="Your name"/>
     </div>
 
-    <div class="row">
-      <input type="text" class="col-lg-6 col-sm-6 col-md-6" name="email" class="" placeholder="email"/>
-      <input type="text"  class="col-lg-5 col-sm-6 col-md-6" name="password" class="" placeholder="password"/>
+    <div class="row form-row">
+      <input type="text" class="col-lg-6 col-sm-6 col-md-6" name="email" class="" placeholder="Email"/>
+      <input type="text"  class="col-lg-5 col-sm-6 col-md-6" name="password" class="" placeholder="Password"/>
     </div>
    
-    <div class="row">
+    <div class="row form-row">
       <input type="text" class="col-lg-6 col-md-6 col-sm-6" size="20" class="" placeholder="Card Number" data-stripe="number"/>
       
       <input type="text" class="col-lg-2 col-md-2 col-sm-2" size="4" class="" placeholder="CVC" data-stripe="cvc"/>
       
-      <input type="text" class="col-lg-2 col-md-2 col-sm-2" size="7" class="" placeholder="mm /" data-stripe="exp-month"/>
+      <input type="text" class="col-lg-2 col-md-2 col-sm-2" size="2" class="" placeholder="mm" data-stripe="exp-month"/>
       <input type="text" class="col-lg-2 col-md-2 col-sm-2" size="4" class="" placeholder="yyyy" data-stripe="exp-year"/>
     </div>
 
