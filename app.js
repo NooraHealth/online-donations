@@ -6,6 +6,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var hbs = require('express-handlebars');
 
 var routes = require('./routes/index');
 var donations = require('./routes/donations');
@@ -17,6 +18,11 @@ mongoose.connect(process.env.MONGO_URL
                  || 'mongodb://lucyanne:artichokes@lighthouse.0.mongolayer.com:10104/production');
 
                  // view engine setup
+app.engine('hbs', hbs({
+  defaultLayout: 'layout',
+  extname: '.hbs',
+  partialsDir: __dirname + '/views/partials'
+}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 

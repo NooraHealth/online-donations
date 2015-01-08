@@ -1,0 +1,28 @@
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="col-lg-8 col-lg-offset-2">
+    <div class="navbar-header">
+      <a class="navbar-brand">
+        <img alt="Brand" src="../images/NHlogo.png" width="155px" height="92px"/>
+      </a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        {{#if user}}
+          <li><img alt="profpic" class="navthumbnail img-circle" src="./uploads/{{user.photo}}"></li>
+          <li><a href="/logout" class="nav-elements"><i class="fa fa-lg fa-mail-reply"></i>  Logout</a></li>
+        {{/if}}
+        </ul>
+    </div><!-- /.navbar-collapse -->
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>
