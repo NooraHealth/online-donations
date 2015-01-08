@@ -3,9 +3,14 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.container {
+  padding-top: 80px;
+}
+
 .form-row {
   border-bottom: solid 1px black;
   padding: 20px 20px 5px 0px;
+  border-color: #D0C0A4;
 }
 
 label {

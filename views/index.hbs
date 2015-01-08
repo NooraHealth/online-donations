@@ -1,8 +1,14 @@
+<h3> You are about to make a donation to NooraHealth! Good for you! </h3>
 <script type="text/javascript">
   // This itentifies your website in the createToken call below
   Stripe.setPublishableKey('pk_test_y4XPVW7eG98vkn2FgtsonNYt');
 </script>
+  
+<div class="panel col-lg-6 col-md-6 col-sm-6">
+  <img src="http://grass-roots-science.info/VascularContent/Images/carecaregiver.png"/>
+</div>
 
+<div class="panel col-lg-6 col-md-6 col-sm-6">
   <form role="form" class="form-inline" action="/donations/submit" method="POST" id="payment-form">
     <span class="payment-errors"></span>
     <input class="hidden" name="donationAmount" value="">
@@ -28,7 +34,7 @@
       <input type="text" class="col-lg-6 col-sm-6 col-md-6" name="email" class="" placeholder="Email"/>
       <input type="text"  class="col-lg-5 col-sm-6 col-md-6" name="password" class="" placeholder="Password"/>
     </div>
-   
+    
     <div class="row form-row">
       <input type="text" class="col-lg-6 col-md-6 col-sm-6" size="20" class="" placeholder="Card Number" data-stripe="number"/>
       
@@ -40,6 +46,7 @@
 
 
     <div class="row">
-    <button type="submit" style="width:100%" id="submit-form">Donate!</button>
+    <button type="submit" class="btn btn-primary" style="width:100%" id="submit-form">Donate!</button>
   </div>
   </form>
+</div>

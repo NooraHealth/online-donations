@@ -254,7 +254,7 @@ body {
   font-size: 14px;
   line-height: 1.428571429;
   color: #a3dee6;
-  background-color: #f3fff2;
+  background-color: #ffffff;
 }
 input,
 button,
@@ -298,7 +298,7 @@ img {
 .img-thumbnail {
   padding: 4px;
   line-height: 1.428571429;
-  background-color: #f3fff2;
+  background-color: #ffffff;
   border: 1px solid #dddddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
@@ -1308,7 +1308,7 @@ th {
   border-top: 2px solid #a3dee6;
 }
 .table .table {
-  background-color: #f3fff2;
+  background-color: #ffffff;
 }
 .table-condensed thead > tr > th,
 .table-condensed tbody > tr > th,
@@ -3345,7 +3345,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
   color: #eb6e77;
-  background-color: #f3fff2;
+  background-color: #ffffff;
   border: 1px solid #dddddd;
   border-bottom-color: transparent;
   cursor: default;
@@ -3371,7 +3371,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   margin-right: 0;
 }
 .nav-tabs.nav-justified > .active > a {
-  border-bottom-color: #f3fff2;
+  border-bottom-color: #ffffff;
 }
 .nav-pills > li {
   float: left;
@@ -3418,7 +3418,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   margin-right: 0;
 }
 .nav-tabs-justified > .active > a {
-  border-bottom-color: #f3fff2;
+  border-bottom-color: #ffffff;
 }
 .tabbable:before,
 .tabbable:after {
@@ -4301,7 +4301,7 @@ a.list-group-item.active > .badge,
 .thumbnail {
   padding: 4px;
   line-height: 1.428571429;
-  background-color: #f3fff2;
+  background-color: #ffffff;
   border: 1px solid #dddddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
