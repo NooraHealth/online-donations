@@ -3,48 +3,43 @@
   Stripe.setPublishableKey('pk_test_y4XPVW7eG98vkn2FgtsonNYt');
 </script>
 
+  <form role="form" class="form-inline" action="/donations/submit" method="POST" id="payment-form">
+    <span class="payment-errors"></span>
+    <input class="hidden" name="donationAmount" value="">
 
-<form role="form" action="/donations/submit" method="POST" id="payment-form">
-  <span class="payment-errors"></span>
-  <input class="hidden" name="donationAmount" value="">
-
-  <div class="panel btn-group" id="donation-options" role="group" aria-label="...">
-    <button type="button" class="btn btn-default" value="1000">$10</button>
-    <button type="button" class="btn btn-default" value="2000">$20</button>
-    <button type="button" class="btn btn-default" value="5000">$50</button>
-    <button type="button" class="btn btn-default" value="10000">$100</button>
-    <button type="button" class="btn btn-default" value="25000">$250</button>
-    <button type="button" class="btn btn-default" value="50000">$500</button>
-    <button type="button" class="btn btn-default" value="2000">$1000</button>
-  </div>
- 
-  <div class="form-group">
-      <label> Email </label>
-      <input type="text" name="email" size="20"/>
-  </div>
-  <div class="form-group">
+    <div class="form-group">
       <label> Make me a member! </label>
       <input type="checkbox" name="member" size="20"/>
-  </div>
-  
-  <div class="form-group">
-      <label>Card Number</label>
-      <input type="text" size="20" data-stripe="number"/>
+    </div>
+  <!--  <div class="panel btn-group" id="donation-options" role="group" aria-label="...">-->
+      <!--<button type="button" class="btn btn-default" value="1000">$10</button>-->
+      <!--<button type="button" class="btn btn-default" value="2000">$20</button>-->
+      <!--<button type="button" class="btn btn-default" value="5000">$50</button>-->
+      <!--<button type="button" class="btn btn-default" value="10000">$100</button>-->
+      <!--<button type="button" class="btn btn-default" value="25000">$250</button>-->
+      <!--<button type="button" class="btn btn-default" value="50000">$500</button>-->
+      <!--<button type="button" class="btn btn-default" value="2000">$1000</button>-->
+    <!--</d/iv>-->
+    <div class="row">
+      <input type="text" class=" col-lg-12 col-md-12 col-sm-12" name="name" class="" placeholder="Your name"/>
+    </div>
+
+    <div class="row">
+      <input type="text" class="col-lg-6 col-sm-6 col-md-6" name="email" class="" placeholder="email"/>
+      <input type="text"  class="col-lg-5 col-sm-6 col-md-6" name="password" class="" placeholder="password"/>
+    </div>
+   
+    <div class="row">
+      <input type="text" class="col-lg-6 col-md-6 col-sm-6" size="20" class="" placeholder="Card Number" data-stripe="number"/>
       
-      <label>CVC</label>
-      <input type="text" size="4" data-stripe="cvc"/>
+      <input type="text" class="col-lg-2 col-md-2 col-sm-2" size="4" class="" placeholder="CVC" data-stripe="cvc"/>
+      
+      <input type="text" class="col-lg-2 col-md-2 col-sm-2" size="7" class="" placeholder="mm /" data-stripe="exp-month"/>
+      <input type="text" class="col-lg-2 col-md-2 col-sm-2" size="4" class="" placeholder="yyyy" data-stripe="exp-year"/>
+    </div>
+
+
+    <div class="row">
+    <button type="submit" style="width:100%" id="submit-form">Donate!</button>
   </div>
-
-  <div class="form-group">
-  </div>
-
-  <div class="form-group">
-      <label>Expiration (MM/YYYY)</label>
-      <input type="text" size="2" data-stripe="exp-month"/>
-    <label> / </label>
-    <input type="text" size="4" data-stripe="exp-year"/>
-  </div>
-
-  <button type="submit" id="submit-form">Donate!</button>
-</form>
-
+  </form>

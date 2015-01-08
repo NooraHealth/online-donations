@@ -3,6 +3,21 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.form_row {
+  border-bottom: 1px;
+}
+
+label {
+  opacity: 0.2;
+}
+input {
+  /*width:100%;*/
+}
+
 a {
   color: #00B7FF;
 }
+
+/**:focus{*/
+ /*outline: none;*/
+/*}*/
