@@ -14,10 +14,13 @@ var donations = require('./routes/donations');
 var app = express();
 
 //Mongoose config
-mongoose.connect(process.env.MONGO_URL 
-                 || 'mongodb://lucyanne:artichokes@lighthouse.0.mongolayer.com:10104/production');
+//mongoose.connect(process.env.MONGO_URL 
+                 //|| 'mongodb://lucyanne:artichokes@lighthouse.0.mongolayer.com:10104/production');
 
-                 // view engine setup
+mongoose.connect(process.env.MONGO_URL 
+                 || "mongodb://localhost/");
+                 
+// view engine setup
 app.engine('hbs', hbs({
   defaultLayout: 'layout',
   extname: '.hbs',

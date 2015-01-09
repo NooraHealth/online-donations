@@ -1,6 +1,19 @@
 (function(){
   $(document).ready(function() {
   
+    function parseForExpiration() {
+
+      var exp = $("#expiration").val();
+      if (exp.length < 7)
+        return;
+
+      var month = exp.substring(0,2);
+      var year = exp.substring(3);
+      
+      $("#expyear").val(year);
+      $("#expmonth").val(month);
+    } 
+
     function stripeResponseHandler(status, response){
       var form = $('#payment-form');
       
@@ -15,17 +28,17 @@
       }
     }
 
-    $('#payment-form').on('submit', function(e) {
-      e.preventDefault();
+    function createStripeToken (event) {
+      event.preventDefault();
+      parseForExpiration();
+      console.log("Creating a stripe token");
       var form = $(this);
       form.find('button').prop('disabled', true);
       Stripe.card.createToken(form, stripeResponseHandler);
       return false; 
-    });
+    }
 
-    $('#donation-options').on('click', function(e) {
-      console.log("An option was selected");
-      console.log($(this));
-    });
+    $('#payment-form').on('submit', createStripeToken);
+
   })
 }).call(this);
