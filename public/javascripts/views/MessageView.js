@@ -20,15 +20,19 @@
       },
       renderError: function() {
         $('#message-box').text(DonationPageView.message.get("error"));      
+        return this;
       },
       renderMessage: function() {
         $('#message-box').text(DonationPageView.message.get("message"));      
+        return this;
       },
       renderWarning: function() {
         $('#message-box').text(DonationPageView.message.get("warning"));      
+        return this;
       },
       renderSuccess: function() {
         $('#message-box').text(DonationPageView.message.get("success"));      
+        return this;
       },
     });
   });

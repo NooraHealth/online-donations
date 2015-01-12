@@ -9,9 +9,16 @@ var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
 var flash = require('connect-flash');
 var session = require('express-session');
+var passport = require('passport');
+var passportLocalMongoose = require('passport-local-mongoose');
 
+//Mongoose models
+var Donor = require('./models/Donors');
+
+//ROUTES
 var routes = require('./routes/index');
 var donations = require('./routes/donations');
+var registerNewDonor = require('./routes/register');
 
 var app = express();
 
@@ -40,15 +47,27 @@ app.use(cookieParser());
 app.use(session({
   resave: true, 
   saveUninitialized: true,
-  secret: "Noora Health nurse educators",
+  secret: "Noora Health donors",
   maxAge: 6000
 }));
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+//PASSPORT CONFIG
+passport.use(Donor.createStrategy());
+
+passport.serializeUser(Donor.serializeUser());
+passport.deserializeUser(Donor.deserializeUser());
+
+//ROUTES
 app.use('/', routes);
+app.use('/donations', registerNewDonor);
 app.use('/donations', donations);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

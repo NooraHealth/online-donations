@@ -25,7 +25,7 @@
 
       verifyInput: function() {
         console.log("Verifying the form input");
-        if (this.$("input[name=password]").val() != this.$("input[name=confirm]")) {
+        if (this.$("input[name=password]").val() != this.$("input[name=confirm]").val()) {
           console.log("changing error message");
           DonationPageView.message.set({error: "Your passwords do not match"});
           console.log(DonationPageView.message);

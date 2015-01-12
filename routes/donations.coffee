@@ -4,7 +4,7 @@ MyStripe = require '../lib/MyStripe'
 
 
 # GET home page. 
-router.post '/submit', (req, res) ->
+router.post '/submit', (req, res, err) ->
   console.log 'recieved a payment to submit'
   token = req.body.stripeToken
   amount = if req.body.amount then parseFloat req.body.amount else 0
