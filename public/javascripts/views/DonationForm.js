@@ -1,6 +1,6 @@
 (function(){
   $(document).ready(function() {
-    var DonationForm = Backbone.View.extend({
+    window.DonationForm = Backbone.View.extend({
       //tagName: "form",
       el: "#donation-form",
       id: "donation-form",
@@ -8,8 +8,6 @@
 
       events: {
         "submit": "createStripeToken",
-      
-        //"click #submit-donation": "createStripeToken"
       },
       
       parseExpiration: function() {
@@ -24,11 +22,24 @@
         $("#expyear").val(year);
         $("#expmonth").val(month);
       },
+
+      verifyInput: function() {
+        console.log("Verifying the form input");
+        if (this.$("input[name=password]").val() != this.$("input[name=confirm]")) {
+          console.log("changing error message");
+          DonationPageView.message.set({error: "Your passwords do not match"});
+          console.log(DonationPageView.message);
+          return false;
+        }
+          
+        return true;
+      },
       
       stripeResponseHandler: function(status, response){
         console.log("Recieved a response from the Stripe servers.");
         if(response.error) {
-          $('.payment-errors').text(response.error.message);      
+          //$('#message-box').text(response.error.message);      
+          DonationPageView.message.set({error: response.error.message});
           this.$('#submit-donation').prop('disabled',false);
         } else{
           var token = response.id;
@@ -40,15 +51,15 @@
 
       createStripeToken: function(event) {
         event.preventDefault();
-        this.parseExpiration();
-        console.log("Creating a stripe token");
-        this.$("#submit-donation").prop('disabled', true);
-        Stripe.card.createToken(this.$el, (this.stripeResponseHandler).bind(this));
+        if ( this.verifyInput() ) {
+          this.parseExpiration();
+          console.log("Creating a stripe token");
+          this.$("#submit-donation").prop('disabled', true);
+          Stripe.card.createToken(this.$el, (this.stripeResponseHandler).bind(this));
+        }
         return false; 
       }
     });
 
-    var DonationForm = new DonationForm;
-    console.log(DonationForm);
   });
 }).call(this);
