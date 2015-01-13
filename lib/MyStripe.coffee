@@ -25,10 +25,7 @@ class MyStripe
     }
 
   saveCustomerID: ( email, id) ->
-    console.log "Updating the customer info of #{email} #{id}"
-    Donors.findOneAndUpdate {email:email}, {stripeId:id}, (donor) ->
-      console.log "Found a donor!"
-      console.log donor
+    Donors.findOneAndUpdate {email:email}, {stripeId:id}
 
   charge: (customer, amount) ->
     console.log amount
@@ -46,8 +43,6 @@ class MyStripe
       console.log customer
       that.saveCustomerID email, customer.id
       that.charge customer, amount
-    .then (charge) ->
-      console.log "successfully charged the customer"
       that.saveCustomerID email, customer.id
 
   subscribeMonthly: (token, amount, email) ->
