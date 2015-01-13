@@ -45,7 +45,29 @@
           var token = response.id;
           //insert the token into the form for submission
           this.$el.append("<input type='hidden' name='stripeToken' value='"+token+"' />" );
-          this.$el.get(0).submit();
+          
+          var data = {
+            stripeToken: token,
+            name: $("input[name=name]").val(),
+            password: $("input[name=password]").val(),
+            email: $("input[name=email]").val(),
+            amount: $("input[name=amount]").val(),
+            monthly: $("input[name=monthly").val() 
+          }
+          var promise = $.post ("/donations/submit", data, function() {
+            console.log("Posting the donation");
+          }).done( function ( response ) {
+            if ( response.error ) {
+              DonationPageView.message.set({error: response.error});
+            } else {
+              DonationPageView.message.set({success: "Noora Health thanks you for your generosity!"});
+            }
+          }).fail( function() {
+            DonationPageView.message.set({error: "There was an error processing your donation. Please try again"});
+          });
+          //this.$el.get(0).submit(function() {
+            //console.log("This got to the handler!");
+          //});
         }
       },
 

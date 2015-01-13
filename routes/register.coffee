@@ -11,7 +11,7 @@ register = (req, res, next) ->
   Donors.register( donor, req.body.password, (err, account) ->
     if err
       console.log err
-      res.render 'index',  {error: err.message}
+      res.json {error: err.message}
     else
       req.logIn account, (err) ->
         if err

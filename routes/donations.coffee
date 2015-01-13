@@ -7,7 +7,7 @@ MyStripe = require '../lib/MyStripe'
 router.post '/submit', (req, res, err) ->
   console.log 'recieved a payment to submit'
   token = req.body.stripeToken
-  amount = if req.body.amount then parseFloat req.body.amount else 0
+  amount = req.body.amount
   email = req.body.email
   monthly = req.body.monthly
 
