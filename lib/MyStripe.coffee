@@ -25,7 +25,7 @@ class MyStripe
     }
 
   saveCustomerID: ( email, id) ->
-    console.log "Updating the customer info of #{email}"
+    console.log "Updating the customer info of #{email} #{id}"
     Donors.findOneAndUpdate {email:email}, {stripeId:id}, (donor) ->
       console.log "Found a donor!"
       console.log donor

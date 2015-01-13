@@ -44,13 +44,14 @@
         } else{
           var token = response.id;
           
+          var form = this.$el
           var data = {
             stripeToken: token,
             name: $("input[name=name]").val(),
             password: $("input[name=password]").val(),
             email: $("input[name=email]").val(),
             amount: $("input[name=amount]").val() * 100,
-            monthly: $("input[name=monthly").is(':checked')
+            monthly: $("input[name=monthly").is(':checked') 
           }
           var promise = $.post ("/donations/submit", data, function() {
             console.log("Posting the donation");
@@ -60,12 +61,13 @@
             } else {
               DonationPageView.message.set({success: "Noora Health thanks you for your generosity!"});
             }
+            form[0].reset();
+            $("#submit-donation").prop('disabled', false);
           }).fail( function() {
             DonationPageView.message.set({error: "There was an error processing your donation. Please try again"});
+            form[0].reset();
+            $("#submit-donation").prop('disabled', false);
           });
-          
-          this.$el[0].reset();
-          this.$("#submit-donation").prop('disabled', false);
         }
       },
 

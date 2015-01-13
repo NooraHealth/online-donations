@@ -10,11 +10,12 @@ router.post '/submit', (req, res, err) ->
   token = req.body.stripeToken
   amount = req.body.amount
   email = req.body.email
-  monthly = req.body.monthly
+  monthly =  req.body.monthly
 
-  if monthly
+  if monthly == 'true'
     promise = MyStripe.subscribeMonthly token, amount, email
   else
+    console.log "no monthly"
     promise = MyStripe.chargeOnce token, amount, email
   
   promise.catch (err) ->
