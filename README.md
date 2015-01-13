@@ -1,27 +1,12 @@
-# README #
+# Noora Donations #
 
 Noora Health's Online Donation Platform
 
-### What is this repository for? ###
+### Built Using... ###
 
-* Built using Stripe, Nodejs, Express, backed by MongoDB, Handlebars templating and Backbone.
+* Stripe, Nodejs, Express, Handlebars, Backbone, and backed by MongoDB.
 
-### How do I get set up? ###
+### Written in ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* Coffescript
+* Javascript
