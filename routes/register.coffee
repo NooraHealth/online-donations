@@ -6,7 +6,11 @@ register = (req, res, next) ->
   donor = new Donors
     email: req.body.email
     name: req.body.name
+    stripeId: "just checking"
+
   console.log "Registering a new donor"
+  console.log donor
+  console.log req.body.name
 
   Donors.register( donor, req.body.password, (err, account) ->
     if err

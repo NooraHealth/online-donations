@@ -6,6 +6,7 @@ MyStripe = require '../lib/MyStripe'
 # GET home page. 
 router.post '/submit', (req, res, err) ->
   console.log 'recieved a payment to submit'
+  console.log req.body
   token = req.body.stripeToken
   amount = req.body.amount
   email = req.body.email

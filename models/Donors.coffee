@@ -4,6 +4,7 @@ passportLocalMongoose = require 'passport-local-mongoose'
 
 donorSchema =
   stripeId: String
+  name:String
 
 DonorSchema = new Schema donorSchema
 

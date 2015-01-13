@@ -1,4 +1,4 @@
-Donor = require '../models/Donors'
+Donors = require '../models/Donors'
 stripe = require('stripe')('sk_test_ASzEwo4Y9IlE0M8gBrLkwrP0')
 
 class MyStripe
@@ -24,15 +24,11 @@ class MyStripe
       statement_descriptor: "Noora Health donation"
     }
 
-  saveDonor: ( email, id) ->
-    donor = new Donor {stripeID: id, email:email}
-    donor.save (err)->
-      if err
-        console.log "There was an error saving the donor to mongoose:"
-        console.log err
-      else
-        console.log "Successfully created a new donor"
-        console.log donor
+  saveCustomerID: ( email, id) ->
+    console.log "Updating the customer info of #{email}"
+    Donors.findOneAndUpdate {email:email}, {stripeId:id}, (donor) ->
+      console.log "Found a donor!"
+      console.log donor
 
   charge: (customer, amount) ->
     console.log amount
@@ -48,11 +44,11 @@ class MyStripe
     .then (customer) ->
       console.log "made a customer!"
       console.log customer
-      that.saveDonor(email, customer.id)
+      that.saveCustomerID email, customer.id
       that.charge customer, amount
     .then (charge) ->
       console.log "successfully charged the customer"
-      saveDonor(email, customer.id)
+      that.saveCustomerID email, customer.id
 
   subscribeMonthly: (token, amount, email) ->
     console.log "Subscribing a monthly member"
@@ -65,6 +61,6 @@ class MyStripe
     .then (customer) ->
       console.log "Created a new stripe customer subscribed monthly"
       console.log customer
-      saveDonor email, customer.id
+      that.saveCustomerID email, customer.id
 
 module.exports = new MyStripe
