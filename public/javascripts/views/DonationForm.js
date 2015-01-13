@@ -58,8 +58,9 @@
           }).done( function ( response ) {
             if ( response.error ) {
               DonationPageView.message.set({error: response.error});
-            } else {
-              DonationPageView.message.set({success: "Noora Health thanks you for your generosity!"});
+            } 
+            if (response.success) {
+              DonationPageView.message.set({success: response.success});
             }
             form[0].reset();
             $("#submit-donation").prop('disabled', false);

@@ -21,8 +21,8 @@ router.post '/submit', (req, res, err) ->
   promise.catch (err) ->
     console.log "There was an error: "
     console.log err
-    req.flash 'error', err.message
-    res.redirect '/'
+    res.send {error: err.message}
 
+  res.send {success: "Thank you for your donation!"}
 
 module.exports = router

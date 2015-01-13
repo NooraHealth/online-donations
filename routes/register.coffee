@@ -8,10 +8,6 @@ register = (req, res, next) ->
     name: req.body.name
     stripeId: "just checking"
 
-  console.log "Registering a new donor"
-  console.log donor
-  console.log req.body.name
-
   Donors.register( donor, req.body.password, (err, account) ->
     if err
       console.log err
@@ -20,10 +16,8 @@ register = (req, res, next) ->
       req.logIn account, (err) ->
         if err
           console.log "Error registering donor"
-          console.log err
+          res.json {error: err.message}
         else
-          #res.redirect '/donations/submit', {donorID: account._id}
-          console.log "Successfully registered donor"
-        next 'route'
+          next 'route'
     )
 module.exports = register
