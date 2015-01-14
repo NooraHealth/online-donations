@@ -97,7 +97,7 @@
 
       //reset form fields
       reset: function() {
-        form[0].reset();
+        this.$el.reset();
         $("#submit-donation").prop('disabled', false);
       }
     });
