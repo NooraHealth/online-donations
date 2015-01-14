@@ -106,7 +106,7 @@
       },
 
       render: function() {
-        console.log("Rendering the loginpage template");
+        console.log("Rendering the donationform template");
         var src = $("#donation-form-template").html();
         var template = Handlebars.compile(src);
         var html = template();

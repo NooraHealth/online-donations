@@ -5,11 +5,12 @@
 
       routes: {
         "login": "login",
-        "donationForm": "donationForm",
+        "donations": "donationForm",
       }, 
 
       donationForm: function() {
-        App.donationPageView.render();  
+        console.log("Rendering the donationFormView");
+        App.donationFormView.render();  
       },
     
       login: function() {
