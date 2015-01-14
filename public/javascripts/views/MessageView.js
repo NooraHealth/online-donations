@@ -19,19 +19,19 @@
         $('#message-box').text();
       },
       renderError: function() {
-        $('#message-box').text(DonationPageView.message.get("error"));      
+        $('#message-box').text(App.message.get("error"));      
         return this;
       },
       renderMessage: function() {
-        $('#message-box').text(DonationPageView.message.get("message"));      
+        $('#message-box').text(App.message.get("message"));      
         return this;
       },
       renderWarning: function() {
-        $('#message-box').text(DonationPageView.message.get("warning"));      
+        $('#message-box').text(App.message.get("warning"));      
         return this;
       },
       renderSuccess: function() {
-        $('#message-box').text(DonationPageView.message.get("success"));      
+        $('#message-box').text(App.message.get("success"));      
         return this;
       },
     });

@@ -13,7 +13,7 @@
         this.navbarView = new NavbarView;
 
         //Login Page
-        this.LoginPageView = new LoginPage;
+        this.loginPageView = new LoginPage;
 
         this.Router = new Router;
       },

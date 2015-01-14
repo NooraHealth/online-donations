@@ -4,8 +4,11 @@
     window.DonationForm = Backbone.View.extend({
     
       //tagName: "form",
-      el: "#donation-form",
-      id: "donation-form",
+      el: "#body",
+
+      form: function() {
+        return this.$el.$("#donation-form");
+      },
 
       events: {
         "submit": "createStripeToken",
@@ -89,7 +92,7 @@
           this.parseExpiration();
           console.log("Asking for a stripe token");
           this.$("#submit-donation").prop('disabled', true);
-          Stripe.card.createToken(this.$el, (this.stripeResponseHandler).bind(this));
+          Stripe.card.createToken(form, (this.stripeResponseHandler).bind(this));
         }
 
         //Prevent form from submitting
@@ -98,8 +101,16 @@
 
       //reset form fields
       reset: function() {
-        this.$el.reset();
+        form.reset();
         $("#submit-donation").prop('disabled', false);
+      },
+
+      render: function() {
+        console.log("Rendering the loginpage template");
+        var src = $("#donation-form-template").html();
+        var template = Handlebars.compile(src);
+        var html = template();
+        this.$el.html(html);      
       }
     });
 

@@ -3,11 +3,16 @@
 
     window.Router = Backbone.Router.extend({
       routes: {
-        "login": "login"
+        "login": "login",
+        "donationForm": "donationForm",
       }, 
+
+      donationForm: function() {
+        App.donationPageView.render();  
+      },
     
       login: function() {
-        App.LoginPageView.render();
+        App.loginPageView.render();
       },
 
     });
