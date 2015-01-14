@@ -1,10 +1,11 @@
 
 (function(){
   $(document).ready(function() {
-    window.LoginPageView = Backbone.View.extend({
+    window.LoginPage = Backbone.View.extend({
       el: "#body",
 
       render: function() {
+        console.log("Rendering the loginpage template");
         var src = $("#login-template").html();
         var template = Handlebars.compile(src);
         var html = template();

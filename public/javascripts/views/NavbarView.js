@@ -1,6 +1,8 @@
 (function(){
   $(document).ready(function() {
     window.NavbarView = Backbone.View.extend({
+
+      el: "#noora-nav" ,
     
       events: {
        "click .login": "navigateToLogin"
@@ -8,7 +10,7 @@
 
        navigateToLogin: function() {
           console.log("Navigating to the login");
-          Router.navigate("login", {trigger: true});
+          App.Router.navigate("login", {trigger: true});
        },
     
     });
