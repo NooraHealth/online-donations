@@ -1,7 +1,7 @@
 
 (function(){
   $(document).ready(function() {
-    var DonationPageView = Backbone.View.extend({
+    var App = Backbone.View.extend({
       initialize: function() {
         //Create the donation form view
         this.donationFormView = new DonationForm;
@@ -12,8 +12,10 @@
 
         //Create the navbar view
         this.navbarView = new NavbarView;
+
+        this.Router = new Router;
       },
     });
-    window.DonationPageView = new DonationPageView;
+    window.App = new App;
   });
 }).call(this);

@@ -33,8 +33,8 @@
         console.log("Verifying the form input");
         if (this.$("input[name=password]").val() != this.$("input[name=confirm]").val()) {
           console.log("changing error message");
-          DonationPageView.message.set({error: "Your passwords do not match"});
-          console.log(DonationPageView.message);
+          App.message.set({error: "Your passwords do not match"});
+          console.log(App.message);
           return false;
         }
           
@@ -42,13 +42,13 @@
       },
       
       /*
-       * Callback for Stripe.card.createToke(...)
+       * Callback for Stripe.card.createToken(...)
        */
       stripeResponseHandler: function(status, response){
         console.log("Recieved a response from the Stripe servers.");
         if(response.error) {
           //$('#message-box').text(response.error.message);      
-          DonationPageView.message.set({error: response.error.message});
+          App.message.set({error: response.error.message});
           this.$('#submit-donation').prop('disabled',false);
         } else{
           var token = response.id;
@@ -67,14 +67,14 @@
             console.log("Posting the donation");
           }).done( function ( response ) {
             if ( response.error ) {
-              DonationPageView.message.set({error: response.error});
+              App.message.set({error: response.error});
             } 
             if (response.success) {
-              DonationPageView.message.set({success: response.success});
+              App.message.set({success: response.success});
             }
             this.reset();  
           }).fail( function() {
-            DonationPageView.message.set({error: "There was an error processing your donation. Please try again"});
+            App.message.set({error: "There was an error processing your donation. Please try again"});
             this.reset();
           });
         }

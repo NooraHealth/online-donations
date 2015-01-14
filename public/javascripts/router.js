@@ -7,7 +7,7 @@
       }, 
     
       login: function() {
-        
+        LoginPageView.render();
       },
 
     });
