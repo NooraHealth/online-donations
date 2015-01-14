@@ -1,1 +1,10 @@
-{{>donationForm}}
+
+<script type="text/x-handlebars-template" id="donation-form">{{>donationForm}}</script>
+
+<script>
+(function(){
+  $(document).ready(function() {
+    App.DonationFormView.render();
+  });  
+});
+</script>
