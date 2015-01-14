@@ -37,6 +37,7 @@ app.engine('hbs', hbs({
 }));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+app.set('stripe secret key', process.env.STRIPE_SECRET_KEY_TESTING)
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));

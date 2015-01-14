@@ -1,17 +1,20 @@
 (function(){
   $(document).ready(function() {
+
     window.DonationForm = Backbone.View.extend({
+    
       //tagName: "form",
       el: "#donation-form",
       id: "donation-form",
-      element: this.$el,
 
       events: {
         "submit": "createStripeToken",
       },
       
+      /*
+       * Parse expiration input for use by Stripe
+       */
       parseExpiration: function() {
-        console.log("parsing the expiration");
         var exp = $("#expiration").val();
         if (exp.length < 7)
           return;
@@ -23,6 +26,9 @@
         $("#expmonth").val(month);
       },
 
+      /*
+       * Verify the donation form input before posting to server
+       */
       verifyInput: function() {
         console.log("Verifying the form input");
         if (this.$("input[name=password]").val() != this.$("input[name=confirm]").val()) {
@@ -35,6 +41,9 @@
         return true;
       },
       
+      /*
+       * Callback for Stripe.card.createToke(...)
+       */
       stripeResponseHandler: function(status, response){
         console.log("Recieved a response from the Stripe servers.");
         if(response.error) {
@@ -44,7 +53,6 @@
         } else{
           var token = response.id;
           
-          var form = this.$el
           var data = {
             stripeToken: token,
             name: $("input[name=name]").val(),
@@ -53,6 +61,8 @@
             amount: $("input[name=amount]").val() * 100,
             monthly: $("input[name=monthly").is(':checked') 
           }
+
+          //Submit the donation  
           var promise = $.post ("/donations/submit", data, function() {
             console.log("Posting the donation");
           }).done( function ( response ) {
@@ -62,25 +72,33 @@
             if (response.success) {
               DonationPageView.message.set({success: response.success});
             }
-            form[0].reset();
-            $("#submit-donation").prop('disabled', false);
+            this.reset();  
           }).fail( function() {
             DonationPageView.message.set({error: "There was an error processing your donation. Please try again"});
-            form[0].reset();
-            $("#submit-donation").prop('disabled', false);
+            this.reset();
           });
         }
       },
 
+      /*
+       * Retrieve a CC token from Stripe
+       */
       createStripeToken: function(event) {
-        event.preventDefault();
         if ( this.verifyInput() ) {
           this.parseExpiration();
-          console.log("Creating a stripe token");
+          console.log("Asking for a stripe token");
           this.$("#submit-donation").prop('disabled', true);
           Stripe.card.createToken(this.$el, (this.stripeResponseHandler).bind(this));
         }
+
+        //Prevent form from submitting
         return false; 
+      },
+
+      //reset form fields
+      reset: function() {
+        form[0].reset();
+        $("#submit-donation").prop('disabled', false);
       }
     });
 
