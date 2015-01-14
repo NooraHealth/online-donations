@@ -14,13 +14,18 @@
     
     <!-- bower:js -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/underscore/underscore.js"></script>
+    <script src="../bower_components/backbone/backbone.js"></script>
     <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <!-- endbower -->
     
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-    <script type="text/javascript" src="../javascripts/submitDonation.js"></script>
+    <script type="text/javascript" src="../javascripts/models/Message.js"></script>
+    <script type="text/javascript" src="../javascripts/views/MessageView.js"></script>
+    <script type="text/javascript" src="../javascripts/views/NavbarView.js"></script>
 
     <div class="container">
+      {{>nav}}
       {{{body}}}
     </div>
   </body>

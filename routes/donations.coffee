@@ -1,51 +1,28 @@
-Donor = require '../models/Donors'
 express = require('express')
-stripe = require('stripe')('sk_test_ASzEwo4Y9IlE0M8gBrLkwrP0')
 router = express.Router()
+MyStripe = require '../lib/MyStripe'
 
-saveDonor = (email, id) ->
-  donor = new Donor {stripeID: id, email:email}
-  donor.save (err)->
-    if err
-      console.log "There was an error saving the donor to mongoose:"
-      console.log err
-
-charge = (customer) ->
-  return stripe.charges.create {
-    amount: 1000
-    currency: "usd"
-    customer: customer.id
-  }
 
 # GET home page. 
-router.post '/submit', (req, res) ->
+router.post '/submit', (req, res, err) ->
   console.log 'recieved a payment to submit'
-  stripeToken = req.body.stripeToken
-  donationAmount = req.body.donationAmount
+  console.log req.body
+  token = req.body.stripeToken
+  amount = req.body.amount
   email = req.body.email
-  plan = if req.body.member then "membership" else null
+  monthly =  req.body.monthly
 
-  console.log stripeToken
-  console.log donationAmount
+  if monthly == 'true'
+    promise = MyStripe.subscribeMonthly token, amount, email
+  else
+    console.log "no monthly"
+    promise = MyStripe.chargeOnce token, amount, email
+  
+  promise.catch (err) ->
+    console.log "There was an error: "
+    console.log err
+    res.send {error: err.message}
 
-  stripe.customers.create {
-    card: stripeToken
-    email: email
-    plan: plan
-  }
-  .then (customer) ->
-    console.log "made a customer!"
-    console.log customer
-    saveDonor(email, customer.id)
-    
-    charge customer
-  .then (charge) ->
-    console.log "Made a charge@"
-    console.log charge
-  .catch (error) ->
-    console.log "There was an error!"
-    console.log error.message
-
-  res.redirect '/'
+  res.send {success: "Thank you for your donation!"}
 
 module.exports = router
