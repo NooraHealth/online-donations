@@ -1,4 +1,3 @@
-
 (function(){
   $(document).ready(function() {
     var App = Backbone.View.extend({
@@ -12,6 +11,9 @@
 
         //Create the navbar view
         this.navbarView = new NavbarView;
+
+        //Login Page
+        this.LoginPageView = new LoginPage;
 
         this.Router = new Router;
       },

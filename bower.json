@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "bootstrap": "~3.3.1",
-    "backbone": "~1.1.2"
+    "backbone": "~1.1.2",
+    "handlebars": "~2.0.0"
   }
 }

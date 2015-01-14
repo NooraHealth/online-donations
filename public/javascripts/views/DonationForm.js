@@ -66,6 +66,7 @@
           var promise = $.post ("/donations/submit", data, function() {
             console.log("Posting the donation");
           }).done( function ( response ) {
+            console.log("Recieved donation response from NooraHealth");
             if ( response.error ) {
               App.message.set({error: response.error});
             } 
