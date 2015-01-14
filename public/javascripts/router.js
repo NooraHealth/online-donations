@@ -2,6 +2,7 @@
   $(document).ready(function() {
 
     window.Router = Backbone.Router.extend({
+
       routes: {
         "login": "login",
         "donationForm": "donationForm",
