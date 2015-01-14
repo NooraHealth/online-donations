@@ -7,17 +7,29 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
+var flash = require('connect-flash');
+var session = require('express-session');
+var passport = require('passport');
+var passportLocalMongoose = require('passport-local-mongoose');
 
+//Mongoose models
+var Donor = require('./models/Donors');
+
+//ROUTES
 var routes = require('./routes/index');
 var donations = require('./routes/donations');
+var registerNewDonor = require('./routes/register');
 
 var app = express();
 
 //Mongoose config
-mongoose.connect(process.env.MONGO_URL 
-                 || 'mongodb://lucyanne:artichokes@lighthouse.0.mongolayer.com:10104/production');
+//mongoose.connect(process.env.MONGO_URL 
+                 //|| 'mongodb://lucyanne:artichokes@lighthouse.0.mongolayer.com:10104/production');
 
-                 // view engine setup
+mongoose.connect(process.env.MONGO_URL 
+                 || "mongodb://localhost/");
+                 
+// view engine setup
 app.engine('hbs', hbs({
   defaultLayout: 'layout',
   extname: '.hbs',
@@ -25,6 +37,7 @@ app.engine('hbs', hbs({
 }));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+app.set('stripe secret key', process.env.STRIPE_SECRET_KEY_TESTING)
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -32,11 +45,30 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  resave: true, 
+  saveUninitialized: true,
+  secret: "Noora Health donors",
+  maxAge: 6000
+}));
+app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+//PASSPORT CONFIG
+passport.use(Donor.createStrategy());
+
+passport.serializeUser(Donor.serializeUser());
+passport.deserializeUser(Donor.deserializeUser());
+
+//ROUTES
 app.use('/', routes);
+app.use('/donations', registerNewDonor);
 app.use('/donations', donations);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
