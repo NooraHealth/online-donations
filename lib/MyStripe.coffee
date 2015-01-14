@@ -1,6 +1,5 @@
 Donors = require '../models/Donors'
 stripe = require('stripe')("sk_test_ASzEwo4Y9IlE0M8gBrLkwrP0")
-console.log process.env.STRIPE_SECRET_KEY_TESTING
 
 class MyStripe
 
