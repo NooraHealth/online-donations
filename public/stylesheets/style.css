@@ -4,6 +4,10 @@ body {
   font-family: 'Quicksand', sans-serif !important;
 }
 
+h3, .h3 {
+  font-size: 27px !important;
+}
+
 h1,
 h2,
 h3,
