@@ -6,6 +6,9 @@
       //tagName: "form",
       el: "#body",
 
+      /*
+       * Returns the donation form jquery object
+       */
       form: function() {
         return this.$el.find("#donation-form");
       },
@@ -33,11 +36,8 @@
        * Verify the donation form input before posting to server
        */
       verifyInput: function() {
-        console.log("Verifying the form input");
         if (this.$("input[name=password]").val() != this.$("input[name=confirm]").val()) {
-          console.log("changing error message");
           App.message.set({error: "Your passwords do not match"});
-          console.log(App.message);
           return false;
         }
           
@@ -48,7 +48,6 @@
        * Callback for Stripe.card.createToken(...)
        */
       stripeResponseHandler: function(status, response){
-        console.log("Recieved a response from the Stripe servers.");
         if(response.error) {
           //$('#message-box').text(response.error.message);      
           App.message.set({error: response.error.message});
@@ -94,7 +93,6 @@
         event.preventDefault();
         if ( this.verifyInput() ) {
           this.parseExpiration();
-          console.log("Asking for a stripe token");
           this.$("#submit-donation").prop('disabled', true);
           Stripe.card.createToken(this.form(), (this.stripeResponseHandler).bind(this));
         }

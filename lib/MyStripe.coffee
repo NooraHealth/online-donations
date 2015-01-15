@@ -1,6 +1,9 @@
 Donors = require '../models/Donors'
-stripe = require('stripe')("sk_test_ASzEwo4Y9IlE0M8gBrLkwrP0")
+stripe = require('stripe')(process.env.STRIPE_SECRET_KEY_TESTING)
 
+###
+# My wrappers around the Stripe api
+###
 class MyStripe
 
   createCustomer: (token, email, planID) ->
@@ -14,8 +17,7 @@ class MyStripe
     return stripe.customers.del customerID
 
   createNewPlan: (planID, amount) ->
-    console.log "Creating a new stripe plan #{planID} of #{amount}"
-    stripe.plans.create {
+    return stripe.plans.create {
       amount: amount
       interval: "month"
       currency: "usd"
@@ -28,7 +30,6 @@ class MyStripe
     Donors.findOneAndUpdate {email:email}, {stripeId:id}
 
   charge: (customer, amount) ->
-    console.log amount
     return stripe.charges.create {
       amount: amount
       currency: "usd"
@@ -36,26 +37,27 @@ class MyStripe
     }
 
   chargeOnce: (token, amount, email) ->
+    #preserve the MyStripe context for use later in the callback
     that = this
+
     return this.createCustomer token, email, "onetime"
     .then (customer) ->
-      console.log "made a customer!"
-      console.log customer
+      #save the stripe customer id to the donor profile
       that.saveCustomerID email, customer.id
+      
+      #charge the customer
       that.charge customer, amount
-      that.saveCustomerID email, customer.id
 
   subscribeMonthly: (token, amount, email) ->
-    console.log "Subscribing a monthly member"
+    #preserve the MyStripe context for use in the callback
     that = this
+
     return this.createNewPlan email, amount
     .then (plan)->
-      console.log "Made new stripe plan"
-      console.log plan
+      #Create a new customer with the email as the plan name
       that.createCustomer token, email, email
     .then (customer) ->
-      console.log "Created a new stripe customer subscribed monthly"
-      console.log customer
+      #save the customerID to the donor's profile
       that.saveCustomerID email, customer.id
 
 module.exports = new MyStripe

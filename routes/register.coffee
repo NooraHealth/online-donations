@@ -6,7 +6,7 @@ register = (req, res, next) ->
   donor = new Donors
     email: req.body.email
     name: req.body.name
-    stripeId: "just checking"
+    stripeId: ""
 
   Donors.register( donor, req.body.password, (err, account) ->
     if err
