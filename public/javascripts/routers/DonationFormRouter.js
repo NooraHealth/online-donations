@@ -1,7 +1,7 @@
 (function(){
   $(document).ready(function() {
 
-    window.Router = Backbone.Router.extend({
+    window.DonationFormRouter = Backbone.Router.extend({
 
       routes: {
         "login": "login",
