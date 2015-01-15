@@ -7,7 +7,7 @@
       el: "#body",
 
       form: function() {
-        return this.$el.$("#donation-form");
+        return this.$el.find("#donation-form");
       },
 
       events: {
@@ -66,33 +66,37 @@
           }
 
           //Submit the donation  
-          var promise = $.post ("/donations/submit", data, function() {
-            console.log("Posting the donation");
-          }).done( function ( response ) {
-            console.log("Recieved donation response from NooraHealth");
-            if ( response.error ) {
-              App.message.set({error: response.error});
-            } 
-            if (response.success) {
-              App.message.set({success: response.success});
-            }
-            this.reset();  
-          }).fail( function() {
-            App.message.set({error: "There was an error processing your donation. Please try again"});
-            this.reset();
-          });
+          var promise = $.post ("/donations/submit", data)
+            .done(this.handleResponse.bind(this))
+            .fail(this.handleError.bind(this))
         }
+      },
+      
+      handleError: function() {
+        App.message.set({error: "There was an error completing your request. Please try again."});
+        this.resetForm();  
+      },
+
+      handleResponse: function(response) {
+        if ( response.error ) {
+          App.message.set({error: response.error});
+        } 
+        if ( response.success ) {
+          App.message.set({success: response.success});
+        }
+        this.resetForm();  
       },
 
       /*
        * Retrieve a CC token from Stripe
        */
       createStripeToken: function(event) {
+        event.preventDefault();
         if ( this.verifyInput() ) {
           this.parseExpiration();
           console.log("Asking for a stripe token");
           this.$("#submit-donation").prop('disabled', true);
-          Stripe.card.createToken(form, (this.stripeResponseHandler).bind(this));
+          Stripe.card.createToken(this.form(), (this.stripeResponseHandler).bind(this));
         }
 
         //Prevent form from submitting
@@ -100,8 +104,8 @@
       },
 
       //reset form fields
-      reset: function() {
-        form.reset();
+      resetForm: function() {
+        this.form()[0].reset();
         $("#submit-donation").prop('disabled', false);
       },
 
