@@ -2,6 +2,10 @@
 (function(){
   $(document).ready(function() {
     window.MessageView = Backbone.View.extend({
+      
+      tagName: 'span',
+      className: 'message-box',
+      id: 'message-box',
 
       initialize: function() {
         console.log(this.model);
@@ -16,22 +20,29 @@
       //el: "#message-box",
 
       clear: function() {
-        $('#message-box').text();
+        this.$el.text();
       },
+
       renderError: function() {
-        $('#message-box').text(App.message.get("error"));      
+        console.log("rendering the error");
+        console.log(this);
+        this.$el.text(App.message.get("error"));      
         return this;
       },
+
       renderMessage: function() {
-        $('#message-box').text(App.message.get("message"));      
+        console.log("rendering the message");
+        this.$el.text(App.message.get("message"));      
         return this;
       },
+
       renderWarning: function() {
-        $('#message-box').text(App.message.get("warning"));      
+        console.log("rendering the message");
+        this.$el.text(App.message.get("warning"));      
         return this;
       },
       renderSuccess: function() {
-        $('#message-box').text(App.message.get("success"));      
+        this.$el.text(App.message.get("success"));      
         return this;
       },
     });

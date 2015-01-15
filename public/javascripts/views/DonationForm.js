@@ -14,7 +14,7 @@
       },
 
       events: {
-        "submit": "createStripeToken",
+        "submit #donation-form": "createStripeToken",
       },
       
       /*
