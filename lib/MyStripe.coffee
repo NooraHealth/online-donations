@@ -1,5 +1,5 @@
 Donors = require '../models/Donors'
-stripe = require('stripe')(process.env.STRIPE_SECRET_KEY_TESTING)
+stripe = require('stripe')( process.env.STRIPE_SECRET_KEY_TESTING )
 
 ###
 # My wrappers around the Stripe api
