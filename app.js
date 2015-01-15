@@ -20,6 +20,7 @@ var routes = require('./routes/index');
 var donations = require('./routes/donations');
 var registerNewDonor = require('./routes/register');
 var login = require('./routes/login');
+var donors = require('./routes/donors');
 
 var app = express();
 
@@ -71,17 +72,15 @@ app.use('/donations', registerNewDonor);
 app.use('/donations', donations);
 app.use('/login', login);
 
-app.use( function (req, res, next) {
-  if(req.user)
-    next();
-  else {
-    res.redirect('/');
-  }
-});
+//app.use( function (req, res, next) {
+  //if(req.user)
+    //next();
+  //else {
+    //res.redirect('/');
+  //}
+//});
 
-app.use('/donorConsole', function(req, res) {
-  res.render('donorConsole');
-});
+app.use('/donors', donors);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,11 +1,12 @@
 (function(){
   $(document).ready(function() {
 
-    window.DonationFormRouter = Backbone.Router.extend({
+    window.Router = Backbone.Router.extend({
 
       routes: {
         "login": "login",
         "donations": "donationForm",
+        "donors" : "donorConsole"
       }, 
 
       donationForm: function() {
@@ -17,6 +18,10 @@
         App.loginPageView.render();
       },
 
+      donorConsole: function() {
+        console.log("inthe donor console functino in router");
+        App.donorConsoleView.render();
+      }
     });
 
     Backbone.history.start();

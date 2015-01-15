@@ -15,7 +15,11 @@
         //Login Page
         this.loginPageView = new LoginPage;
 
-        this.Router = new DonationFormRouter;
+        //DonorConsole
+        this.donor = new Donor;
+        this.donorConsoleView = new DonorConsole({model: this.donor});
+
+        this.Router = new Router;
       },
     });
     window.App = new App;
