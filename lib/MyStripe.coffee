@@ -5,6 +5,9 @@ stripe = require('stripe')( process.env.STRIPE_SECRET_KEY_TESTING )
 # My wrappers around the Stripe api
 ###
 class MyStripe
+  
+  retrieveDonorInfo: (id) ->
+    return stripe.customers.retrieve id
 
   createCustomer: (token, email, planID) ->
     return stripe.customers.create {

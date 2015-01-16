@@ -11,9 +11,9 @@ router.post '/' , (req, res, next)->
     if !user
       return res.send {error: "We don't recognize those credentials. Have another go." }
     else
-      #res.send {donor: { email: user.email }}
+      res.send {donor: { email: user.email }}
       console.log("redirecting")
-      res.redirect '/donors/console'
+      #res.redirect '/donors/console'
       return
     #req.logIn user, (err) ->
       #if err
