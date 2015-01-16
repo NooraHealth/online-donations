@@ -67,6 +67,16 @@ passport.serializeUser(Donor.serializeUser());
 passport.deserializeUser(Donor.deserializeUser());
 
 //ROUTES
+app.param("stripeId", function(req, res, next, stripeId) {
+   var promise = MyStripe.retrieveDonorInfo(stripeId);
+   promise.then(function(donorInfo) {
+    req.donorInfo = donorInfo;
+    next();
+   }).fail(function(err) {
+      next(err);
+   });
+});
+
 app.use('/', routes);
 app.use('/donations', registerNewDonor);
 app.use('/donations', donations);

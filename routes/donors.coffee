@@ -4,9 +4,9 @@ Donors = require '../models/Donors'
 MyStripe = require '../lib/MyStripe'
 
 # Render the donor console
-router.get '/console', (req, res)->
-  console.log "rendering the donor console"
-  #MyStripe.retrieveDonorInfo req.user.stripeID
-  res.render 'donorConsole', donorInfo
+router.get '/info/:stripeId', (req, res)->
+  console.log req.donorInfo
+  donorInfo = req.donorInfo
+  res.send {donor: donorInfo}
 
 module.exports = router
