@@ -30,7 +30,6 @@ class MyStripe
     }
 
   saveCustomerID: ( email, id) ->
-    console.log "updating the #{email} account to #{id}"
     Donors.findOne {email:email}, (err, donor)->
       donor.stripeId = id
       donor.save()
