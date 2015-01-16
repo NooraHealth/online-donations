@@ -11,8 +11,9 @@
         console.log("Rendering the donorConsole");
         var src = $("#donor-console-template").html();
         var template = Handlebars.compile(src);
-        var html = template();
+        var html = template(this.model);
         this.$el.html(html);      
+        return this;
       },
       
     });
