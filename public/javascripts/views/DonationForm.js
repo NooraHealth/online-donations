@@ -52,11 +52,13 @@
        */
       stripeResponseHandler: function(status, response){
         if(response.error) {
+          console.log("Hadnling error from Stripe");
           //$('#message-box').text(response.error.message);      
           App.message.set({error: response.error.message});
           this.$('#submit-donation').prop('disabled',false);
         } else{
           var token = response.id;
+          console.log("POsting to server data");
           
           var data = {
             stripeToken: token,
@@ -68,7 +70,9 @@
           }
 
           //Submit the donation  
-          var promise = $.post ("/donations/submit", data)
+          var promise = $.post ("/donations/submit", data, function() {
+            console.log("Sentout the post");
+          })
             .done(this.handleResponse.bind(this))
             .fail(this.handleError.bind(this))
         }
@@ -85,7 +89,7 @@
           this.resetForm();  
         } 
         if ( response.donor ) {
-          App.donor.set(donor);
+          App.donor.set(response.donor);
           console.log("Just set the donor to: ");
           console.log(response.donor);
           console.log(app.donor);

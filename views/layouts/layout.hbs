@@ -12,7 +12,7 @@
   
   </head>
   <body>
-    
+
     <!-- bower:js -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
     <script src="../bower_components/underscore/underscore.js"></script>
@@ -20,6 +20,17 @@
     <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="../bower_components/handlebars/handlebars.js"></script>
     <!-- endbower -->
+    
+    <script>
+    (function(){
+      $(document).ready(function() {
+        //Render the donations page on index load
+        
+        //Identifies the Stripe account
+        Stripe.setPublishableKey('pk_test_y4XPVW7eG98vkn2FgtsonNYt');
+      });  
+    }).call(this);
+    </script>
     
     <div class="container">
       {{>nav}}
