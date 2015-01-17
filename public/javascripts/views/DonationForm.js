@@ -90,8 +90,6 @@
         } 
         if ( response.donor ) {
           App.donor.set(response.donor);
-          console.log("Just set the donor to: ");
-          console.log(response.donor);
           App.message.set({success: response.success});
           App.Router.navigate('thankyou', {trigger: true});
         }

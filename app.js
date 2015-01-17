@@ -20,6 +20,7 @@ var routes = require('./routes/index');
 var donations = require('./routes/donations');
 var registerNewDonor = require('./routes/register');
 var login = require('./routes/login');
+var logout = require('./routes/logout');
 var donors = require('./routes/donors');
 
 var app = express();
@@ -81,14 +82,15 @@ app.use('/', routes);
 app.use('/donations', registerNewDonor);
 app.use('/donations', donations);
 app.use('/login', login);
+app.use('/logout', logout);
 
-//app.use( function (req, res, next) {
-  //if(req.user)
-    //next();
-  //else {
-    //res.redirect('/');
-  //}
-//});
+////app.use( function (req, res, next) {
+  ////if(req.user)
+    ////next();
+  ////else {
+    ////res.redirect('/');
+  ////}
+////});
 
 app.use('/donors', donors);
 

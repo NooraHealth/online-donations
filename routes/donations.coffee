@@ -24,9 +24,7 @@ router.post '/submit', (req, res, err) ->
       MyStripe.createCustomer token, email, email
     
     promise.then (customer)->
-      console.log "daving cutomer to bd"
       Donors.findOne {email: email},(err, donor) ->
-        console.log "saveing"
         donor.stripeId = customer.id
         donor.save()
 
@@ -35,7 +33,6 @@ router.post '/submit', (req, res, err) ->
       res.send {error: null, donor: customer}
     
     promise.catch (err) ->
-      consol.log "ERR"
       res.send {error: err.message}
 
   #Charge the customer only once and sign them up for the 
@@ -44,16 +41,12 @@ router.post '/submit', (req, res, err) ->
     promise = MyStripe.createCustomer token, email, "onetime"
     
     promise.then (customer)->
-      console.log "saving onetime customer"
       Donors.findOne {email: email},(err, donor) ->
-        console.log "saveing"
         donor.stripeId = customer.id
         donor.save()
       #send the donor info back to the client
-      console.log "sending data onetime"
       res.send {error: null, donor: customer}
     promise.catch (err) ->
-      console.log "ERROR ONETIME"
       res.send {error: err.message}
   
 
