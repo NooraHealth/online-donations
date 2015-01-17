@@ -9,6 +9,7 @@ class MyStripe
     return stripe.customers.retrieve id
 
   createCustomer: (token, email, planID) ->
+    console.log "creating customer"
     return stripe.customers.create {
       card: token
       email: email
@@ -16,9 +17,11 @@ class MyStripe
     }
 
   removeCustomer: (customerID) ->
+    console.log "Removing customer"
     return stripe.customers.del customerID
 
   createNewPlan: (planID, amount) ->
+    console.log "Creating a new plan"
     return stripe.plans.create {
       amount: amount
       interval: "month"
@@ -29,6 +32,7 @@ class MyStripe
     }
 
   charge: (customer, amount) ->
+    console.log "chargin customer"
     return stripe.charges.create {
       amount: amount
       currency: "usd"
