@@ -82,6 +82,7 @@
         } 
         if ( response.success ) {
           App.message.set({success: response.success});
+          App.Router.navigate('thankyou', {trigger: true});
         }
         this.resetForm();  
       },

@@ -4,10 +4,15 @@
     <img alt="Brand" src="../images/NHlogo.png" width="155px" height="92px"/>
   </a>
   <ul class="nav navbar-nav navbar-right">
-    {{#if user}}
       <li><a class="nav-elements logout"><i class="fa fa-lg fa-mail-reply"></i>  Logout</a></li>
-    {{else}}
       <li><a class="nav-elements login"><i class="fa fa-lg fa-mail-reply"></i>  Login </a></li>
-    {{/if}}
   </ul>
 </div>
+
+<script>
+(function(){
+  $(document).ready(function() {
+    App.navbar.set({login: true, logout: false});
+  });  
+}).call(this);
+</script>
