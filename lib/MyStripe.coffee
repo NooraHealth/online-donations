@@ -1,4 +1,3 @@
-Donors = require '../models/Donors'
 stripe = require('stripe')( process.env.STRIPE_SECRET_KEY_TESTING )
 
 ###
@@ -28,12 +27,6 @@ class MyStripe
       id: planID
       statement_descriptor: "Noora Health donation"
     }
-
-  saveCustomerID: ( email, id) ->
-    Donors.findOne {email:email}, (err, donor)->
-      donor.stripeId = id
-      donor.save()
-
 
   charge: (customer, amount) ->
     return stripe.charges.create {

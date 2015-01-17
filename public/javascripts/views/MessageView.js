@@ -3,9 +3,7 @@
   $(document).ready(function() {
     window.MessageView = Backbone.View.extend({
       
-      tagName: 'span',
-      className: 'message-box',
-      id: 'message-box',
+      el: $('#message-box'),
 
       initialize: function() {
         console.log(this.model);

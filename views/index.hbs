@@ -1,16 +1,11 @@
 
-
-
 <script>
 (function(){
   $(document).ready(function() {
-    console.log("About to navigate to donations");
     //Render the donations page on index load
-    App.Router.navigate("donations", {trigger:true});
     
     //Identifies the Stripe account
     Stripe.setPublishableKey('pk_test_y4XPVW7eG98vkn2FgtsonNYt');
   });  
 }).call(this);
 </script>
-

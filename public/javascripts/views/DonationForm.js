@@ -6,6 +6,9 @@
       //tagName: "form",
       el: "#body",
 
+      initialize: function() {
+      },
+
       /*
        * Returns the donation form jquery object
        */
@@ -81,7 +84,11 @@
           App.message.set({error: response.error});
           this.resetForm();  
         } 
-        if ( response.success ) {
+        if ( response.donor ) {
+          App.donor.set(donor);
+          console.log("Just set the donor to: ");
+          console.log(response.donor);
+          console.log(app.donor);
           App.message.set({success: response.success});
           App.Router.navigate('thankyou', {trigger: true});
         }
@@ -114,6 +121,12 @@
         var template = Handlebars.compile(src);
         var html = template();
         this.$el.html(html);      
+        
+        //set the element of the message box
+        this.messageView.$el = $("#message-box");
+
+        //set the navbar settings
+        App.navbar.set({login: true, logout: false});
       }
     });
 
