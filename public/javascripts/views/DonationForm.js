@@ -79,12 +79,12 @@
       handleResponse: function(response) {
         if ( response.error ) {
           App.message.set({error: response.error});
+          this.resetForm();  
         } 
         if ( response.success ) {
           App.message.set({success: response.success});
           App.Router.navigate('thankyou', {trigger: true});
         }
-        this.resetForm();  
       },
 
       /*
