@@ -6,8 +6,14 @@
       routes: {
         "login": "login",
         "donations": "donationForm",
-        "donors" : "donorConsole"
+        "donors" : "donorConsole",
+        "thankyou" : "thankYouPage"
       }, 
+
+      thankYouPage: function() {
+        console.log("Rendering the thankyouPageView");
+        App.thankYouPageView.render();  
+      },
 
       donationForm: function() {
         console.log("Rendering the donationFormView");
