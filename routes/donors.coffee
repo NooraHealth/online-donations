@@ -12,7 +12,7 @@ router.get '/info/:stripeId', (req, res)->
   promise.then (donorInfo) ->
     console.log "retruee door info"
     console.log donorInfo
-    return res.send {donor: donorInfo}
+    res.send {error: null, donor: donorInfo}
   
   promise.fail (err)->
     console.log "in the .fail"
