@@ -11,6 +11,10 @@
       logoutBtn: function() {
         return this.$el.find('.logout');
       },
+
+      logoutBtn: function() {
+        return this.$el.find('.goToConsole');
+      },
     
       initialize: function() {
         this.listenTo(this.model, 'change:login', this.render);
@@ -19,7 +23,12 @@
 
       events: {
        "click .login": "navigateToLogin",
-       "click .logout": "logoutDonor"
+       "click .logout": "logoutDonor",
+       "click .goToConsole": "gotoDonorConsole"
+      },
+
+      gotoDonorConsole: function() {
+        App.Router.navigate("login", {trigger: true});
       },
 
        navigateToLogin: function() {
@@ -28,10 +37,10 @@
        },
        
        logoutDonor: function() {
-         //logout stub
-         //Which page do we want the app to navigate to upon logout?
-         //$.post('/logout');
-         //App.router.navigate("DonationForm");
+         $.post('/logout');
+         App.donor.clear();
+         App.donor.set({loggedOut: true});
+         App.Router.navigate("DonationForm");
        },
        
        render: function() {
@@ -42,6 +51,7 @@
             this.loginBtn().show();
           }  else if (this.model.attributes.logout) {
             this.logoutBtn().show();
+            this.gotoConsole().show();
           }
        },
 
@@ -49,6 +59,7 @@
          console.log("Clearing the btns");
          this.logoutBtn().hide();
          this.loginBtn().hide();
+         this.gotoConsole().hide();
        }
     
     });

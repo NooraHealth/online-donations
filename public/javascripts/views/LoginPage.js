@@ -43,7 +43,7 @@
           console.log(response);
           if (response.error)
             App.message.set({error: response.error});
-          if (response.donor) {
+          else if (response.donor) {
             App.donor.set( response.donor );
             App.Router.navigate("donors", {trigger: true});
           } else {
@@ -69,7 +69,7 @@
         this.$el.html(html);      
 
         //set the element of the message box
-        this.messageView.$el = $("#message-box");
+        App.messageView.$el = $("#message-box");
 
         //set the navbar settings
         App.navbar.set({login: false, logout: false});
