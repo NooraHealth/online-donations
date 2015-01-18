@@ -15,7 +15,7 @@
         this.$el.html(html);      
         
         //set the element of the message box
-        this.messageView.$el = $("#message-box");
+        App.messageView.$el = $("#message-box");
 
         //set the navbar settings
         App.navbar.set({login: false, logout: true});

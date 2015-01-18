@@ -12,8 +12,8 @@
         return this.$el.find('.logout');
       },
 
-      logoutBtn: function() {
-        return this.$el.find('.goToConsole');
+      gotoConsole: function() {
+        return this.$el.find('.gotoConsole');
       },
     
       initialize: function() {
@@ -24,11 +24,11 @@
       events: {
        "click .login": "navigateToLogin",
        "click .logout": "logoutDonor",
-       "click .goToConsole": "gotoDonorConsole"
+       "click .gotoConsole": "gotoDonorConsole"
       },
 
       gotoDonorConsole: function() {
-        App.Router.navigate("login", {trigger: true});
+        App.Router.navigate("donors", {trigger: true});
       },
 
        navigateToLogin: function() {
