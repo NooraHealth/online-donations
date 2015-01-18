@@ -13,7 +13,7 @@
         console.log(this.model);
         var src = $("#donor-console-template").html();
         var template = Handlebars.compile(src);
-        var html = template({donor: this.model.toJSON()});
+        var html = template({donor: this.model.attributes});
         this.$el.html(html);      
         
         //set the element of the message box
