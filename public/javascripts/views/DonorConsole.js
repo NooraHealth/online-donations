@@ -9,9 +9,11 @@
 
       render: function() {
         console.log("Rendering the donorConsole");
+        console.log("This is the model");
+        console.log(this.model);
         var src = $("#donor-console-template").html();
         var template = Handlebars.compile(src);
-        var html = template(this.model.attributes);
+        var html = template({donor: this.model.toJSON()});
         this.$el.html(html);      
         
         //set the element of the message box

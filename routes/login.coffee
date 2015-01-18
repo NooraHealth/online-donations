@@ -13,8 +13,7 @@ router.post '/' , (req, res, next)->
     else
       console.log "redirecting"
       console.log user
-      res.redirect '/donors/info/' + user.stripeId
-      return
+      return res.redirect '/donors/info/' + user.stripeId
   )(req, res, next)
 
 
