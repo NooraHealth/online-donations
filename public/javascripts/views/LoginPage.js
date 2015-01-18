@@ -39,8 +39,6 @@
         $.post('/login', credentials, function() {
           console.log("post successful"); 
         }).done(function(response) {
-          console.log("recieved response");
-          console.log(response);
           if (response.error)
             App.message.set({error: response.error});
           else if (response.donor) {

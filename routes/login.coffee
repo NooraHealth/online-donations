@@ -11,16 +11,10 @@ router.post '/' , (req, res, next)->
     if !user
       return res.send {error: "We don't recognize those credentials. Have another go." }
     else
-      #res.send {donor: { email: user.email }}
       console.log "redirecting"
       console.log user
       res.redirect '/donors/info/' + user.stripeId
       return
-    #req.logIn user, (err) ->
-      #if err
-        #next err
-
-      #return res.redirect '/'
   )(req, res, next)
 
 

@@ -6,6 +6,7 @@ stripe = require('stripe')( process.env.STRIPE_SECRET_KEY_TESTING )
 class MyStripe
   
   retrieveDonorInfo: (id) ->
+    console.log "retrieving infor of #{id}"
     return stripe.customers.retrieve id
 
   createCustomer: (token, email, planID) ->
