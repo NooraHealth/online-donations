@@ -68,20 +68,20 @@ passport.serializeUser(Donor.serializeUser());
 passport.deserializeUser(Donor.deserializeUser());
 
 //ROUTES
-app.param("stripeId", function(req, res, next, stripeId) {
-  consol.log("in the paramaterized routes");
-   var promise = MyStripe.retrieveDonorInfo(stripeId);
-   promise.then(function(donorInfo) {
-     console.log("Got this donor info from Mystripe");
-     console.log(donorInfo);
-    req.donorInfo = donorInfo;
-    next();
-   }).fail(function(err) {
-     console.log("There was an error getting infor");
-     console.log(err);
-      next(err);
-   });
-});
+//app.param("stripeId", function(req, res, next, stripeId) {
+  //consol.log("in the paramaterized routes");
+   //var promise = MyStripe.retrieveDonorInfo(stripeId);
+   //promise.then(function(donorInfo) {
+     //console.log("Got this donor info from Mystripe");
+     //console.log(donorInfo);
+    //req.donorInfo = donorInfo;
+    //next();
+   //}).fail(function(err) {
+     //console.log("There was an error getting infor");
+     //console.log(err);
+      //next(err);
+   //});
+//});
 
 app.use('/', routes);
 app.use('/donations', registerNewDonor);
