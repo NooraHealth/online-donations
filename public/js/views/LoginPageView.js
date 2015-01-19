@@ -17,6 +17,8 @@ define([
       },
       
       initialize: function(options) {
+        console.log("initializing the router inlogin page: ");
+        console.log(options);
         this.router = options.router;
       },
       /*
@@ -53,11 +55,11 @@ define([
             Message.set({error: response.error});
           else if (response.donor) {
             Donor.set( response.donor );
-            Router.navigate("donors", {trigger: true});
+            this.router.navigate("donorConsole", {trigger: true});
           } else {
             Message.set({error: "There was an error logging in. Please try again."});
           }
-        }).fail(function(err) {
+        }.bind(this)).fail(function(err) {
           Message.set({error: err});
         });
         
@@ -67,7 +69,7 @@ define([
       },
 
       navigateToDonationForm: function() {
-        Router.navigate("donations", {trigger: true});
+        this.router.navigate("donationForm", {trigger: true});
       },
 
       render: function() {

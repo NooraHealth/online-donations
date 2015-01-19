@@ -27,7 +27,7 @@ define([
         this.model = Donor;
         //Using this form of declaration to 
         //resolve circular dependancy issue
-        this.router = options.router
+        this.router = options.router;
         this.listenTo(this.model, 'change:login', this.render);
         this.listenTo(this.model, 'change:logout', this.render);
       },
@@ -39,18 +39,19 @@ define([
       },
 
       gotoDonorConsole: function() {
-        this.router.navigate("donors", {trigger: true});
+        this.router.navigate("donorConsole", {trigger: true});
       },
 
        navigateToLogin: function() {
-          this.router.navigate("login", {trigger: true});
+        this.router.navigate("login", {trigger: true});
        },
        
        logoutDonor: function() {
          $.post('/logout');
+         //clear the donor so the navbar will know the user has logged out
+         //--removing their data from the client
          Donor.clear();
-         Donor.set({loggedOut: true});
-         this.router.navigate("DonationForm");
+         this.router.navigate("donationForm");
        },
        
        render: function() {
@@ -59,13 +60,6 @@ define([
           this.$el.html(html);      
        },
 
-       clear: function() {
-         console.log("Clearing the btns");
-         this.logoutBtn().hide();
-         this.loginBtn().hide();
-         this.gotoConsole().hide();
-       }
-    
     });
     return NavbarView;
   });

@@ -5,14 +5,16 @@ define([
   'backbone',  // lib/backbone/backbone
   'handlebars',
   'text!templates/donorConsole.hbs',
-  'views/MessageView'
+  'views/MessageView',
+  'models/Donor'
 ], function($, _, Backbone, Handlebars, donorConsoleTemplate, 
-           MessageView){
+           MessageView, Donor){
     var DonorConsole = Backbone.View.extend({
       
       el: "#body",
 
       initialize: function() {
+        this.model = Donor;
       },
 
       render: function() {
