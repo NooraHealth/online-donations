@@ -28,8 +28,6 @@ define([
         //Using this form of declaration to 
         //resolve circular dependancy issue
         this.router = options.router;
-        this.listenTo(this.model, 'change:login', this.render);
-        this.listenTo(this.model, 'change:logout', this.render);
       },
 
       events: {
