@@ -18,6 +18,6 @@ define([
         return this;
       },
     });
-    return new ThankYouPageView();
+    return ThankYouPageView;
   });
 

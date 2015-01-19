@@ -4,7 +4,8 @@ require.config({
     underscore: 'libs/underscore/underscore',
     backbone: 'libs/backbone/backbone',
     handlebars: 'libs/handlebars/handlebars',
-    stripe: 'libs/stripe/stripe'
+    stripe: 'libs/stripe/stripe',
+    router: 'Router', 
   },
 
   shim: {
