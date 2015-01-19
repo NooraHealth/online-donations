@@ -2,7 +2,8 @@ body {
   /*padding: 50px;*/
   font-size: 14px;
   font-family: 'Quicksand', sans-serif !important;
-  background-color: #faffbd !important;
+  font-weight: 600;
+  /*background-color: #faffbd !important;*/
 }
 
 input:-webkit-autofill {
@@ -10,7 +11,7 @@ input:-webkit-autofill {
 }
 
 input {
-  background: #FAFFBD;
+  /*background: #FAFFBD;*/
 }
 
 h3, .h3 {
