@@ -6,17 +6,16 @@ define([
   'handlebars',   
   'stripe',   
   'models/Message',
-  'routers/Router',
   'text!templates/donationForm.hbs',
   'models/Donor'
-], function($, _, Backbone, Handlebars, Stripe, Message, Router, donationFormTemplate, Donor ){
+], function($, _, Backbone, Handlebars, Stripe, Message, donationFormTemplate, Donor ){
 
     var DonationForm = Backbone.View.extend({
     
       el: "#body",
 
-      initialize: function() {
-
+      initialize: function(options) {
+        this.router = options.router
       },
 
       /*
@@ -101,7 +100,7 @@ define([
         if ( response.donor ) {
           Donor.set(response.donor);
           Message.set({success: response.success});
-          Router.navigate('thankyou', {trigger: true});
+          this.router.navigate('thankyou', {trigger: true});
         }
       },
 
@@ -127,14 +126,11 @@ define([
       },
 
       render: function() {
-        console.log("There is the template");
-        console.log(donationFormTemplate);
         var template = Handlebars.compile(donationFormTemplate);
-        console.log(template);
         var html = template();
-        console.log(html);
         this.$el.html(html);      
       }
     });
-    return new DonationForm();
+
+    return DonationForm;
   });

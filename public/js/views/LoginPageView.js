@@ -5,10 +5,9 @@ define([
   'backbone',    // lib/backbone/backbone
   'handlebars',   
   'models/Message',
-  'routers/Router',
   'text!templates/login.hbs',
   'models/Donor'
-], function($, _, Backbone, Handlebars, Message, Router, loginTemplate, Donor ){
+], function($, _, Backbone, Handlebars, Message, loginTemplate, Donor ){
     
     var LoginPage = Backbone.View.extend({
       el: "#body",
@@ -17,6 +16,9 @@ define([
         "submit #login-form": "submit"
       },
       
+      initialize: function(options) {
+        this.router = options.router;
+      },
       /*
        * Validate login form input before submitting,
        * post error message to user if not valid
@@ -74,5 +76,5 @@ define([
         this.$el.html(html);      
       }
     });
-    return new LoginPage();
+    return LoginPage;
   });

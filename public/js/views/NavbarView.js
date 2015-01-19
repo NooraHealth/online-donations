@@ -2,11 +2,11 @@ define([
   // These are path alias that we configured in our bootstrap
   'jquery',     // lib/jquery/jquery
   'underscore', // lib/underscore/underscore
-  'backbone',    // lib/backbone/backbone
-  'routers/Router',
+  'backbone',// lib/backbone/backbone
+  'handlebars',
   'text!templates/nav.hbs',
   'models/Donor'
-], function($, _, Backbone, Router, loginTemplate, Donor ){
+], function($, _, Backbone, Handlebars, navTemplate, Donor ){
     var NavbarView = Backbone.View.extend({
 
       el: "#nav" ,
@@ -23,8 +23,11 @@ define([
         return this.$el.find('.gotoConsole');
       },
     
-      initialize: function() {
+      initialize: function(options) {
         this.model = Donor;
+        //Using this form of declaration to 
+        //resolve circular dependancy issue
+        this.router = options.router
         this.listenTo(this.model, 'change:login', this.render);
         this.listenTo(this.model, 'change:logout', this.render);
       },
@@ -36,25 +39,24 @@ define([
       },
 
       gotoDonorConsole: function() {
-        Router.navigate("donors", {trigger: true});
+        this.router.navigate("donors", {trigger: true});
       },
 
        navigateToLogin: function() {
-          console.log("Navigating to the login");
-          Router.navigate("login", {trigger: true});
+          this.router.navigate("login", {trigger: true});
        },
        
        logoutDonor: function() {
          $.post('/logout');
          Donor.clear();
          Donor.set({loggedOut: true});
-         Router.navigate("DonationForm");
+         this.router.navigate("DonationForm");
        },
        
        render: function() {
-        var template = Handlebars.compile(navTemplate);
-        var html = template(this.model.toJSON());
-        this.$el.html(html);      
+          var template = Handlebars.compile(navTemplate);
+          var html = template(this.model.toJSON());
+          this.$el.html(html);      
        },
 
        clear: function() {
@@ -65,6 +67,6 @@ define([
        }
     
     });
-    return new NavbarView();
+    return NavbarView;
   });
 

@@ -7,7 +7,7 @@ define([
 ], function($, _, Backbone){
     var Donor = Backbone.Model.extend({
       defaults: {
-        email: "default"
+        email: null
     }
    }); 
   

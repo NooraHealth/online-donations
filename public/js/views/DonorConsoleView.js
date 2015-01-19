@@ -25,5 +25,5 @@ define([
       
     });
     
-    return new DonorConsole();
+    return DonorConsole;
   });
