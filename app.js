@@ -33,13 +33,14 @@ mongoose.connect(process.env.MONGO_URL
                  || "mongodb://localhost/");
                  
 // view engine setup
-app.engine('hbs', hbs({
-  defaultLayout: 'layout',
-  extname: '.hbs',
-  partialsDir: __dirname + '/views/partials'
-}));
+//app.engine('hbs', hbs({
+  //defaultLayout: 'layout',
+  //extname: '.hbs',
+  //partialsDir: __dirname + '/views/partials'
+//}));
+app.engine("html", require('ejs').renderFile);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+app.set('view engine', 'html');
 app.set('stripe secret key', process.env.STRIPE_SECRET_KEY_TESTING)
 
 // uncomment after placing your favicon in /public
