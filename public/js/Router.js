@@ -15,7 +15,7 @@ define([
       routes: {
         "login": "login",
         "donationForm": "donationForm",
-        "donors" : "donorConsole",
+        "donorConsole" : "donorConsole",
         "thankyou" : "thankYouPage",
         "logout" : "donationForm"
       }, 
