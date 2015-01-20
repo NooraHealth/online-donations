@@ -9,12 +9,13 @@ class MyStripe
     console.log "retrieving infor of #{id}"
     return stripe.customers.retrieve id
 
-  createCustomer: (token, email, planID) ->
+  createCustomer: (token, email, planID, metadata) ->
     console.log "creating customer"
     return stripe.customers.create {
       card: token
       email: email
       plan: planID
+      metadata: metadata
     }
 
   removeCustomer: (customerID) ->

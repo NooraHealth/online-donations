@@ -5,16 +5,13 @@ MyStripe = require '../lib/MyStripe'
 
 # Render the donor console
 router.get '/info/:stripeId', (req, res)->
-  console.log "geting the donor info"
   stripeId =  req.params.stripeId
   promise = MyStripe.retrieveDonorInfo stripeId
 
   promise.then (donorInfo) ->
-    console.log "retruee door info"
-    console.log donorInfo
     res.send {error: null, donor: donorInfo}
   
-  promise.fail (err)->
+  promise.error (err)->
     console.log "in the .fail"
     res.send {error: err, donor: null}
   
