@@ -24,6 +24,7 @@ router.post '/submit', (req, res, err) ->
     promise = MyStripe.createNewPlan email, amount
     
     promise.then (plan) ->
+      donorData.plan = plan.id
       MyStripe.createCustomer token, email, email, {name: name}
     
     promise.then (customer)->
@@ -38,8 +39,7 @@ router.post '/submit', (req, res, err) ->
     promise.catch (err) ->
       res.send {error: err.message}
 
-  #Charge the customer only once and sign them up for the 
-  # 'onetime' plan
+  #Charge the customer only once
   else
     promise = MyStripe.createCustomer token, email, "onetime", {name: name}
     
@@ -48,6 +48,10 @@ router.post '/submit', (req, res, err) ->
       Donors.findOne {email: email},(err, donor) ->
         donor.stripeId = customer.id
         donor.save()
+
+      #Charge the customer for their onetime donation
+      MyStripe.charge customer, amount
+      
       #send the donor info back to the client
       res.send {error: null, donor: customer}
     
