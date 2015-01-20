@@ -12,6 +12,7 @@ router.post '/submit', (req, res, err) ->
   amount = req.body.amount
   email = req.body.email
   monthly =  req.body.monthly
+  name =  req.body.name
 
   #Sign the customer up for a monthly plan with the plan
   #name as their email
@@ -23,7 +24,7 @@ router.post '/submit', (req, res, err) ->
     promise = MyStripe.createNewPlan email, amount
     
     promise.then (plan) ->
-      MyStripe.createCustomer token, email, email
+      MyStripe.createCustomer token, email, email, {name: name}
     
     promise.then (customer)->
       #save the donor's stripe customer id to mongo
@@ -40,7 +41,7 @@ router.post '/submit', (req, res, err) ->
   #Charge the customer only once and sign them up for the 
   # 'onetime' plan
   else
-    promise = MyStripe.createCustomer token, email, "onetime"
+    promise = MyStripe.createCustomer token, email, "onetime", {name: name}
     
     promise.then (customer)->
       #save the stripe customer Id to mongo
