@@ -6,7 +6,8 @@ define([
   'handlebars',
   'text!templates/donorConsole.hbs',
   'views/MessageView',
-  'models/Donor'
+  'models/Donor',
+  'bootstrap'
 ], function($, _, Backbone, Handlebars, donorConsoleTemplate, 
            MessageView, Donor){
     var DonorConsole = Backbone.View.extend({

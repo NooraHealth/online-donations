@@ -6,6 +6,7 @@ require.config({
     handlebars: 'libs/handlebars/handlebars',
     stripe: 'libs/stripe/stripe',
     router: 'Router', 
+    bootstrap: 'libs/bootstrap/bootstrap'
   },
 
   shim: {
@@ -15,6 +16,9 @@ require.config({
         backbone: {
             deps: ["underscore", "jquery"],
             exports: "Backbone"
+        },
+        bootstrap: {
+          deps: ['jquery'],
         }
     }
 });
