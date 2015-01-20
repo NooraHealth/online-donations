@@ -25,35 +25,35 @@ router.post '/submit', (req, res, err) ->
     
     promise.then (plan) ->
       donorData.plan = plan.id
-      MyStripe.createCustomer token, email, email, {name: name}
+      MyStripe.createDonor token, email, email, {name: name}
     
-    promise.then (customer)->
+    promise.then (stripeDonor)->
       #save the donor's stripe customer id to mongo
       Donors.findOne {email: email},(err, donor) ->
-        donor.stripeId = customer.id
+        donor.stripeId = stripeDonor.id
         donor.save()
 
       #send the donor info back to the client
-      res.send {error: null, donor: customer}
+      res.send {error: null, donor: stripeDonor}
     
     promise.catch (err) ->
       res.send {error: err.message}
 
   #Charge the customer only once
   else
-    promise = MyStripe.createCustomer token, email, "onetime", {name: name}
+    promise = MyStripe.createDonor token, email, "onetime", {name: name}
     
-    promise.then (customer)->
+    promise.then (stripeDonor)->
       #save the stripe customer Id to mongo
       Donors.findOne {email: email},(err, donor) ->
-        donor.stripeId = customer.id
+        donor.stripeId = stripeDonor.id
         donor.save()
 
       #Charge the customer for their onetime donation
-      MyStripe.charge customer, amount
+      MyStripe.charge stripeDonor, amount
       
       #send the donor info back to the client
-      res.send {error: null, donor: customer}
+      res.send {error: null, donor: stripeDonor}
     
     promise.catch (err) ->
       res.send {error: err.message}

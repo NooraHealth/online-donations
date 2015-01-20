@@ -9,7 +9,10 @@ class MyStripe
     console.log "retrieving infor of #{id}"
     return stripe.customers.retrieve id
 
-  createCustomer: (token, email, planID, metadata) ->
+  retrieveDonations: (donorId) ->
+    return stripe.charges.list { customer: donorId }
+
+  createDonor: (token, email, planID, metadata) ->
     console.log "creating customer"
     return stripe.customers.create {
       card: token
@@ -18,9 +21,9 @@ class MyStripe
       metadata: metadata
     }
 
-  removeCustomer: (customerID) ->
+  removeDonor: (donorID) ->
     console.log "Removing customer"
-    return stripe.customers.del customerID
+    return stripe.customers.del donorID
 
   createNewPlan: (planID, amount) ->
     console.log "Creating a new plan"
@@ -33,36 +36,13 @@ class MyStripe
       statement_descriptor: "Noora Health donation"
     }
 
-  charge: (customer, amount) ->
+  charge: (donor, amount) ->
     console.log "chargin customer"
     return stripe.charges.create {
       amount: amount
       currency: "usd"
-      customer: customer.id
+      customer: donor.id
     }
 
-  chargeOnce: (token, amount, email) ->
-    #preserve the MyStripe context for use later in the callback
-    that = this
-
-    return this.createCustomer token, email, "onetime"
-    .then (customer) ->
-      #save the stripe customer id to the donor profile
-      that.saveCustomerID email, customer.id
-      
-      #charge the customer
-      that.charge customer, amount
-
-  subscribeMonthly: (token, amount, email) ->
-    #preserve the MyStripe context for use in the callback
-    that = this
-
-    return this.createNewPlan email, amount
-    .then (plan)->
-      #Create a new customer with the email as the plan name
-      that.createCustomer token, email, email
-    .then (customer) ->
-      #save the customerID to the donor's profile
-      that.saveCustomerID email, customer.id
 
 module.exports = new MyStripe
