@@ -8,12 +8,14 @@ router.get '/info/:stripeId', (req, res)->
   stripeId =  req.params.stripeId
   promise = MyStripe.retrieveDonorInfo stripeId
 
-  promise.then (donorInfo) ->
-    res.send {error: null, donor: donorInfo}
+  promise.then (donorinfo)->
+    console.log "retireved donor info"
+    console.log donorinfo
+    res.send {donor: donorinfo, error: err}
   
-  promise.catch (err)->
-    console.log "in the .fail"
-    res.send {error: err, donor: null}
+  promise.catch (err) ->
+    console.log err
+    res.send {error: err}
   
 
 module.exports = router
