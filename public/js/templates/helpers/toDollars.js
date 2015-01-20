@@ -3,7 +3,7 @@
 Transforms a whole cent value into it's string equivalent in dollars.
 For example: 4200 - > $42.00
 **/
-define('templates/helpers/Dollars', ['hbs/handlebars'], function ( Handlebars ) {
+define('templates/helpers/toDollars', ['hbs/handlebars'], function ( Handlebars ) {
 
   function dollars ( amount, options ) {
     // The place where the '.' will go
@@ -15,6 +15,6 @@ define('templates/helpers/Dollars', ['hbs/handlebars'], function ( Handlebars ) 
 
   }
 
-  Handlebars.registerHelper( 'Dollars', dollars );
+  Handlebars.registerHelper( 'toDollars', dollars );
   return dollars;
 });
