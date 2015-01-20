@@ -19,11 +19,8 @@ router.post '/' , (req, res, next)->
       #their donation history
       donations = MyStripe.retrieveDonations user.stripeId
       donorInfo = MyStripe.retrieveDonorInfo user.stripeId
-      Q.all([donations, donorInfo]).spread (one, two)->
-        console.log "got aldl THEREJ CHANGES"
-        console.log one
-        console.log two
-
+      Q.all([donations, donorInfo]).spread (donations, donorinfo)->
+        res.send {donor: donorinfo, donations: donations}
       #promises = Q.all [ MyStripe.retrieveDonorInfo user.stripeId, MyStripe.retrieveDonations user.stripeId ]
 
       #console.log promises
