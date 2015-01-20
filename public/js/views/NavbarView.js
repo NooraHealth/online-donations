@@ -31,7 +31,7 @@ define([
       },
 
       events: {
-       "click .login": "navigateToLogin",
+       "click .login": "showLoginModal",
        "click .logout": "logoutDonor",
        "click .gotoConsole": "gotoDonorConsole"
       },
@@ -40,7 +40,7 @@ define([
         this.router.navigate("donorConsole", {trigger: true});
       },
 
-       navigateToLogin: function() {
+       showLoginModal: function() {
         this.router.navigate("login", {trigger: true});
        },
        

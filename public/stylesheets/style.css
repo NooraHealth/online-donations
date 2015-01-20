@@ -13,10 +13,40 @@ input:-webkit-autofill {
 input {
   background: #F5FFFF;
 }
+.end-tag {
+  text-align: center;
+}
+
+.monthly-checkbox label {
+  font-size: 17px;
+}
 
 .donation-bar {
   width:14.28%;
   border-radius: 0px !important; 
+}
+
+.donation-card {
+  background-color: #FFFFFF;
+  padding: 10px
+}
+
+.donation-card input:not([type='submit']) {
+  background-color: #FFFFFF;
+}
+
+.donation-card input[type='submit'] {
+  height: 40px;
+  font-size: 20px;
+}
+
+.btn-group {
+  width:100% !important;
+}
+
+.row {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
 }
 
 h3, .h3 {
