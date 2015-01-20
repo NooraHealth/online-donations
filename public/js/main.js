@@ -6,9 +6,10 @@ require.config({
     handlebars: 'libs/handlebars/handlebars',
     stripe: 'libs/stripe/stripe',
     router: 'Router', 
-    bootstrap: 'libs/bootstrap/bootstrap'
+    bootstrap: 'libs/bootstrap/bootstrap',
+    hbs: 'libs/require-handlebars-plugin/hbs'
   },
-
+  
   shim: {
         underscore: {
             exports: "_"
