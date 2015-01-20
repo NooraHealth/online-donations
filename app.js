@@ -33,11 +33,6 @@ mongoose.connect(process.env.MONGO_URL
                  || "mongodb://localhost/");
                  
 // view engine setup
-//app.engine('hbs', hbs({
-  //defaultLayout: 'layout',
-  //extname: '.hbs',
-  //partialsDir: __dirname + '/views/partials'
-//}));
 app.engine("html", require('ejs').renderFile);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
@@ -89,6 +84,7 @@ app.use('/donations', registerNewDonor);
 app.use('/donations', donations);
 app.use('/login', login);
 app.use('/logout', logout);
+app.use('/donors', donors);
 
 ////app.use( function (req, res, next) {
   ////if(req.user)
@@ -98,7 +94,6 @@ app.use('/logout', logout);
   ////}
 ////});
 
-app.use('/donors', donors);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

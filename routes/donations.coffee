@@ -15,6 +15,8 @@ router.post '/submit', (req, res, err) ->
 
   #Sign the customer up for a monthly plan with the plan
   #name as their email
+
+  #preserve the context for later use in promise callbacks
   that = this
 
   if monthly == 'true'
@@ -24,11 +26,11 @@ router.post '/submit', (req, res, err) ->
       MyStripe.createCustomer token, email, email
     
     promise.then (customer)->
+      #save the donor's stripe customer id to mongo
       Donors.findOne {email: email},(err, donor) ->
         donor.stripeId = customer.id
         donor.save()
 
-      console.log "sending data"
       #send the donor info back to the client
       res.send {error: null, donor: customer}
     
@@ -41,11 +43,13 @@ router.post '/submit', (req, res, err) ->
     promise = MyStripe.createCustomer token, email, "onetime"
     
     promise.then (customer)->
+      #save the stripe customer Id to mongo
       Donors.findOne {email: email},(err, donor) ->
         donor.stripeId = customer.id
         donor.save()
       #send the donor info back to the client
       res.send {error: null, donor: customer}
+    
     promise.catch (err) ->
       res.send {error: err.message}
   
