@@ -4,7 +4,7 @@ define([
   'underscore', // lib/underscore/underscore
   'backbone',  // lib/backbone/backbone
   'handlebars',
-  'text!templates/donorConsole.hbs',
+  'hbs!templates/donorConsole',
   'views/MessageView',
   'models/Donor',
   'bootstrap'
@@ -19,8 +19,7 @@ define([
       },
 
       render: function() {
-        var template = Handlebars.compile(donorConsoleTemplate);
-        var html = template(this.model.toJSON());
+        var html = donorConsoleTemplate(this.model.toJSON());
         this.$el.html(html);      
         
         return this;

@@ -5,7 +5,7 @@ define([
   'backbone',    // lib/backbone/backbone
   'handlebars',   
   'models/Message',
-  'text!templates/login.hbs',
+  'hbs!templates/login',
   'models/Donor'
 ], function($, _, Backbone, Handlebars, Message, loginTemplate, Donor ){
     
@@ -82,8 +82,7 @@ define([
       },
 
       render: function() {
-        var template = Handlebars.compile(loginTemplate);
-        var html = template();
+        var html = loginTemplate();
         this.$el.html(html);      
       }
     });

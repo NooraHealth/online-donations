@@ -4,7 +4,7 @@ define([
   'underscore', // lib/underscore/underscore
   'backbone',// lib/backbone/backbone
   'handlebars',
-  'text!templates/nav.hbs',
+  'hbs!templates/nav',
   'models/Donor'
 ], function($, _, Backbone, Handlebars, navTemplate, Donor ){
     var NavbarView = Backbone.View.extend({
@@ -53,8 +53,7 @@ define([
        },
        
        render: function() {
-          var template = Handlebars.compile(navTemplate);
-          var html = template(this.model.toJSON());
+          var html = navTemplate(this.model.toJSON());
           this.$el.html(html);      
        },
 
