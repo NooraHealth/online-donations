@@ -12,18 +12,20 @@ router.post '/' , (req, res, next)->
     if !user
       return res.send {error: "We don't recognize those credentials. Have another go." }
     else
+      #res.redirect '/donors/info/' + user.stripeId
+
       promise = MyStripe.retrieveDonorInfo user.stripeId
 
-      promise.then (donorinfo)->
-        console.log "retireved donor info"
-        console.log donorinfo
-        res.send {donor: donorinfo, error: err}
-        #return res.redirect '/donors/info/' + user.stripeId
+      promise.then (donor)->
+        #donorinfo.donations = [{amount:100, date: "March 30, 2015"}, {amount:250, date: "June 30, 2015"}]
+        console.log "returve donor"
+        console.log donor
+        #MyStripe.retrieveDonations
+        res.send {donor: donor}
       
       promise.catch (err) ->
         console.log err
         res.send {error: err}
-
   )(req, res, next)
 
 

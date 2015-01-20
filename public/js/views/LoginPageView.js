@@ -51,14 +51,22 @@ define([
         $.post('/login', credentials, function() {
           console.log("post successful"); 
         }).done(function(response) {
-          if (response.error)
+          if (response.error) {
+            console.log("We got a error!");
             Message.set({error: response.error});
-          else if (response.donor) {
+            return;
+          }
+
+          if (response.donor) {
+            console.log("We got a donor!");
             Donor.set( response.donor );
             this.router.navigate("donorConsole", {trigger: true});
-          } else {
-            Message.set({error: "There was an error logging in. Please try again."});
-          }
+            return;
+          } 
+          
+          console.log("We got an unknown error!");
+          Message.set({error: "There was an error logging in. Please try again."});
+        
         }.bind(this)).fail(function(err) {
           Message.set({error: err});
         });
