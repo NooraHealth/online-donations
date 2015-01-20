@@ -3,7 +3,7 @@ body {
   font-size: 14px;
   font-family: 'Quicksand', sans-serif !important;
   font-weight: 600;
-  /*background-color: #faffbd !important;*/
+  background-color: #F5FFFF !important;
 }
 
 input:-webkit-autofill {
@@ -11,7 +11,12 @@ input:-webkit-autofill {
 }
 
 input {
-  /*background: #FAFFBD;*/
+  background: #F5FFFF;
+}
+
+.donation-bar {
+  width:14.28%;
+  border-radius: 0px !important; 
 }
 
 h3, .h3 {
@@ -104,8 +109,8 @@ label {
 .panel-img{
   width: 100%;
   height: 100%;
+  border: solid #D0C0A4 1px;
 }
-
 
 .no-border {
   /*width:100%;*/
