@@ -19,23 +19,18 @@ router.post '/' , (req, res, next)->
       #their donation history
       donations = MyStripe.retrieveDonations user.stripeId
       donorInfo = MyStripe.retrieveDonorInfo user.stripeId
-      Q.all([donations, donorInfo]).spread (donations, donorinfo)->
-        res.send {donor: donorinfo, donations: donations}
-      #promises = Q.all [ MyStripe.retrieveDonorInfo user.stripeId, MyStripe.retrieveDonations user.stripeId ]
 
-      #console.log promises
-      ##handle all responses from stripe
-      #promises.spread (donor, charges)->
-        ##donorinfo.donations = [{amount:100, date: "March 30, 2015"}, {amount:250, date: "June 30, 2015"}]
-        #console.log donor
-        #console.log "cHARGES!"
-        #console.log charges
-        ##MyStripe.retrieveDonations
-        #res.send {donor: donor}
+      #collect all requests into a single promise
+      all = Q.all [donations, donorInfo]
       
-      #promises.catch (err) ->
-        #console.log err
-        #res.send {error: err}
+      #after all requests have returned, return the donorinfo 
+      #and the donor's donations to the client
+      all.spread (donations, donorinfo)->
+        res.send {donor: donorinfo, donations: donations}
+
+      all.catch (err) ->
+        res.send {error: err}
+
   )(req, res, next)
 
 

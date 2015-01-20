@@ -58,9 +58,9 @@ define([
           }
 
           if (response.donor) {
-            console.log("We got a donor!");
-            console.log(response.donor);
             Donor.set( response.donor );
+            Donor.set({donations: response.donations.data});
+            console.log(Donor);
             this.router.navigate("donorConsole", {trigger: true});
             return;
           } 
