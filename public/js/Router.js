@@ -41,10 +41,8 @@ define([
       },
     
       login: function() {
-        var page = new LoginPageView({router: this});
-        var nav = new NavbarView({router: this});
-        page.render();  
-        nav.render();
+        var login = new LoginPageView({router: this});
+        login.render(); 
       },
 
       donorConsole: function() {

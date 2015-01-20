@@ -6,11 +6,13 @@ define([
   'handlebars',   
   'models/Message',
   'hbs!templates/login',
-  'models/Donor'
+  'models/Donor',
+  'bootstrap'
 ], function($, _, Backbone, Handlebars, Message, loginTemplate, Donor ){
     
     var LoginPage = Backbone.View.extend({
-      el: "#body",
+      el: "#modal",
+
       events: {
         "click .donation-form": "navigateToDonationForm",
         "submit #login-form": "submit"
@@ -81,9 +83,16 @@ define([
         this.router.navigate("donationForm", {trigger: true});
       },
 
+      show: function() {
+        console.log("showing the modal");
+        $('#login-modal').modal('show');
+      },
+
       render: function() {
+        console.log("rendering the login");
         var html = loginTemplate();
         this.$el.html(html);      
+        this.show();
       }
     });
     return LoginPage;
