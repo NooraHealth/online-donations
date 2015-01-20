@@ -11,7 +11,7 @@ router.get '/info/:stripeId', (req, res)->
   promise.then (donorInfo) ->
     res.send {error: null, donor: donorInfo}
   
-  promise.error (err)->
+  promise.catch (err)->
     console.log "in the .fail"
     res.send {error: err, donor: null}
   

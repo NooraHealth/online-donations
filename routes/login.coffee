@@ -13,11 +13,17 @@ router.post '/' , (req, res, next)->
       return res.send {error: "We don't recognize those credentials. Have another go." }
     else
       promise = MyStripe.retrieveDonorInfo user.stripeId
-      promise.then (donorinfo, err)->
+
+      promise.then (donorinfo)->
         console.log "retireved donor info"
         console.log donorinfo
         res.send {donor: donorinfo, error: err}
         #return res.redirect '/donors/info/' + user.stripeId
+      
+      promise.catch (err) ->
+        console.log err
+        res.send {error: err}
+
   )(req, res, next)
 
 
