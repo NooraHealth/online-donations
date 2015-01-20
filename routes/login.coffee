@@ -2,6 +2,7 @@ express = require('express')
 router = express.Router()
 passport = require 'passport'
 MyStripe = require '../lib/MyStripe'
+Q = require 'q'
 
 router.post '/' , (req, res, next)->
   
@@ -14,7 +15,10 @@ router.post '/' , (req, res, next)->
     else
       #res.redirect '/donors/info/' + user.stripeId
 
-      promise = MyStripe.retrieveDonorInfo user.stripeId
+      #send out all requests to Stripe for needed donor info and
+      #their donation history
+      promises = Q.all [ MyStripe.retrieveDonorInfo user.stripeId, \
+        MyStripe.retrieveCharges user.stripeId ]
 
       promise.then (donor)->
         #donorinfo.donations = [{amount:100, date: "March 30, 2015"}, {amount:250, date: "June 30, 2015"}]
