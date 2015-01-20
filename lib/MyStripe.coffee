@@ -10,6 +10,7 @@ class MyStripe
     return stripe.customers.retrieve id
 
   retrieveDonations: (donorId) ->
+    console.log "retrieving donations"
     return stripe.charges.list { customer: donorId }
 
   createDonor: (token, email, planID, metadata) ->
