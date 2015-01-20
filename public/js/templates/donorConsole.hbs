@@ -38,7 +38,18 @@
         </div>
 
         <div role="tabpanel" class="tab-pane active" id="membership">
-
+          <table class="table">
+            <tr>
+              <th>Donation</th>
+              <th>Date</th>
+            </tr>
+            {{#each donations}}
+            <tr>
+              <td>{{this.amount}}</td>
+              <td>{{this.date}}</td>
+            </tr>
+            {{/each}}
+          </table>
         </div>
 
     </div>
