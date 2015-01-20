@@ -5,15 +5,14 @@ define([
   'underscore', // lib/underscore/underscore
   'backbone',    // lib/backbone/backbone
   'handlebars',
-  'text!templates/thankYouPage.hbs',
+  'hbs!templates/thankYouPage',
 ], function($, _, Backbone, Handlebars, thankYouPageTemplate){
     var ThankYouPageView = Backbone.View.extend({
 
       el: "#body" ,
       
       render: function() {
-        var template = Handlebars.compile(thankYouPageTemplate);
-        var html = template(this.model);
+        var html = thankYouPageTemplate(this.model);
         this.$el.html(html);      
         return this;
       },

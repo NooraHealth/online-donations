@@ -6,7 +6,7 @@ define([
   'handlebars',   
   'stripe',   
   'models/Message',
-  'text!templates/donationForm.hbs',
+  'hbs!templates/donationForm',
   'models/Donor'
 ], function($, _, Backbone, Handlebars, Stripe, Message, donationFormTemplate, Donor ){
 
@@ -126,8 +126,7 @@ define([
       },
 
       render: function() {
-        var template = Handlebars.compile(donationFormTemplate);
-        var html = template();
+        var html = donationFormTemplate();
         this.$el.html(html);      
       }
     });
