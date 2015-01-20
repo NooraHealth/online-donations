@@ -13,7 +13,11 @@ define([
     var DonationForm = Backbone.View.extend({
     
       el: "#body",
-
+      
+      donationBox: function() {
+        return $("input[name=amount]");
+      },
+      
       initialize: function(options) {
         this.router = options.router
       },
@@ -27,6 +31,14 @@ define([
 
       events: {
         "submit #donation-form": "createStripeToken",
+        "click button[name=donationBar]": "fillDonationBox"
+      },
+
+      fillDonationBox: function(e) {
+        e.preventDefault();
+        console.log(e.target);
+        this.donationBox().val(e.target.value);
+
       },
       
       /*

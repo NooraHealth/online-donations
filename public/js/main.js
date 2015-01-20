@@ -10,6 +10,11 @@ require.config({
     hbs: 'libs/require-handlebars-plugin/hbs'
   },
   
+  hbs: {
+    helpers: true,
+    partialsUrl: 'templates/partials/'
+  },
+
   shim: {
         underscore: {
             exports: "_"
