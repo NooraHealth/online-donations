@@ -30,6 +30,11 @@ input {
   background-color: #78e95c !important;
 }
 
+.silver {
+  color: #c5c5c5 !important;
+  font-weight: 600;
+}
+
 .donation-card {
   background-color: #FFFFFF;
   padding: 10px
