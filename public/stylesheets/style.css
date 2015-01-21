@@ -26,6 +26,10 @@ input {
   border-radius: 0px !important; 
 }
 
+.donation-bar:hover {
+  background-color: #78e95c !important;
+}
+
 .donation-card {
   background-color: #FFFFFF;
   padding: 10px
