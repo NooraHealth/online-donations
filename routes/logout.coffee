@@ -3,7 +3,7 @@ express = require 'express'
 router = express.Router()
 
 # Logout the donor 
-router.get('/', (req, res) ->
+router.post('/', (req, res) ->
   console.log 'loggin out'
   req.logout()
   res.redirect '/'
