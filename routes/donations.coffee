@@ -29,8 +29,6 @@ router.post '/submit', (req, res, err) ->
       MyStripe.createDonor token, email, email, {name: name}
     .then (stripeDonor)->
       #save the donor's stripe customer id to mongo
-      console.log "Heres the stripe donor"
-      console.log stripeDonor
       Donors.findOne {email: email},(err, donor) ->
         donor.stripeId = stripeDonor.id
         donor.save()
@@ -38,7 +36,7 @@ router.post '/submit', (req, res, err) ->
       #Get the number of donors so far
       Donors.count {}, (err, count)->
         console.log("retrieved the count #{count}")
-        stripeDonor.index = count+25 #add 25 to account for previous donations made by other means
+        stripeDonor.count = count+25 #add 25 to account for previous donations made by other means
         #send the donor info back to the client
         console.log "sending ", stripeDonor
         res.send {error: null, donor: stripeDonor}
@@ -58,7 +56,7 @@ router.post '/submit', (req, res, err) ->
 
       #Get the number of donors so far
       Donors.count {}, (err, count)->
-        stripeDonor.index = count+25 #add 25 to account for previous donations made by other means
+        stripeDonor.count = count+25 #add 25 to account for previous donations made by other means
         #send the donor info back to the client
         console.log "sending donor "
         console.log stripeDonor
