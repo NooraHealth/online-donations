@@ -28,10 +28,12 @@ router.post '/submit', (req, res, err) ->
         donor.stripeId = customer.id
         donor.save()
 
-      console.log "sending data"
-      #send the donor info back to the client
-      res.send {error: null, donor: customer}
-    
+        #Get the number of donors so far
+        Donors.count {}, (err, count)->
+          customer.index = count+25 #add 25 to account for previous donations made by other means
+          #send the donor info back to the client
+          res.send {error: null, donor: customer}
+
     promise.catch (err) ->
       res.send {error: err.message}
 
@@ -44,8 +46,13 @@ router.post '/submit', (req, res, err) ->
       Donors.findOne {email: email},(err, donor) ->
         donor.stripeId = customer.id
         donor.save()
-      #send the donor info back to the client
-      res.send {error: null, donor: customer}
+
+      #Get the number of donors so far
+      Donors.count {}, (err, count)->
+        customer.index = count+25 #add 25 to account for previous donations made by other means
+        #send the donor info back to the client
+        res.send {error: null, donor: customer}
+
     promise.catch (err) ->
       res.send {error: err.message}
   

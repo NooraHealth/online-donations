@@ -7,9 +7,10 @@ define([
   'views/ThankYouPageView',
   'views/LoginPageView',
   'views/DonorConsoleView',
-  'views/NavbarView'
+  'views/NavbarView',
+  'models/Donor'
 ], function($, _, Backbone, DonationFormView, ThankYouPageView, 
-            LoginPageView, DonorConsoleView, NavbarView){
+            LoginPageView, DonorConsoleView, NavbarView, Donor){
     var Router = Backbone.Router.extend({
 
       routes: {
@@ -26,7 +27,7 @@ define([
 
       thankYouPage: function() {
         console.log("Rendering the thankyouPageView");
-        var page = new ThankYouPageView({router: this});
+        var page = new ThankYouPageView({router: this, model: Donor});
         var nav = new NavbarView({router: this});
         page.render();  
         nav.render();

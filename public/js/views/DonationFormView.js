@@ -67,7 +67,6 @@ define([
           this.$('#submit-donation').prop('disabled',false);
         } else{
           var token = response.id;
-          console.log("POsting to server data");
           
           var data = {
             stripeToken: token,
@@ -80,7 +79,7 @@ define([
 
           //Submit the donation  
           var promise = $.post ("/donations/submit", data, function() {
-            console.log("Sentout the post");
+            console.log("Posted the donation");
           })
             .done(this.handleResponse.bind(this))
             .fail(this.handleError.bind(this))
