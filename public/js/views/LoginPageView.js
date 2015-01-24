@@ -6,8 +6,10 @@ define([
   'handlebars',   
   'hbs!templates/login',
   'models/Donor',
+  'models/Message',
+  'views/MessageView',
   'bootstrap'
-], function($, _, Backbone, Handlebars, loginTemplate, Donor ){
+], function($, _, Backbone, Handlebars, loginTemplate, Donor, Message, MessageView ){
     
     var LoginPage = Backbone.View.extend({
       el: "#modal",
@@ -18,7 +20,6 @@ define([
       
       initialize: function(options) {
         this.router = options.router;
-        this.message = options.message;
       },
       /*
        * Validate login form input before submitting,
@@ -30,13 +31,13 @@ define([
         var email = this.$el.find("#email");
 
         if ( password.val() == "" ) {
-          Message.set({error: "Please enter your password"});
+          this.message.set({error: "Please enter your password"});
           //prevent the form from submitting
           return false;
         }
 
         if ( email.val() == "" ) {
-          Message.set({error: "Please enter your email address"});
+          this.message.set({error: "Please enter your email address"});
           //prevent the form from submitting
           return false;
         }
@@ -50,7 +51,7 @@ define([
           console.log("post successful"); 
         }).done(function(response) {
           if (response.error) {
-            Message.set({error: response.error});
+            this.message.set({error: response.error});
             return;
           }
 
@@ -62,10 +63,10 @@ define([
             return;
           } 
           
-          Message.set({error: "There was an error logging in. Please try again."});
+          this.message.set({error: "There was an error logging in. Please try again."});
         
         }.bind(this)).fail(function(err) {
-          Message.set({error: err});
+          this.message.set({error: err});
         });
         
         //Submit the form to authenticate the credentials
@@ -84,6 +85,11 @@ define([
       render: function() {
         var html = loginTemplate();
         this.$el.html(html);      
+        
+        this.message = new Message();
+        this.messageView = new MessageView({model: this.message, el: $("#login-message")}); 
+        console.log(this.messageView.el);
+        this.messageView.render();
       }
     });
     return LoginPage;
