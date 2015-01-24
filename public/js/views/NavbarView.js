@@ -28,6 +28,7 @@ define([
         //Using this form of declaration to 
         //resolve circular dependancy issue
         this.router = options.router;
+        this.loginModal = options.loginModal;
       },
 
       events: {
@@ -41,15 +42,22 @@ define([
       },
 
        showLoginModal: function() {
-        this.router.navigate("login", {trigger: true});
+         console.log("Navigating to loginfrom nav");
+         this.loginModal.show();
        },
        
-       logoutDonor: function() {
-         $.post('/logout');
+       logoutDonor: function(e){
+          e.preventDefault();
+          
+          Donor.clear();
+          this.router.navigate('giving', {trigger: true}); 
+
+          $.post('/logout', function() {
+            console.log("Logged out!");
+          });
+        
          //clear the donor so the navbar will know the user has logged out
          //--removing their data from the client
-         Donor.clear();
-         this.router.navigate("donationForm");
        },
        
        render: function() {

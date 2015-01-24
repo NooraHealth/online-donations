@@ -14,7 +14,7 @@ define([
 
       routes: {
         "login": "login",
-        "donationForm": "donationForm",
+        "giving": "donationForm",
         "donorConsole" : "donorConsole",
         "thankyou" : "thankYouPage",
         "logout" : "donationForm"
@@ -25,7 +25,6 @@ define([
       },
 
       thankYouPage: function() {
-        console.log("Rendering the thankyouPageView");
         var page = new ThankYouPageView({router: this});
         var nav = new NavbarView({router: this});
         page.render();  
@@ -33,20 +32,22 @@ define([
       },
 
       donationForm: function() {
-        console.log("Rendering the donationFormView");
+        console.log("Rendering the donation form ");
+        var login = new LoginPageView({router: this});
         var page = new DonationFormView({router: this});
-        var nav = new NavbarView({router: this});
+        var nav = new NavbarView({router: this, loginModal: login});
         page.render();  
         nav.render();
+        login.render();
       },
     
-      login: function() {
-        var login = new LoginPageView({router: this});
-        login.render(); 
-      },
+      //login: function() {
+        //console.log("Creating a new loginpageview");
+        //var login = new LoginPageView({router: this});
+        //login.render(); 
+      //},
 
       donorConsole: function() {
-        console.log("inthe donor console functino in router");
         var page = new DonorConsoleView({router: this});
         var nav = new NavbarView({router: this});
         page.render();  

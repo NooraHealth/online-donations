@@ -6,7 +6,6 @@ router = express.Router()
 router.post('/', (req, res) ->
   console.log 'loggin out'
   req.logout()
-  res.redirect '/'
 )
 
 
