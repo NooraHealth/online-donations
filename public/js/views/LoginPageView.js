@@ -88,7 +88,6 @@ define([
         
         this.message = new Message();
         this.messageView = new MessageView({model: this.message, el: $("#login-message")}); 
-        console.log(this.messageView.el);
         this.messageView.render();
       }
     });
