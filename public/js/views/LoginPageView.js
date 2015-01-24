@@ -19,8 +19,6 @@ define([
       },
       
       initialize: function(options) {
-        console.log("initializing the router inlogin page: ");
-        console.log(options);
         this.router = options.router;
       },
       /*
@@ -54,7 +52,6 @@ define([
           console.log("post successful"); 
         }).done(function(response) {
           if (response.error) {
-            console.log("We got a error!");
             Message.set({error: response.error});
             return;
           }
@@ -62,12 +59,11 @@ define([
           if (response.donor) {
             Donor.set( response.donor );
             Donor.set({donations: response.donations.data});
-            console.log(Donor);
             this.router.navigate("donorConsole", {trigger: true});
+            this.hide();
             return;
           } 
           
-          console.log("We got an unknown error!");
           Message.set({error: "There was an error logging in. Please try again."});
         
         }.bind(this)).fail(function(err) {
@@ -83,13 +79,16 @@ define([
         this.router.navigate("donationForm", {trigger: true});
       },
 
+      hide: function() {
+        $('#login-modal').modal('hide');
+      },
+
       show: function() {
-        console.log("showing the modal");
         $('#login-modal').modal('show');
       },
 
       render: function() {
-        console.log("rendering the login");
+        console.log("RENDERING");
         var html = loginTemplate();
         this.$el.html(html);      
         this.show();
