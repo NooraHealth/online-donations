@@ -5,8 +5,9 @@ define([
   'backbone',// lib/backbone/backbone
   'handlebars',
   'hbs!templates/nav',
-  'models/Donor'
-], function($, _, Backbone, Handlebars, navTemplate, Donor ){
+  'models/Donor',
+  'models/Nav',
+], function($, _, Backbone, Handlebars, navTemplate, Donor, Nav ){
     var NavbarView = Backbone.View.extend({
 
       el: "#nav" ,
@@ -24,7 +25,9 @@ define([
       },
     
       initialize: function(options) {
-        this.model = Donor;
+        this.model = Nav;
+        this.listenTo(this.model, 'change', this.render);
+        
         //Using this form of declaration to 
         //resolve circular dependancy issue
         this.router = options.router;

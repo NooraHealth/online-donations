@@ -7,9 +7,10 @@ define([
   'views/ThankYouPageView',
   'views/LoginPageView',
   'views/DonorConsoleView',
-  'views/NavbarView'
+  'views/NavbarView',
+  'models/Nav'
 ], function($, _, Backbone, DonationFormView, ThankYouPageView, 
-            LoginPageView, DonorConsoleView, NavbarView){
+            LoginPageView, DonorConsoleView, NavbarView, Nav){
     var Router = Backbone.Router.extend({
 
       routes: {
@@ -29,6 +30,8 @@ define([
         var nav = new NavbarView({router: this});
         page.render();  
         nav.render();
+        
+        Nav.setPage('welcome');
       },
 
       donationForm: function() {
@@ -39,6 +42,8 @@ define([
         page.render();  
         nav.render();
         login.render();
+        
+        Nav.setPage('giving');
       },
     
       //login: function() {
@@ -52,6 +57,8 @@ define([
         var nav = new NavbarView({router: this});
         page.render();  
         nav.render();
+        
+        Nav.setPage('console');
       }
     });
 
