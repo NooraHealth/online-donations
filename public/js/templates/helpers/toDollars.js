@@ -9,8 +9,6 @@ define('templates/helpers/toDollars', ['hbs/handlebars'], function ( Handlebars 
     // The place where the '.' will go
     var str = amount.toString(); 
     var position = str.length - 2;
-    console.log("str");
-    console.log(position);
     return ["$", str.slice(0, position), '.', str.slice(position)].join('');
 
   }

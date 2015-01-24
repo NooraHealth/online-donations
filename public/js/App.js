@@ -5,7 +5,7 @@ define([
 ], function(Backbone, Router){
       var initialize = function() {
         console.log(Router);
-        Router.navigate('donationForm', {trigger: true}); 
+        Router.navigate('giving', {trigger: true}); 
       }
 
     return {initialize: initialize}; 

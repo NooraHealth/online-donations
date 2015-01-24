@@ -14,8 +14,7 @@ define([
       el: "#modal",
 
       events: {
-        "click .donation-form": "navigateToDonationForm",
-        "submit #login-form": "submit"
+        "click #submit-login": "submit"
       },
       
       initialize: function(options) {
@@ -27,7 +26,6 @@ define([
        */
       submit: function(e) {
         //e.preventDefault();
-        console.log("This is where I validate input");  
         var password = this.$el.find("#password");
         var email = this.$el.find("#email");
 
@@ -59,8 +57,8 @@ define([
           if (response.donor) {
             Donor.set( response.donor );
             Donor.set({donations: response.donations.data});
-            this.router.navigate("donorConsole", {trigger: true});
             this.hide();
+            this.router.navigate("donorConsole", {trigger: true});
             return;
           } 
           
@@ -75,10 +73,6 @@ define([
 
       },
 
-      navigateToDonationForm: function() {
-        this.router.navigate("donationForm", {trigger: true});
-      },
-
       hide: function() {
         $('#login-modal').modal('hide');
       },
@@ -88,10 +82,8 @@ define([
       },
 
       render: function() {
-        console.log("RENDERING");
         var html = loginTemplate();
         this.$el.html(html);      
-        this.show();
       }
     });
     return LoginPage;
