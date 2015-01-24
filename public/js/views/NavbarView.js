@@ -4,9 +4,10 @@ define([
   'underscore', // lib/underscore/underscore
   'backbone',// lib/backbone/backbone
   'handlebars',
-  'text!templates/nav.hbs',
-  'models/Donor'
-], function($, _, Backbone, Handlebars, navTemplate, Donor ){
+  'hbs!templates/nav',
+  'models/Donor',
+  'models/Nav',
+], function($, _, Backbone, Handlebars, navTemplate, Donor, Nav ){
     var NavbarView = Backbone.View.extend({
 
       el: "#nav" ,
@@ -24,14 +25,17 @@ define([
       },
     
       initialize: function(options) {
-        this.model = Donor;
+        this.model = Nav;
+        this.listenTo(this.model, 'change', this.render);
+        
         //Using this form of declaration to 
         //resolve circular dependancy issue
         this.router = options.router;
+        this.loginModal = options.loginModal;
       },
 
       events: {
-       "click .login": "navigateToLogin",
+       "click .login": "showLoginModal",
        "click .logout": "logoutDonor",
        "click .gotoConsole": "gotoDonorConsole"
       },
@@ -40,21 +44,27 @@ define([
         this.router.navigate("donorConsole", {trigger: true});
       },
 
-       navigateToLogin: function() {
-        this.router.navigate("login", {trigger: true});
+       showLoginModal: function() {
+         console.log("Navigating to loginfrom nav");
+         this.loginModal.show();
        },
        
-       logoutDonor: function() {
-         $.post('/logout');
+       logoutDonor: function(e){
+          e.preventDefault();
+          
+          Donor.clear();
+          this.router.navigate('giving', {trigger: true}); 
+
+          $.post('/logout', function() {
+            console.log("Logged out!");
+          });
+        
          //clear the donor so the navbar will know the user has logged out
          //--removing their data from the client
-         Donor.clear();
-         this.router.navigate("donationForm");
        },
        
        render: function() {
-          var template = Handlebars.compile(navTemplate);
-          var html = template(this.model.toJSON());
+          var html = navTemplate(this.model.toJSON());
           this.$el.html(html);      
        },
 
