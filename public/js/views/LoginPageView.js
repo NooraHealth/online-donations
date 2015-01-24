@@ -4,11 +4,10 @@ define([
   'underscore', // lib/underscore/underscore
   'backbone',    // lib/backbone/backbone
   'handlebars',   
-  'models/Message',
   'hbs!templates/login',
   'models/Donor',
   'bootstrap'
-], function($, _, Backbone, Handlebars, Message, loginTemplate, Donor ){
+], function($, _, Backbone, Handlebars, loginTemplate, Donor ){
     
     var LoginPage = Backbone.View.extend({
       el: "#modal",
@@ -19,6 +18,7 @@ define([
       
       initialize: function(options) {
         this.router = options.router;
+        this.message = options.message;
       },
       /*
        * Validate login form input before submitting,
