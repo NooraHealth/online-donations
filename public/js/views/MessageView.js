@@ -15,8 +15,6 @@ define([
       },
 
       render: function() {
-        console.log(this.$el);
-        console.log(this.model)
         var template = Handlebars.compile(this.template);
         var html = template(this.model.toJSON());
         this.$el.html(html);      
