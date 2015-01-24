@@ -5,10 +5,11 @@ define([
   'backbone',    // lib/backbone/backbone
   'handlebars',   
   'stripe',   
-  'models/Message',
   'hbs!templates/donationForm',
-  'models/Donor'
-], function($, _, Backbone, Handlebars, Stripe, Message, donationFormTemplate, Donor ){
+  'models/Donor',
+  'views/MessageView',
+  'models/Message'
+], function($, _, Backbone, Handlebars, Stripe, donationFormTemplate, Donor , MessageView, Message){
 
     var DonationForm = Backbone.View.extend({
     
@@ -19,7 +20,9 @@ define([
       },
       
       initialize: function(options) {
-        this.router = options.router
+        this.router = options.router;
+        
+        
       },
 
       /*
@@ -36,7 +39,6 @@ define([
 
       fillDonationBox: function(e) {
         e.preventDefault();
-        console.log(e.target);
         this.donationBox().val(e.target.value);
 
       },
@@ -61,7 +63,7 @@ define([
        */
       verifyInput: function() {
         if (this.$("input[name=password]").val() != this.$("input[name=confirm]").val()) {
-          Message.set({error: "Your passwords do not match"});
+          this.message.set({error: "Your passwords do not match"});
           return false;
         }
           
@@ -73,13 +75,10 @@ define([
        */
       stripeResponseHandler: function(status, response){
         if(response.error) {
-          console.log("Hadnling error from Stripe");
-          //$('#message-box').text(response.error.message);      
-          Message.set({error: response.error.message});
+          this.message.set({error: response.error.message});
           this.$('#submit-donation').prop('disabled',false);
         } else{
           var token = response.id;
-          console.log("POsting to server data");
           
           var data = {
             stripeToken: token,
@@ -100,18 +99,18 @@ define([
       },
       
       handleError: function() {
-        Message.set({error: "There was an error completing your request. Please try again."});
+        this.message.set({error: "There was an error completing your request. Please try again."});
         this.resetForm();  
       },
 
       handleResponse: function(response) {
         if ( response.error ) {
-          Message.set({error: response.error});
+          this.message.set({error: response.error});
           this.resetForm();  
         } 
         if ( response.donor ) {
           Donor.set(response.donor);
-          Message.set({success: response.success});
+          this.message.set({success: response.success});
           this.router.navigate('thankyou', {trigger: true});
         }
       },
@@ -140,6 +139,13 @@ define([
       render: function() {
         var html = donationFormTemplate();
         this.$el.html(html);      
+
+        //Set the el of the form message view now that the form has been rendered
+        //this.messageView.setElement($("#form-messages"));
+        this.message = new Message();
+        this.messageView = new MessageView({model: this.message, el: $("#form-message")}); 
+        this.messageView.render();
+        return this;
       }
     });
 

@@ -13,7 +13,6 @@ define([
     }, 
 
       setPage: function(page) {
-        console.log("Setting the page of nav, " +page);
         if(page == 'giving') {
           this.set({login:true});
           this.set({logout:false});

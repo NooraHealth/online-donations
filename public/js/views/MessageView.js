@@ -7,20 +7,20 @@ define([
   'models/Message'
 ], function($, _, Backbone,Handlebars, Message){
     var MessageView = Backbone.View.extend({
-      
-      el: $('#message'),
-      
       template: "<div>{{message}}{{success}}{{error}}{{warning}}</div>",
 
-      initialize: function() {
-        this.model = Message;
+      initialize: function(options) {
+        //this.model = options.model;
         this.listenTo(this.model, 'change', this.render);
       },
 
       render: function() {
+        console.log(this.$el);
+        console.log(this.model)
         var template = Handlebars.compile(this.template);
         var html = template(this.model.toJSON());
         this.$el.html(html);      
+        return this;
       }
     });
     return MessageView;

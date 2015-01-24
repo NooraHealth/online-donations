@@ -8,9 +8,11 @@ define([
   'views/LoginPageView',
   'views/DonorConsoleView',
   'views/NavbarView',
-  'models/Nav'
+  'views/MessageView',
+  'models/Message',
+  'models/Nav',
 ], function($, _, Backbone, DonationFormView, ThankYouPageView, 
-            LoginPageView, DonorConsoleView, NavbarView, Nav){
+            LoginPageView, DonorConsoleView, NavbarView, MessageView, Message, Nav){
     var Router = Backbone.Router.extend({
 
       routes: {
@@ -39,19 +41,14 @@ define([
         var login = new LoginPageView({router: this});
         var page = new DonationFormView({router: this});
         var nav = new NavbarView({router: this, loginModal: login});
-        page.render();  
-        nav.render();
-        login.render();
         
+        page.render();  
+        login.render();
+        nav.render();
+
         Nav.setPage('giving');
       },
-    
-      //login: function() {
-        //console.log("Creating a new loginpageview");
-        //var login = new LoginPageView({router: this});
-        //login.render(); 
-      //},
-
+      
       donorConsole: function() {
         var page = new DonorConsoleView({router: this});
         var nav = new NavbarView({router: this});
