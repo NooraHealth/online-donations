@@ -8,14 +8,17 @@ define([
   'views/LoginPageView',
   'views/DonorConsoleView',
   'views/NavbarView',
-  'models/Donor'
+  'views/MessageView',
+  'models/Message',
+  'models/Nav',
+  'models/Donor',
 ], function($, _, Backbone, DonationFormView, ThankYouPageView, 
-            LoginPageView, DonorConsoleView, NavbarView, Donor){
+            LoginPageView, DonorConsoleView, NavbarView, MessageView, Message, Nav, Donor){
     var Router = Backbone.Router.extend({
 
       routes: {
         "login": "login",
-        "donationForm": "donationForm",
+        "giving": "donationForm",
         "donorConsole" : "donorConsole",
         "thankyou" : "thankYouPage",
         "logout" : "donationForm"
@@ -31,29 +34,30 @@ define([
         var nav = new NavbarView({router: this});
         page.render();  
         nav.render();
+        
+        Nav.setPage('welcome');
       },
 
       donationForm: function() {
-        console.log("Rendering the donationFormView");
+        console.log("Rendering the donation form ");
+        var login = new LoginPageView({router: this});
         var page = new DonationFormView({router: this});
-        var nav = new NavbarView({router: this});
+        var nav = new NavbarView({router: this, loginModal: login});
+        
         page.render();  
+        login.render();
         nav.render();
-      },
-    
-      login: function() {
-        var page = new LoginPageView({router: this});
-        var nav = new NavbarView({router: this});
-        page.render();  
-        nav.render();
-      },
 
+        Nav.setPage('giving');
+      },
+      
       donorConsole: function() {
-        console.log("inthe donor console functino in router");
         var page = new DonorConsoleView({router: this});
         var nav = new NavbarView({router: this});
         page.render();  
         nav.render();
+        
+        Nav.setPage('console');
       }
     });
 

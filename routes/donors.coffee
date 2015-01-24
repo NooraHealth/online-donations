@@ -2,21 +2,25 @@ express = require('express')
 router = express.Router()
 Donors = require '../models/Donors'
 MyStripe = require '../lib/MyStripe'
+Q = require 'q'
 
 # Render the donor console
 router.get '/info/:stripeId', (req, res)->
-  console.log "geting the donor info"
   stripeId =  req.params.stripeId
+
   promise = MyStripe.retrieveDonorInfo stripeId
 
-  promise.then (donorInfo) ->
-    console.log "retruee door info"
-    console.log donorInfo
-    res.send {error: null, donor: donorInfo}
+  promise.then (donor)->
+    #donorinfo.donations = [{amount:100, date: "March 30, 2015"}, {amount:250, date: "June 30, 2015"}]
+    
+    console.log "returve donor"
+    console.log donor
+    #MyStripe.retrieveDonations
+    res.send {donor: donor, error: err}
   
-  promise.fail (err)->
-    console.log "in the .fail"
-    res.send {error: err, donor: null}
+  promise.catch (err) ->
+    console.log err
+    res.send {error: err}
   
 
 module.exports = router
