@@ -20,12 +20,10 @@ router.post '/submit', (req, res, err) ->
   #preserve the context for later use in promise callbacks
   that = this
 
-  console.log "this is monthly #{monthly}"
   if monthly == 'true'
     promise = MyStripe.createNewPlan email, amount
     
     promise.then (plan) ->
-      donorData.plan = plan.id
       MyStripe.createDonor token, email, email, {name: name}
     .then (stripeDonor)->
       #save the donor's stripe customer id to mongo
@@ -35,10 +33,8 @@ router.post '/submit', (req, res, err) ->
 
       #Get the number of donors so far
       Donors.count {}, (err, count)->
-        console.log("retrieved the count #{count}")
         stripeDonor.count = count+25 #add 25 to account for previous donations made by other means
         #send the donor info back to the client
-        console.log "sending ", stripeDonor
         res.send {error: null, donor: stripeDonor}
 
     promise.catch (err) ->
