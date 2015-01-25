@@ -6,9 +6,17 @@ For example: 4200 - > $42.00
 define('templates/helpers/donatesMonthly', ['hbs/handlebars'], function ( Handlebars ) {
 
   function donatesMonthly ( donor, options ) {
-    console.log("Thi is sht edonor in donatesMonthly");
+    console.log(this);
+    if (!donor.subscriptions)
+      return;
+    
+    if(donor.subscriptions.total_count == 0)
+      return;
+    
+    var id = donor.subscriptions.data[0].plan.id;
+    console.log(id);
     // The place where the '.' will go
-    if (donor == "testing")
+    if ( id != "onetime" )
       return options.fn(this);
   }
 

@@ -5,9 +5,10 @@ define([
   'backbone',// lib/backbone/backbone
   'handlebars',
   'hbs!templates/nav',
+  'views/LoginPageView',
   'models/Donor',
   'models/Nav',
-], function($, _, Backbone, Handlebars, navTemplate, Donor, Nav ){
+], function($, _, Backbone, Handlebars, navTemplate, LoginPageView, Donor, Nav ){
     var NavbarView = Backbone.View.extend({
 
       el: "#nav" ,
@@ -31,7 +32,6 @@ define([
         //Using this form of declaration to 
         //resolve circular dependancy issue
         this.router = options.router;
-        this.loginModal = options.loginModal;
       },
 
       events: {
@@ -45,7 +45,11 @@ define([
       },
 
        showLoginModal: function() {
-         console.log("Navigating to loginfrom nav");
+         if (!this.loginModal) {
+          var login = new LoginPageView({router: this.router});
+          this.loginModal = login
+          login.render();
+         }
          this.loginModal.show();
        },
        
