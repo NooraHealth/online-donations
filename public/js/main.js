@@ -7,6 +7,7 @@ require.config({
     stripe: 'libs/stripe/stripe',
     router: 'Router', 
     bootstrap: 'libs/bootstrap/bootstrap',
+    moment: 'libs/moment/moment',
     hbs: 'libs/require-handlebars-plugin/hbs'
   },
   
