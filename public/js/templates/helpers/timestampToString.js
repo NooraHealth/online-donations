@@ -6,7 +6,7 @@ For example: 4200 - > $42.00
 define('templates/helpers/timestampToString', ['hbs/handlebars', 'moment'], function ( Handlebars, Moment ) {
 
   function timestampToString ( timestamp, options ) {
-    return moment.unix(timestamp).format("MMMM do, YYYY");
+    return moment.unix(timestamp).format("MMMM D, YYYY");
   }
 
   Handlebars.registerHelper( 'timestampToString', timestampToString );

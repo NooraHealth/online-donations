@@ -13,6 +13,10 @@ input:-webkit-autofill {
 input {
   background: #F5FFFF;
 }
+
+.nav-elements {
+  color: #7BD0D0 !important;
+}
 .end-tag {
   text-align: center;
 }
@@ -30,6 +34,7 @@ input {
   background-color: #78e95c !important;
 }
 
+
 .silver {
   color: #c5c5c5 !important;
   font-weight: 600;
@@ -37,7 +42,8 @@ input {
 
 .donation-card {
   background-color: #FFFFFF;
-  padding: 10px
+  padding: 10px;
+  height: 420px;
 }
 
 .donation-card input:not([type='submit']) {
