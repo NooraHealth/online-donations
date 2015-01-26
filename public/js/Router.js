@@ -41,7 +41,7 @@ define([
       donationForm: function() {
         console.log("Rendering the donation form ");
         var page = new DonationFormView({router: this});
-        var nav = new NavbarView({router: this, loginModal: login});
+        var nav = new NavbarView({router: this});
         
         page.render();  
         nav.render();

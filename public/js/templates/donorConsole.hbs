@@ -49,7 +49,7 @@
             {{#each donations}}
             <tr>
               <td>{{toDollars this.amount}}</td>
-              <td>{{this.date}}</td>
+              <td>{{timestampToString this.created}}</td>
             </tr>
             {{/each}}
           </table>
