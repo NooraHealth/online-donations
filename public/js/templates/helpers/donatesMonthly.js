@@ -17,7 +17,7 @@ define('templates/helpers/donatesMonthly', ['hbs/handlebars'], function ( Handle
     console.log(id);
     // The place where the '.' will go
     if ( id != "onetime" )
-      return options.fn(this);
+      return options.fn(this.subscriptions.data[0].plan);
   }
 
   Handlebars.registerHelper( 'donatesMonthly', donatesMonthly );
