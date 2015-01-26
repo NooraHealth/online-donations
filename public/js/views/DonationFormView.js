@@ -38,7 +38,6 @@ define([
       fillDonationBox: function(e) {
         e.preventDefault();
         this.donationBox().val(e.target.value);
-
       },
       
       /*
