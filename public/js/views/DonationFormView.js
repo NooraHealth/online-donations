@@ -84,7 +84,8 @@ define([
             password: $("input[name=password]").val(),
             email: $("input[name=email]").val(),
             amount: $("input[name=amount]").val() * 100,
-            monthly: $("input[name=monthly").is(':checked') 
+            monthly: $("input[name=monthly").is(':checked') ,
+            newsletter: $("input[name=newsletter").is(':checked') 
           }
 
           //Submit the donation  

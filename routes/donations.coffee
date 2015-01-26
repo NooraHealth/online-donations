@@ -13,6 +13,8 @@ router.post '/submit', (req, res, err) ->
   email = req.body.email
   monthly =  req.body.monthly
   name =  req.body.name
+  newsletter = req.body.newsletter
+  console.log "this is the newsletter #{newsletter}" 
 
   #Sign the customer up for a monthly plan with the plan
   #name as their email
@@ -29,6 +31,7 @@ router.post '/submit', (req, res, err) ->
       #save the donor's stripe customer id to mongo
       Donors.findOne {email: email},(err, donor) ->
         donor.stripeId = stripeDonor.id
+        donor.newsletter = (newsletter == 'true')
         donor.save()
 
       #Get the number of donors so far
@@ -48,6 +51,7 @@ router.post '/submit', (req, res, err) ->
       #save the stripe customer Id to mongo
       Donors.findOne {email: email},(err, donor) ->
         donor.stripeId = stripeDonor.id
+        donor.newsletter = (newsletter == 'true')
         donor.save()
 
       #Get the number of donors so far
