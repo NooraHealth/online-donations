@@ -39,7 +39,9 @@
 
         <div role="tabpanel" class="tab-pane" id="membership">
           {{#donatesMonthly this}}
-              <p>DONTES</p>
+            <p>You give {{toDollars this.amount}} each month. </p>
+            <button class="btn btn-default" id="edit-membership">CHANGE MY MEMBERSHIP</button>
+            <a id="cancel-membership">Cancel my monthly membership </a>
           {{/donatesMonthly}}
           <table class="table">
             <tr>
