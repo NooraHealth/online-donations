@@ -21,6 +21,9 @@ router.get '/info/:stripeId', (req, res)->
   promise.catch (err) ->
     console.log err
     res.send {error: err}
-  
+
+router.post '/changepassword', (req, res) ->
+  console.log "in the change password"
+  res.send {success: "Password has been successfully changed", error: null}
 
 module.exports = router

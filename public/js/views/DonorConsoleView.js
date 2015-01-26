@@ -20,8 +20,31 @@ define([
       },
 
       events: {
-        "click #edit-membership": "showEditMembershipModal"
+        "click #edit-membership": "showEditMembershipModal", 
+        "submit #change-password-form": "verifyChangePasswordInputs"
       },
+
+      verifyChangePasswordInput: function() {
+        console.log("Verifying the changepassword input fields");
+
+        if (this.$("input[name=currentpassword]").val() == "" ) {
+          this.message.set({error: "Please enter your current password."});
+          return false;
+        }
+
+        if (this.$("input[name=password]").val() == "" ) {
+          this.message.set({error: "Please enter a new password."});
+          return false;
+        }
+        
+        if (this.$("input[name=password]").val() != this.$("input[name=confirm]").val()) {
+          this.message.set({error: "Your passwords do not match"});
+          return false;
+        }
+          
+        return true;
+      },
+
 
       showEditMembershipModal: function() {
         if (!this.editMembershipModal) {
