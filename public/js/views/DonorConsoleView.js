@@ -6,11 +6,12 @@ define([
   'handlebars',
   'hbs!templates/donorConsole',
   'views/MessageView',
+  'models/Message',
   'models/Donor',
   'views/EditMembershipFormView',
   'bootstrap'
 ], function($, _, Backbone, Handlebars, donorConsoleTemplate, 
-           MessageView, Donor, EditMembershipFormView){
+           MessageView, Message, Donor, EditMembershipFormView){
     var DonorConsole = Backbone.View.extend({
       
       el: "#body",
@@ -24,7 +25,8 @@ define([
         "submit #change-password-form": "verifyChangePasswordInputs"
       },
 
-      verifyChangePasswordInput: function() {
+      verifyChangePasswordInputs: function(e) {
+        e.preventDefault();
         console.log("Verifying the changepassword input fields");
 
         if (this.$("input[name=currentpassword]").val() == "" ) {
@@ -42,7 +44,14 @@ define([
           return false;
         }
           
-        return true;
+        data = {
+          currentpassword: $("input[name=currentpassword]").val(),
+          password: $("input[name=password]").val(),
+        };
+
+        //$.post('donors/changepassword', data, function() {
+          //console.log("posting successful");
+        //});
       },
 
 
@@ -59,6 +68,10 @@ define([
       render: function() {
         var html = donorConsoleTemplate(this.model.toJSON());
         this.$el.html(html);      
+        
+        this.message = new Message();
+        this.messageView = new MessageView({model: this.message, el: $("#console-message")}); 
+        this.messageView.render();
         
         return this;
       },

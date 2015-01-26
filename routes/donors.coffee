@@ -24,6 +24,7 @@ router.get '/info/:stripeId', (req, res)->
 
 router.post '/changepassword', (req, res) ->
   console.log "in the change password"
+  console.log req.body
   res.send {success: "Password has been successfully changed", error: null}
 
 module.exports = router
