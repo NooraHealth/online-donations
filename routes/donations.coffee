@@ -14,7 +14,7 @@ router.post '/submit', (req, res, err) ->
   monthly =  req.body.monthly
   name =  req.body.name
   newsletter = req.body.newsletter
-  console.log "this is the newsletter #{newsletter}" 
+  console.log "this is the newsletter #{newsletter}"
 
   #Sign the customer up for a monthly plan with the plan
   #name as their email
@@ -37,11 +37,11 @@ router.post '/submit', (req, res, err) ->
       #Get the number of donors so far
       Donors.count {}, (err, count)->
         stripeDonor.count = count+25 #add 25 to account for previous donations made by other means
-        #send the donor info back to the client
-        res.send {error: null, donor: stripeDonor}
+        #json the donor info back to the client
+        res.json {error: null, donor: stripeDonor}
 
     promise.catch (err) ->
-      res.send {error: err.message}
+      res.json {error: err.message}
 
   #Charge the customer only once
   else
@@ -57,16 +57,16 @@ router.post '/submit', (req, res, err) ->
       #Get the number of donors so far
       Donors.count {}, (err, count)->
         stripeDonor.count = count+25 #add 25 to account for previous donations made by other means
-        #send the donor info back to the client
-        console.log "sending donor "
+        #json the donor info back to the client
+        console.log "jsoning donor "
         console.log stripeDonor
-        res.send {error: null, donor: stripeDonor}
+        res.json {error: null, donor: stripeDonor}
 
       #Charge the customer for their onetime donation
       MyStripe.charge stripeDonor, amount
       
     promise.catch (err) ->
-      res.send {error: err.message}
+      res.json {error: err.message}
   
 
 module.exports = router

@@ -8,8 +8,10 @@ define([
   'hbs!templates/donationForm',
   'models/Donor',
   'views/MessageView',
-  'models/Message'
-], function($, _, Backbone, Handlebars, Stripe, donationFormTemplate, Donor , MessageView, Message){
+  'models/Message',
+  'models/Donation',
+
+], function($, _, Backbone, Handlebars, Stripe, donationFormTemplate, Donor , MessageView, Message, Donation){
 
     var DonationForm = Backbone.View.extend({
     
@@ -21,6 +23,18 @@ define([
       
       initialize: function(options) {
         this.router = options.router;
+        this.model = new Donation();
+
+        this.listenTo(this.model, 'invalid', this.displayError);
+      },
+
+      displayError: function(error) {
+        console.log("Displaying the invalid error: ", error);
+        //Display the error to the user
+        this.message.set({error: error.validationError});
+        
+        //enable the submit button for resubmission
+        this.$('#submit-donation').prop('disabled',false);
       },
 
       /*
@@ -54,18 +68,6 @@ define([
         $("#expyear").val(year);
         $("#expmonth").val(month);
       },
-
-      /*
-       * Verify the donation form input before posting to server
-       */
-      verifyInput: function() {
-        if (this.$("input[name=password]").val() != this.$("input[name=confirm]").val()) {
-          this.message.set({error: "Your passwords do not match"});
-          return false;
-        }
-          
-        return true;
-      },
       
       /*
        * Callback for Stripe.card.createToken(...)
@@ -81,18 +83,21 @@ define([
             stripeToken: token,
             name: $("input[name=name]").val(),
             password: $("input[name=password]").val(),
+            confirm: $("input[name=confirm]").val(),
             email: $("input[name=email]").val(),
             amount: $("input[name=amount]").val() * 100,
             monthly: $("input[name=monthly").is(':checked') ,
             newsletter: $("input[name=newsletter").is(':checked') 
           }
 
+          this.model.save(data, {error: this.handleError.bind(this), success: this.handleResponse.bind(this)} );
+
           //Submit the donation  
-          var promise = $.post ("/donations/submit", data, function() {
-            console.log("Posted the donation");
-          })
-            .done(this.handleResponse.bind(this))
-            .fail(this.handleError.bind(this))
+          //var promise = $.post ("/donations/submit", data, function() {
+            //console.log("Posted the donation");
+          //})
+            //.done(this.handleResponse.bind(this))
+            //.fail(this.handleError.bind(this))
         }
       },
       
@@ -101,7 +106,8 @@ define([
         this.resetForm();  
       },
 
-      handleResponse: function(response) {
+      handleResponse: function(model,response) {
+        console.log("RESPONSE" ,response);
         if ( response.error ) {
           this.message.set({error: response.error});
           this.resetForm();  
@@ -118,11 +124,12 @@ define([
        */
       createStripeToken: function(event) {
         event.preventDefault();
-        if ( this.verifyInput() ) {
+        var donation = new Donation();
+        //if ( this.verifyInput() ) {
           this.parseExpiration();
           this.$("#submit-donation").prop('disabled', true);
           Stripe.card.createToken(this.form(), (this.stripeResponseHandler).bind(this));
-        }
+        //}
 
         //Prevent form from submitting
         return false; 
