@@ -48,10 +48,34 @@ define([
           currentpassword: $("input[name=currentpassword]").val(),
           password: $("input[name=password]").val(),
         };
+        
+        this.$("#submit-change-password").prop('disabled', true);
+        
+        $.post('donors/changepassword', data, function() {
+          console.log("posting successful");
+        })
+          .done(this.handleResponse.bind(this))
+          .fail(this.handleError.bind(this))
+      },
+      
+      handleError: function() {
+        this.message.set({error: "There was an error completing your request. Please try again."});
+        this.resetChangePasswordForm();   
+      },
 
-        //$.post('donors/changepassword', data, function() {
-          //console.log("posting successful");
-        //});
+      handleResponse: function(response) {
+        if ( response.error ) {
+          this.message.set({error: response.error});
+          this.resetChangePasswordForm();  
+        } 
+        if ( response.donor ) {
+          this.message.set({success: response.success});
+        }
+      },
+
+      resetChangePasswordForm: function(){
+       $('#change-password-form')[0].reset();
+       this.$("#submit-change-password").prop('disabled', false);
       },
 
 

@@ -22,22 +22,34 @@ input {
 }
 
 .monthly-checkbox label {
+  color: #ffd25c;
   font-size: 17px;
+}
+
+label {
+  color: grey;
+}
+
+.skinny, .silver {
+  font-weight: 400;
 }
 
 .donation-bar {
   width:14.28%;
   border-radius: 0px !important; 
+  background-color: #ececec !important;
 }
 
 .donation-bar:hover {
   background-color: #78e95c !important;
 }
 
+.donation-bar:checked {
+  background-color: #78e95c !important;
+}
 
 .silver {
-  color: #c5c5c5 !important;
-  font-weight: 600;
+  color: #bbabae !important;
 }
 
 .donation-card {
@@ -97,7 +109,7 @@ h6,
 .form-row {
   border-bottom: solid 1px black;
   padding: 20px 20px 5px 0px;
-  border-color: #D0C0A4;
+  border-color: #BBABAE;
 }
 
 .monthly-checkbox {
@@ -117,6 +129,7 @@ h6,
   position: relative;
   left: 10px;
   top:1px;
+  font-size: 17px;
 }
 
 .donation-field:before {
@@ -151,7 +164,7 @@ h6,
   padding-top: 10px;
 }
 
-label {
+.bold {
   /*opacity: 0.2;*/
   color: #ffd25c;
 }
@@ -159,7 +172,7 @@ label {
 .panel-img{
   width: 100%;
   height: 100%;
-  border: solid #D0C0A4 1px;
+  border: solid #BBABAE 1px;
 }
 
 .no-border {

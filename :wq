@@ -1,23 +1,19 @@
 <div class="row">
   <div class="col-lg-1 col-sm-1 col-md-1 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
-    <p><b>Name</b></p>
-  </div>
-  <div class="col-lg-4 col-sm-4 col-md-4">
-    <p>{{metadata.name}}</p>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-lg-1 col-sm-1 col-md-1 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
     <p><b>Email</b></p>
   </div>
   <div class="col-lg-4 col-sm-4 col-md-4">
     <p>{{email}}</p>
   </div>
 </div>
-
 <div class="row">
-  <div class="col-lg-2 col-sm-2 col-md-2 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
-    <input class="btn btn-default" id="change-password" value="Change My Password"></input>
+  <div class="col-lg-1 col-sm-1 col-md-1 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
+    <p><b>Name</b></p>
   </div>
+  <div class="col-lg-4 col-sm-4 col-md-4">
+    <p>{{metadata.name}}</p>
+  </div>
+          
+  
+  <input class="btn btn-default" id="change-password" val="Change My Password"></input>
 </div>
