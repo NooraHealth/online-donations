@@ -20,7 +20,7 @@ define([
       },
 
       successMessage: function() {
-        return $("#change-password-success");
+        return $("#success-message");
       },
 
       submitChangePassword: function() {
@@ -35,8 +35,6 @@ define([
         //Display the error to the user
         this.message.set({error: error.validationError});
         
-        //enable the submit button for resubmission
-        this.$('#submit-donation').prop('disabled',false);
       },
 
       events: {
@@ -45,7 +43,6 @@ define([
 
       verifyChangePasswordInputs: function(e) {
         e.preventDefault();
-        console.log("Verifying the changepassword input fields");
 
         if (this.$("input[name=currentpassword]").val() == "" ) {
           this.message.set({error: "Please enter your current password."});
@@ -111,7 +108,7 @@ define([
       },
 
       render: function() {
-        var html = changePasswordFormTemplate();
+        var html = changePasswordFormTemplate({successMessage: "Your password has been changed successfully!"});
         this.$el.html(html);      
 
         this.successMessage().hide();

@@ -10,9 +10,10 @@ define([
   'models/Donor',
   'views/EditMembershipFormView',
   'views/ChangePasswordFormView',
+  'views/GiveAgainView',
   'bootstrap'
 ], function($, _, Backbone, Handlebars, donorConsoleTemplate, 
-           MessageView, Message, Donor, EditMembershipFormView, ChangePasswordFormView){
+           MessageView, Message, Donor, EditMembershipFormView, ChangePasswordFormView, GiveAgainView){
     var DonorConsole = Backbone.View.extend({
       
       el: "#body",
@@ -24,17 +25,17 @@ define([
       events: {
         "click #edit-membership": "showEditMembershipModal", 
         "click #change-password": "showChangePasswordModal",
-        "click #make-another-donation": "showMakeADonationModal"
+        "click #give-again": "showGiveAgainModal"
       },
 
       /**
        * Display the modal that will allow donors to change their password
        */
-      //showMakeADonationModal: function() {
-        //var makeANewDonationModal = new ChangePasswordFormView();
-        //changePasswordModal.render();
-        //changePasswordModal.show();
-      //},
+      showGiveAgainModal: function() {
+        var giveAgainModal = new GiveAgainView();
+        giveAgainModal.render();
+        giveAgainModal.show();
+      },
       
       /**
        * Display the modal that will allow donors to change their password
