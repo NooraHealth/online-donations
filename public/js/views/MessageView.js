@@ -10,7 +10,7 @@ define([
       template: "<div>{{message}}{{success}}{{error}}{{warning}}</div>",
 
       initialize: function(options) {
-        //this.model = options.model;
+        this.model = options.model;
         this.listenTo(this.model, 'change', this.render);
       },
 
