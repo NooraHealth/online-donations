@@ -14,9 +14,14 @@ input {
   background: #F5FFFF;
 }
 
+.donation-form-message {
+  margin: -25px 0px 0px !important;
+}
+
 .nav-elements {
   color: #7BD0D0 !important;
 }
+
 .end-tag {
   text-align: center;
 }
