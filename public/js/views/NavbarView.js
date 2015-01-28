@@ -7,7 +7,7 @@ define([
   'hbs!templates/nav',
   'views/LoginPageView',
   'models/Donor',
-  'models/Nav',
+  'models/Nav'
 ], function($, _, Backbone, Handlebars, navTemplate, LoginPageView, Donor, Nav ){
     var NavbarView = Backbone.View.extend({
 
@@ -34,6 +34,11 @@ define([
         this.router = options.router;
       },
 
+      onClose: function() {
+        //reintroduce the removed root element to the DOM for use later
+        this.model.unbind('change', this.render);
+      },
+
       events: {
        "click .login": "showLoginModal",
        "click .logout": "logoutDonor",
@@ -57,14 +62,16 @@ define([
           e.preventDefault();
           
           Donor.clear();
-          this.router.navigate('giving', {trigger: true}); 
 
           $.post('/logout', function() {
             console.log("Logged out!");
           });
+
+          this.router.navigate('giving', {trigger: true}); 
         
          //clear the donor so the navbar will know the user has logged out
          //--removing their data from the client
+        return false;
        },
        
        render: function() {

@@ -10,7 +10,6 @@ define([
   'views/MessageView',
   'models/Message',
   'models/Donation',
-
 ], function($, _, Backbone, Handlebars, Stripe, donationFormTemplate, Donor , MessageView, Message, Donation){
 
     var DonationForm = Backbone.View.extend({
