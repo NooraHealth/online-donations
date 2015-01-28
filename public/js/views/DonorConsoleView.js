@@ -9,9 +9,10 @@ define([
   'models/Message',
   'models/Donor',
   'views/EditMembershipFormView',
+  'views/ChangePasswordFormView',
   'bootstrap'
 ], function($, _, Backbone, Handlebars, donorConsoleTemplate, 
-           MessageView, Message, Donor, EditMembershipFormView){
+           MessageView, Message, Donor, EditMembershipFormView, ChangePasswordFormView){
     var DonorConsole = Backbone.View.extend({
       
       el: "#body",
@@ -22,71 +23,36 @@ define([
 
       events: {
         "click #edit-membership": "showEditMembershipModal", 
-        "submit #change-password-form": "verifyChangePasswordInputs"
+        "click #change-password": "showChangePasswordModal",
+        "click #make-another-donation": "showMakeADonationModal"
       },
 
-      verifyChangePasswordInputs: function(e) {
-        e.preventDefault();
-        console.log("Verifying the changepassword input fields");
-
-        if (this.$("input[name=currentpassword]").val() == "" ) {
-          this.message.set({error: "Please enter your current password."});
-          return false;
-        }
-
-        if (this.$("input[name=password]").val() == "" ) {
-          this.message.set({error: "Please enter a new password."});
-          return false;
-        }
-        
-        if (this.$("input[name=password]").val() != this.$("input[name=confirm]").val()) {
-          this.message.set({error: "Your passwords do not match"});
-          return false;
-        }
-          
-        data = {
-          currentpassword: $("input[name=currentpassword]").val(),
-          password: $("input[name=password]").val(),
-        };
-        
-        this.$("#submit-change-password").prop('disabled', true);
-        
-        $.post('donors/changepassword', data, function() {
-          console.log("posting successful");
-        })
-          .done(this.handleResponse.bind(this))
-          .fail(this.handleError.bind(this))
-      },
+      /**
+       * Display the modal that will allow donors to change their password
+       */
+      //showMakeADonationModal: function() {
+        //var makeANewDonationModal = new ChangePasswordFormView();
+        //changePasswordModal.render();
+        //changePasswordModal.show();
+      //},
       
-      handleError: function() {
-        this.message.set({error: "There was an error completing your request. Please try again."});
-        this.resetChangePasswordForm();   
+      /**
+       * Display the modal that will allow donors to change their password
+       */
+      showChangePasswordModal: function() {
+        var changePasswordModal = new ChangePasswordFormView();
+        changePasswordModal.render();
+        changePasswordModal.show();
       },
 
-      handleResponse: function(response) {
-        if ( response.error ) {
-          this.message.set({error: response.error});
-          this.resetChangePasswordForm();  
-        } 
-        if ( response.donor ) {
-          this.message.set({success: response.success});
-        }
-      },
-
-      resetChangePasswordForm: function(){
-       $('#change-password-form')[0].reset();
-       this.$("#submit-change-password").prop('disabled', false);
-      },
-
-
+      /**
+       * Display the modal that will allow donors to edit their membership
+       */
       showEditMembershipModal: function() {
-        if (!this.editMembershipModal) {
-          var editMembershipModal = new EditMembershipFormView({router: this.router, model: Donor.get("subscriptions").data[0].plan});
-          this.editMembershipModal = editMembershipModal;
-          editMembershipModal.render();
-        }
+        var editMembershipModal = new EditMembershipFormView({router: this.router, model: Donor.get("subscriptions").data[0].plan});
         
-        this.editMembershipModal.show();
+        editMembershipModal.render();
+        editMembershipModal.show();
       },
 
       render: function() {
