@@ -11,10 +11,7 @@ router.get '/info/:stripeId', (req, res)->
   promise = MyStripe.retrieveDonorInfo stripeId
 
   promise.then (donor)->
-    #donorinfo.donations = [{amount:100, date: "March 30, 2015"}, {amount:250, date: "June 30, 2015"}]
     
-    console.log "returve donor"
-    console.log donor
     #MyStripe.retrieveDonations
     res.send {donor: donor, error: err}
   
@@ -34,6 +31,10 @@ router.post '/changepassword', (req, res) ->
     else
       console.log "set the password: it is now "
       console.log donor
-      res.send {error: null}
+      donor.save (error)->
+        if error
+          res.send {error: error}
+        else
+          res.send {error: null}
 
 module.exports = router
