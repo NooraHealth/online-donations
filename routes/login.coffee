@@ -6,19 +6,14 @@ Q = require 'q'
 
 router.post '/' , (req, res, next)->
   
-  console.log "Recieved a request to authenticate"
-  console.log "this is the user before authenticate"
-  console.log req.user
   passport.authenticate('local', (err, user, info) ->
     if err
       return res.send {error: err}
     if !user
       return res.send {error: "We don't recognize those credentials. Have another go." }
     else
+  
       #res.redirect '/donors/info/' + user.stripeId
-      console.log "this is the user after login"
-      console.log req.user
-
       #send out all requests to Stripe for needed donor info and
       #their donation history
       donations = MyStripe.retrieveDonations user.stripeId
@@ -38,8 +33,6 @@ router.post '/' , (req, res, next)->
       req.logIn user, (err) ->
         if err
           console.log "There was an error logging in #{err}"
-        console.log "finished loggin in"
-        console.log req.user
 
   )(req, res, next)
 

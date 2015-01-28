@@ -14,7 +14,6 @@ router.post '/submit', (req, res, err) ->
   monthly =  req.body.monthly
   name =  req.body.name
   newsletter = req.body.newsletter
-  console.log "this is the newsletter #{newsletter}"
 
   #Sign the customer up for a monthly plan with the plan
   #name as their email
@@ -58,8 +57,6 @@ router.post '/submit', (req, res, err) ->
       Donors.count {}, (err, count)->
         stripeDonor.count = count+25 #add 25 to account for previous donations made by other means
         #json the donor info back to the client
-        console.log "jsoning donor "
-        console.log stripeDonor
         res.json {error: null, donor: stripeDonor}
 
       #Charge the customer for their onetime donation

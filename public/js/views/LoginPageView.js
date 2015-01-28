@@ -67,7 +67,7 @@ define([
         
         }.bind(this)).fail(function(err) {
           this.message.set({error: err});
-        });
+        }.bind(this));
         
         //Submit the form to authenticate the credentials
         return false;
@@ -84,7 +84,7 @@ define([
       render: function() {
         var html = loginTemplate();
         this.$el.html(html);      
-        
+       
         this.message = new Message();
         this.messageView = new MessageView({model: this.message, el: $("#login-message")}); 
         this.messageView.render();
