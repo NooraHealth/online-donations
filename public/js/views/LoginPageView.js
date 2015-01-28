@@ -15,7 +15,7 @@ define([
       el: "#modal",
 
       events: {
-        "click #submit-login": "submit"
+        "click #submit-login": "submitLogin"
       },
       
       initialize: function(options) {
@@ -25,7 +25,7 @@ define([
        * Validate login form input before submitting,
        * post error message to user if not valid
        */
-      submit: function(e) {
+      submitLogin: function(e) {
         //e.preventDefault();
         var password = this.$el.find("#password");
         var email = this.$el.find("#email");
@@ -71,7 +71,6 @@ define([
         
         //Submit the form to authenticate the credentials
         return false;
-
       },
 
       hide: function() {
