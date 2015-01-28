@@ -4,10 +4,11 @@ define([
   'underscore', // lib/underscore/underscore
   'backbone',    // lib/backbone/backbone
   'handlebars',
-  'models/Message'
-], function($, _, Backbone,Handlebars, Message){
+  'models/Message',
+  'hbs!templates/message',
+  'bootstrap'
+], function($, _, Backbone,Handlebars, Message, messageTemplate){
     var MessageView = Backbone.View.extend({
-      template: "<div>{{message}}{{success}}{{error}}{{warning}}</div>",
 
       initialize: function(options) {
         this.model = options.model;
@@ -15,8 +16,7 @@ define([
       },
 
       render: function() {
-        var template = Handlebars.compile(this.template);
-        var html = template(this.model.toJSON());
+        var html = messageTemplate(this.model.toJSON());
         this.$el.html(html);      
         return this;
       }
