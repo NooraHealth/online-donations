@@ -11,9 +11,10 @@ define([
   'views/EditMembershipFormView',
   'views/ChangePasswordFormView',
   'views/GiveAgainView',
+  'views/ConfirmCancelView',
   'bootstrap'
 ], function($, _, Backbone, Handlebars, donorConsoleTemplate, 
-           MessageView, Message, Donor, EditMembershipFormView, ChangePasswordFormView, GiveAgainView){
+           MessageView, Message, Donor, EditMembershipFormView, ChangePasswordFormView, GiveAgainView, ConfirmCancelView){
     var DonorConsole = Backbone.View.extend({
       
       el: "#body",
@@ -25,35 +26,49 @@ define([
       events: {
         "click #edit-membership": "showEditMembershipModal", 
         "click #change-password": "showChangePasswordModal",
-        "click #give-again": "showGiveAgainModal"
+        "click #give-again": "showGiveAgainModal",
+        "click #cancel-membership": "showCancelMembershipModal",
       },
 
       /**
        * Display the modal that will allow donors to change their password
        */
       showGiveAgainModal: function() {
-        var giveAgainModal = new GiveAgainView();
-        giveAgainModal.render();
-        giveAgainModal.show();
+        if(!this.giveAgainModal)
+          this.giveAgainModal = new GiveAgainView();
+        this.giveAgainModal.render();
+        this.giveAgainModal.show();
       },
       
       /**
        * Display the modal that will allow donors to change their password
        */
+      showCancelMembershipModal: function() {
+        if(!this.cancelMembershipModal)
+          this.cancelMembershipModal = new ConfirmCancelView();
+        this.cancelMembershipModal.render();
+        this.cancelMembershipModal.show();
+      },
+
+      /**
+       * Display the modal that will allow donors to change their password
+       */
       showChangePasswordModal: function() {
-        var changePasswordModal = new ChangePasswordFormView();
-        changePasswordModal.render();
-        changePasswordModal.show();
+        if(!this.changePasswordModal)
+          this.changePasswordModal = new ChangePasswordFormView();
+        this.changePasswordModal.render();
+        this.changePasswordModal.show();
       },
 
       /**
        * Display the modal that will allow donors to edit their membership
        */
       showEditMembershipModal: function() {
-        var editMembershipModal = new EditMembershipFormView({router: this.router, model: Donor.get("subscriptions").data[0].plan});
+        if(!this.editMembershipModal)
+          this.editMembershipModal = new EditMembershipFormView({router: this.router, model: Donor.get("subscriptions").data[0].plan});
         
-        editMembershipModal.render();
-        editMembershipModal.show();
+        this.editMembershipModal.render();
+        this.editMembershipModal.show();
       },
 
       render: function() {
