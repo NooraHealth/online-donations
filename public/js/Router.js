@@ -73,7 +73,6 @@ define([
         //After removal, reintroduce the main divs into the html for filling by the views
         this.resetContainerElements();
        
-        console.log("Closed all the views and now rendering the page");
         var page = new DonorConsoleView({router: this});
         var nav = new NavbarView({router: this});
         page.render();  
@@ -88,7 +87,6 @@ define([
       //Closes all the views currently in effect
       closeViews: function() {
         for(var i=0; i<this.currentViews.length; i++) {
-          console.log(this.currentViews[i]);
           this.currentViews[i].close();
         }
 

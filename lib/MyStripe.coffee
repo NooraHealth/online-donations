@@ -26,6 +26,22 @@ class MyStripe
     console.log "Removing customer"
     return stripe.customers.del donorID
 
+  cancelMonthlyDonations: (planID) ->
+    console.log "Deleting subscriptions #{planID}"
+    return stripe.customers.cancelSubscription donorID, subscriptionID
+
+  deletePlan: (planID) ->
+    console.log "Deleting plan #{planID}"
+    return stripe.plans.del planID
+
+  updatePlan: (donorID, subscriptionID, planID) ->
+    console.log "Updating the donor's plan subscription #{subscriptionID}"
+    return stripe.customers.updateSubscription donorID, subscriptionID, {plan: planID}
+
+  changeDonorCard: (donorID, stripeToken) ->
+    console.log "changing the donor card information"
+    return stripe.customers.update donorID, {card: stripeToken}
+
   createNewPlan: (planID, amount) ->
     console.log "Creating a new plan"
     return stripe.plans.create {
@@ -37,12 +53,12 @@ class MyStripe
       statement_descriptor: "Noora Health donation"
     }
 
-  charge: (donor, amount) ->
+  charge: (donorID, amount) ->
     console.log "chargin customer"
     return stripe.charges.create {
       amount: amount
       currency: "usd"
-      customer: donor.id
+      customer: donorID
     }
 
 
