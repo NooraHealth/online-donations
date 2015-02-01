@@ -27,10 +27,8 @@ router.post '/planchange/:donorID', (req, res, err) ->
   deferred = Q.defer()
   console.log deferred
   if newPlanID == 'onetime'
-    console.log "The plan id was onetime"
     deferred.resolve()
   else
-    console.log "PLanIS not ONETIME"
     # We need to create a new plan before moving onto updating the donor's subscription
     MyStripe.createNewPlan newPlanID, amount
     .then ()->
@@ -41,14 +39,10 @@ router.post '/planchange/:donorID', (req, res, err) ->
   #console.log deferred.isResolved()
   console.log deferred.promise
   deferred.promise.then () ->
-    console.log "Got the deffered"
     MyStripe.updatePlan donorID, subscriptionID, newPlanID
   .then (newSubscription)->
-    console.log 'this is the donors new subcscription'
-    console.log "SUCCESS"
-    res.send {success: "Donation plan updated successfully"}
+    res.send {subscription: newSubscription}
   .catch (err) ->
-    console.log "CAUGHT: a planchange error #{err.message}"
     res.send {error: err.message}
 
 ###
@@ -60,8 +54,8 @@ router.post '/onetime/:donorID', (req, res, err) ->
   donorID = req.params.donorID
 
   MyStripe.charge donorID, amount
-  .then () ->
-    res.send {success: "Successful donation!"}
+  .then (donation) ->
+    res.send {donation:donation}
   .catch (err) ->
     console.log "CAUGHT: a onetime error #{err.message}"
     res.send {error: err.message}

@@ -97,6 +97,16 @@ define([
           this.resetForm();  
         } 
         else {
+          //If this was a onetime donation, then update the Donor's donation array
+          if (response.donation) {
+            newDonations = _.clone(Donor.get('donations'));
+            newDonations.push(response.donation);
+            Donor.set({donations: newDonations});
+          }
+          else {
+            Donor.get('subscriptions').data[0] = response.subscription;
+          }
+
           this.showSuccessMessage();
         }
       },
