@@ -78,8 +78,26 @@ define([
         //disable the submit button so they can't submit again
         this.submitEdits().prop('disabled', true);
 
-        this.model.save(data, {error: this.handleError.bind(this), success: this.showSuccessMessage.bind(this)});
+        this.model.save(data, {error: this.handleError.bind(this), success: this.handleResponse.bind(this)});
         
+      },
+      
+      handleResponse: function(response) {
+        if (response.get('error')) {
+          this.message.set({error: response.get('error')});
+          this.submitEdits().prop('disabled',false);
+        } else{
+          console.log("Updating the client side subscrioptions");
+          console.log(response.get('subscription'));
+          //Update the client side subscriptions
+          console.log(Donor.get('subscriptions'));
+          var newSubscription = Donor.get('subscriptions');
+          newSubscription.data[0] = response.get('subscription');
+          Donor.set({subscriptions: newSubscription});
+          console.log(Donor.get('subscriptions'));
+
+          this.showSuccessMessage();
+        }
       },
 
       handleError: function() {

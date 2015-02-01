@@ -75,6 +75,7 @@ define([
       },
 
       render: function() {
+        console.log("RENDERING THE CONSOLE");
         var html = donorConsoleTemplate(this.model.toJSON());
         this.$el.html(html);      
         
