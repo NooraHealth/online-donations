@@ -80,6 +80,8 @@ define([
           this.confirmCancelSubmit().prop('disabled',false);
         } else{
           console.log("showing the successmessage");
+          //Update the client side subscriptions
+          Donor.get('subscriptions').data[0] = response.subscription;
           this.showSuccessMessage();
         }
       },

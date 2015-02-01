@@ -21,6 +21,9 @@ define([
       
       initialize: function() {
         this.model = Donor;
+
+        //Rerender the Donor console whenever there is a change to the donor object
+        this.listenTo(this.model, 'change', this.render);
       },
 
       events: {
