@@ -63,9 +63,7 @@ define([
           
           Donor.clear();
 
-          $.post('/logout', function() {
-            console.log("Logged out!");
-          });
+          $.post('/logout');
 
           this.router.navigate('giving', {trigger: true}); 
         

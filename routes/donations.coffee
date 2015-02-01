@@ -15,7 +15,6 @@ saveCustomerID = (email, id) ->
 ###
 router.post '/planchange/:donorID', (req, res, err) ->
   console.log "recieved a PLAN CHANGE request"
-  console.log req.body
   amount = req.body.amount
   donorID = req.params.donorID
   planID = req.body.planID
@@ -37,7 +36,6 @@ router.post '/planchange/:donorID', (req, res, err) ->
       deferred.reject(err)
    
   #console.log deferred.isResolved()
-  console.log deferred.promise
   deferred.promise.then () ->
     MyStripe.updatePlan donorID, subscriptionID, newPlanID
   .then (newSubscription)->

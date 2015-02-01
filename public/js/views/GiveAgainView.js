@@ -104,7 +104,12 @@ define([
             Donor.set({donations: newDonations});
           }
           else {
-            Donor.get('subscriptions').data[0] = response.subscription;
+            console.log("subscroiptions");
+            console.log(Donor.get('subscriptions'));
+            var newSubscription = Donor.get('subscriptions');
+            newSubscription.data[0] = response.subscription;
+            Donor.set({subscriptions: newSubscription});
+            console.log(Donor.get('subscriptions'));
           }
 
           this.showSuccessMessage();

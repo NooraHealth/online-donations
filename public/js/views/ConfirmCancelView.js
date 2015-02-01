@@ -49,7 +49,6 @@ define([
       },
       
       showSuccessMessage: function(response) {
-        console.log();
         this.successMessage().show();
         this.confirmCancel().hide();
       },     
@@ -81,7 +80,12 @@ define([
         } else{
           console.log("showing the successmessage");
           //Update the client side subscriptions
-          Donor.get('subscriptions').data[0] = response.subscription;
+          console.log(Donor.get('subscriptions'));
+          var newSubscription = Donor.get('subscriptions');
+          newSubscription.data[0] = response.get('subscription');
+          console.log("Heres the new subscription");
+          Donor.set({subscriptions: newSubscription});
+          console.log(Donor.get('subscriptions'));
           this.showSuccessMessage();
         }
       },
