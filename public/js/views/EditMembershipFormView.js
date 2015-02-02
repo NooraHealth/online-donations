@@ -40,17 +40,10 @@ define([
       },
       
       initialize: function(options) {
-        console.log("initialzing the edit membership form view");
-        console.log("THIS IS THE DON OR ON INITIALIZE THE EDIT MEMBERSHIP VIEW");
         this.donor = options.donor;
         console.log(this.donor.get('subscriptions'));
         this.model = new RepeatDonation();
         this.listenTo(this.model, 'invalid', this.displayError);
-        this.listenTo(this.donor, 'change', this.WTF);
-      },
-
-      WTF: function() {
-        console.log("WTFFF");
       },
 
       displayError: function(error) {
@@ -74,9 +67,6 @@ define([
       },     
       
       submitEdit: function(e) {
-        console.log("THIS IS THE SUBVSCRIPTION BEFORE EDITING");
-          console.log(this.donor.get('subscriptions'));
-        
         var data = {
             amount:  $("input[name=amount]").val() * 100,
             donorID: this.donor.get('id'),
@@ -96,17 +86,13 @@ define([
           this.message.set({error: response.get('error')});
           this.submitEdits().prop('disabled',false);
         } else{
-          console.log("Updating the client side subscrioptions");
-          console.log(response.get('subscription'));
           //Update the client side subscriptions
-          console.log("THIS IS THE SUBVSCRIPTION BEFORE EDITINGi after RESOPORES");
-          console.log(this.donor);
           var newSubscription = _.clone(this.donor.get('subscriptions'));
           newSubscription.data[0] = response.get('subscription');
           this.donor.set({subscriptions: newSubscription});
-          console.log("THIS IS THE SUBVSCRIPTION AFTER EDITINGi after RESOPORES");
-          console.log(this.donor.get('subscriptions'));
 
+          //IMPORTANT: figure out what is making this necessary -- this should automatically update
+          this.donor.trigger('change');
           this.showSuccessMessage();
         }
       },
