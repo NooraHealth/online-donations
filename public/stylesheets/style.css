@@ -28,7 +28,7 @@ input {
   text-align: center;
 }
 
-.monthly-checkbox label {
+.monthly-checkbox {
   color: #ffd25c;
   font-size: 17px;
 }
