@@ -7,23 +7,21 @@ define([
   'hbs!templates/donorConsole',
   'views/MessageView',
   'models/Message',
-  'models/Donor',
   'views/EditMembershipFormView',
   'views/ChangePasswordFormView',
   'views/GiveAgainView',
   'views/ConfirmCancelView',
   'bootstrap'
 ], function($, _, Backbone, Handlebars, donorConsoleTemplate, 
-           MessageView, Message, Donor, EditMembershipFormView, ChangePasswordFormView, GiveAgainView, ConfirmCancelView){
+           MessageView, Message, EditMembershipFormView, ChangePasswordFormView, GiveAgainView, ConfirmCancelView){
     var DonorConsole = Backbone.View.extend({
       
       el: "#body",
       
       initialize: function() {
-        this.model = Donor;
-
         //Rerender the Donor console whenever there is a change to the donor object
         this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'sync', this.render);
       },
 
       events: {
@@ -38,7 +36,7 @@ define([
        */
       showGiveAgainModal: function() {
         if(!this.giveAgainModal)
-          this.giveAgainModal = new GiveAgainView();
+          this.giveAgainModal = new GiveAgainView({donor: this.model});
         this.giveAgainModal.render();
         this.giveAgainModal.show();
       },
@@ -48,7 +46,7 @@ define([
        */
       showCancelMembershipModal: function() {
         if(!this.cancelMembershipModal)
-          this.cancelMembershipModal = new ConfirmCancelView();
+          this.cancelMembershipModal = new ConfirmCancelView({donor: this.model});
         this.cancelMembershipModal.render();
         this.cancelMembershipModal.show();
       },
@@ -58,7 +56,7 @@ define([
        */
       showChangePasswordModal: function() {
         if(!this.changePasswordModal)
-          this.changePasswordModal = new ChangePasswordFormView();
+          this.changePasswordModal = new ChangePasswordFormView({donor: this.model});
         this.changePasswordModal.render();
         this.changePasswordModal.show();
       },
@@ -68,7 +66,7 @@ define([
        */
       showEditMembershipModal: function() {
         if(!this.editMembershipModal)
-          this.editMembershipModal = new EditMembershipFormView({router: this.router, model: Donor.get("subscriptions").data[0].plan});
+          this.editMembershipModal = new EditMembershipFormView({router: this.router, donor: this.model});
         
         this.editMembershipModal.render();
         this.editMembershipModal.show();

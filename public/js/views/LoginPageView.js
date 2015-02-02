@@ -5,11 +5,10 @@ define([
   'backbone',    // lib/backbone/backbone
   'handlebars',   
   'hbs!templates/login',
-  'models/Donor',
   'models/Message',
   'views/MessageView',
   'bootstrap'
-], function($, _, Backbone, Handlebars, loginTemplate, Donor, Message, MessageView ){
+], function($, _, Backbone, Handlebars, loginTemplate, Message, MessageView ){
     
     var LoginPage = Backbone.View.extend({
       el: "#modal",
@@ -20,6 +19,7 @@ define([
       
       initialize: function(options) {
         this.router = options.router;
+        this.donor = options.donor;
       },
       /*
        * Validate login form input before submitting,
@@ -56,8 +56,8 @@ define([
           }
 
           if (response.donor) {
-            Donor.set( response.donor );
-            Donor.set({donations: response.donations.data});
+            this.donor.set( response.donor );
+            this.donor.set({donations: response.donations.data});
             this.hide();
             this.router.navigate("donorConsole", {trigger: true});
             return;

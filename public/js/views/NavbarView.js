@@ -6,9 +6,8 @@ define([
   'handlebars',
   'hbs!templates/nav',
   'views/LoginPageView',
-  'models/Donor',
   'models/Nav'
-], function($, _, Backbone, Handlebars, navTemplate, LoginPageView, Donor, Nav ){
+], function($, _, Backbone, Handlebars, navTemplate, LoginPageView, Nav ){
     var NavbarView = Backbone.View.extend({
 
       el: "#nav" ,
@@ -26,6 +25,7 @@ define([
       },
     
       initialize: function(options) {
+        this.donor = options.donor;
         this.model = Nav;
         this.listenTo(this.model, 'change', this.render);
         
@@ -51,7 +51,7 @@ define([
 
        showLoginModal: function() {
          if (!this.loginModal) {
-          var login = new LoginPageView({router: this.router});
+          var login = new LoginPageView({router: this.router, donor: this.donor});
           this.loginModal = login
           login.render();
          }
@@ -61,7 +61,7 @@ define([
        logoutDonor: function(e){
           e.preventDefault();
           
-          Donor.clear();
+          this.donor.clear();
 
           $.post('/logout');
 

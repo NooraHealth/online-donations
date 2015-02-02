@@ -10,7 +10,7 @@ define([
   'models/RepeatDonation',
   'models/Donor',
   'bootstrap'
-], function($, _, Backbone, Handlebars, confirmCancelModal, Message, MessageView, RepeatDonation, Donor ){
+], function($, _, Backbone, Handlebars, confirmCancelModal, Message, MessageView, RepeatDonation ){
     
     var ConfirmCancelView = Backbone.View.extend({
       el: "#modal",
@@ -31,7 +31,8 @@ define([
         return $("#success-message");
       },
 
-      initialize: function() {
+      initialize: function(options) {
+        this.donor = options.donor;
         this.model = new RepeatDonation();
         this.listenTo(this.model, 'invalid', this.displayError);
       },
@@ -61,9 +62,9 @@ define([
       cancelMembership: function() {
          var data = {
             amount: 0,
-            donorID: Donor.get('id'),
-            planID: Donor.getPlanID(),
-            subscriptionID: Donor.getSubscriptionID(),
+            donorID: this.donor.get('id'),
+            planID: this.donor.getPlanID(),
+            subscriptionID: this.donor.getSubscriptionID(),
             editMembership: true
          }
 
@@ -80,12 +81,12 @@ define([
         } else{
           console.log("showing the successmessage");
           //Update the client side subscriptions
-          console.log(Donor.get('subscriptions'));
-          var newSubscription = Donor.get('subscriptions');
+          console.log(this.donor.get('subscriptions'));
+          var newSubscription = this.donor.get('subscriptions');
           newSubscription.data[0] = response.get('subscription');
           console.log("Heres the new subscription");
-          Donor.set({subscriptions: newSubscription});
-          console.log(Donor.get('subscriptions'));
+          this.donor.set({subscriptions: newSubscription});
+          console.log(this.donor.get('subscriptions'));
           this.showSuccessMessage();
         }
       },

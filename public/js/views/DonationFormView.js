@@ -6,11 +6,10 @@ define([
   'handlebars',   
   'stripe',   
   'hbs!templates/donationForm',
-  'models/Donor',
   'views/MessageView',
   'models/Message',
   'models/Donation',
-], function($, _, Backbone, Handlebars, Stripe, donationFormTemplate, Donor , MessageView, Message, Donation){
+], function($, _, Backbone, Handlebars, Stripe, donationFormTemplate,  MessageView, Message, Donation){
 
     var DonationForm = Backbone.View.extend({
     
@@ -21,6 +20,7 @@ define([
       },
       
       initialize: function(options) {
+        this.donor = options.donor;
         this.router = options.router;
         this.model = new Donation();
 
@@ -112,7 +112,7 @@ define([
           this.resetForm();  
         } 
         if ( response.donor ) {
-          Donor.set(response.donor);
+          this.donor.set(response.donor);
           this.message.set({success: response.success});
           this.router.navigate('thankyou', {trigger: true});
         }

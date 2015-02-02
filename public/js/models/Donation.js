@@ -14,7 +14,6 @@ define([
     urlRoot: 'donations/submit',
 
     validate: function(values,  options) {
-      console.log("Validating the input");
       if ( values.email == "") {
         return "Please enter a valid email address";
       }
@@ -31,8 +30,6 @@ define([
         return "Password must be longer than 6 characters";
       }
 
-      console.log("password", values.password);
-      console.log("confirm", values.confirm);
       if (values.password != values.confirm) {
         return "Your passwords do not match";
       }
