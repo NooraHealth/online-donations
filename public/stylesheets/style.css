@@ -20,6 +20,8 @@ input {
 
 .nav-elements {
   color: #7BD0D0 !important;
+  border: solid 1px #7BD0D0 !important;
+
 }
 
 .end-tag {
