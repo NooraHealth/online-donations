@@ -24,7 +24,6 @@ define([
       },
 
       displayError: function(error) {
-        console.log("Displaying the invalid error: ", error);
         //Display the error to the user
         this.message.set({error: error.validationError});
         
@@ -91,7 +90,6 @@ define([
       },
 
       handleResponse: function(model,response) {
-        console.log("Recieved a response from the server: ", response);
         if ( response.error ) {
           this.message.set({error: response.error});
           this.resetForm();  
@@ -104,12 +102,12 @@ define([
             this.donor.set({donations: newDonations});
           }
           else {
-            console.log("subscroiptions");
-            console.log(this.donor.get('subscriptions'));
             var newSubscription = _.clone(this.donor.get('subscriptions'));
             newSubscription.data[0] = response.subscription;
             this.donor.set({subscriptions: newSubscription});
-            console.log(this.donor.get('subscriptions'));
+            
+            //IMPORTANT: figure out what is making this necessary -- this should automatically update
+            this.donor.trigger('change');
           }
 
           this.showSuccessMessage();

@@ -79,14 +79,13 @@ define([
           this.message.set({error: response.get('error')});
           this.confirmCancelSubmit().prop('disabled',false);
         } else{
-          console.log("showing the successmessage");
           //Update the client side subscriptions
-          console.log(this.donor.get('subscriptions'));
           var newSubscription = this.donor.get('subscriptions');
           newSubscription.data[0] = response.get('subscription');
-          console.log("Heres the new subscription");
           this.donor.set({subscriptions: newSubscription});
-          console.log(this.donor.get('subscriptions'));
+
+          //IMPORTANT: figure out what is making this necessary -- this should automatically update
+          this.donor.trigger('change');
           this.showSuccessMessage();
         }
       },
