@@ -55,10 +55,20 @@ label {
 
 .silver {
   color: #bbabae !important;
+  border-color: #bbabae !important;
+}
+
+.white-panel {
+  height: 600px;
+  padding: 10px;
+}
+
+.white-panel, .donation-card {
+  background-color: #FFFFFF;
+  overflow-y: scroll;
 }
 
 .donation-card {
-  background-color: #FFFFFF;
   padding: 10px;
   height: 420px;
 }

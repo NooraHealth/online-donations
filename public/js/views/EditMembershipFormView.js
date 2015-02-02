@@ -9,9 +9,8 @@ define([
   'models/Message',
   'views/MessageView',
   'models/RepeatDonation',
-  'models/Donor',
   'bootstrap'
-], function($, _, Backbone, Handlebars, editMembershipModal, Message, MessageView, RepeatDonation, Donor ){
+], function($, _, Backbone, Handlebars, editMembershipModal, Message, MessageView, RepeatDonation ){
     
     var EditMembershipView = Backbone.View.extend({
       el: "#modal",
@@ -42,8 +41,16 @@ define([
       
       initialize: function(options) {
         console.log("initialzing the edit membership form view");
+        console.log("THIS IS THE DON OR ON INITIALIZE THE EDIT MEMBERSHIP VIEW");
+        this.donor = options.donor;
+        console.log(this.donor.get('subscriptions'));
         this.model = new RepeatDonation();
         this.listenTo(this.model, 'invalid', this.displayError);
+        this.listenTo(this.donor, 'change', this.WTF);
+      },
+
+      WTF: function() {
+        console.log("WTFFF");
       },
 
       displayError: function(error) {
@@ -67,17 +74,19 @@ define([
       },     
       
       submitEdit: function(e) {
-         var data = {
+        console.log("THIS IS THE SUBVSCRIPTION BEFORE EDITING");
+          console.log(this.donor.get('subscriptions'));
+        
+        var data = {
             amount:  $("input[name=amount]").val() * 100,
-            donorID: Donor.get('id'),
-            planID: Donor.getPlanID(),
-            subscriptionID: Donor.getSubscriptionID(),
+            donorID: this.donor.get('id'),
+            planID: this.donor.getPlanID(),
+            subscriptionID: this.donor.getSubscriptionID(),
             editMembership: true
          }
 
         //disable the submit button so they can't submit again
         this.submitEdits().prop('disabled', true);
-
         this.model.save(data, {error: this.handleError.bind(this), success: this.handleResponse.bind(this)});
         
       },
@@ -90,11 +99,13 @@ define([
           console.log("Updating the client side subscrioptions");
           console.log(response.get('subscription'));
           //Update the client side subscriptions
-          console.log(Donor.get('subscriptions'));
-          var newSubscription = Donor.get('subscriptions');
+          console.log("THIS IS THE SUBVSCRIPTION BEFORE EDITINGi after RESOPORES");
+          console.log(this.donor);
+          var newSubscription = _.clone(this.donor.get('subscriptions'));
           newSubscription.data[0] = response.get('subscription');
-          Donor.set({subscriptions: newSubscription});
-          console.log(Donor.get('subscriptions'));
+          this.donor.set({subscriptions: newSubscription});
+          console.log("THIS IS THE SUBVSCRIPTION AFTER EDITINGi after RESOPORES");
+          console.log(this.donor.get('subscriptions'));
 
           this.showSuccessMessage();
         }

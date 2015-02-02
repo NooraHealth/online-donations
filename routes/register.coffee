@@ -3,7 +3,9 @@ router = express.Router()
 Donors = require '../models/Donors'
 
 register = (req, res, next) ->
+  console.log "Registering a new donor"
   if req.user
+    console.log "There was a user"
     next 'route'
     return
 

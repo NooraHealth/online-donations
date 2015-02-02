@@ -20,6 +20,9 @@ define([
         //Keep track of all the views currently open, so they can be 
         //closed upon moving to a new view
         this.currentViews = [];
+        
+        //Initialize the Donor that will be use throughout the entire app
+        this.donor = new Donor();
       },
 
       routes: {
@@ -37,8 +40,8 @@ define([
         this.resetContainerElements();
 
         console.log("Rendering the thankyouPageView");
-        var page = new ThankYouPageView({router: this, model: Donor});
-        var nav = new NavbarView({router: this});
+        var page = new ThankYouPageView({router: this, model: this.donor});
+        var nav = new NavbarView({router: this, donor: this.donor});
         page.render();  
         nav.render();
         
@@ -55,8 +58,8 @@ define([
         this.resetContainerElements();
         
         console.log("Rendering the donation form ");
-        var page = new DonationFormView({router: this});
-        var nav = new NavbarView({router: this});
+        var page = new DonationFormView({router: this, donor: this.donor});
+        var nav = new NavbarView({router: this, donor: this.donor});
         
         page.render();  
         nav.render();
@@ -73,8 +76,8 @@ define([
         //After removal, reintroduce the main divs into the html for filling by the views
         this.resetContainerElements();
        
-        var page = new DonorConsoleView({router: this});
-        var nav = new NavbarView({router: this});
+        var page = new DonorConsoleView({router: this, model: this.donor});
+        var nav = new NavbarView({router: this, donor: this.donor});
         page.render();  
         nav.render();
         

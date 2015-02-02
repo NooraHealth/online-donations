@@ -9,16 +9,16 @@ define([
   'hbs!templates/giveAgainModal',
   'views/MessageView',
   'models/Message',
-  'models/Donor',
   'models/RepeatDonation',
   'bootstrap'
-], function($, _, Backbone, Handlebars, Stripe, giveAgainFormTemplate, MessageView, Message, Donor, RepeatDonation){
+], function($, _, Backbone, Handlebars, Stripe, giveAgainFormTemplate, MessageView, Message, RepeatDonation){
 
     var GiveAgainFormView = Backbone.View.extend({
     
       el: "#modal",
       
-      initialize: function () {
+      initialize: function (options) {
+        this.donor = options.donor;
         this.model = new RepeatDonation();
         this.listenTo(this.model, 'invalid', this.displayError);
       },
@@ -68,9 +68,9 @@ define([
       giveAgain: function() {
          var data = {
             amount: $("input[name=amount]").val() * 100,
-            donorID: Donor.get('id'),
-            planID: Donor.getPlanID(),
-            subscriptionID: Donor.getSubscriptionID(),
+            donorID: this.donor.get('id'),
+            planID: this.donor.getPlanID(),
+            subscriptionID: this.donor.getSubscriptionID(),
 
             //Use the monthly donation checkbox determine whether this
             //should be ferried to create a new plan for the donor
@@ -99,17 +99,17 @@ define([
         else {
           //If this was a onetime donation, then update the Donor's donation array
           if (response.donation) {
-            newDonations = _.clone(Donor.get('donations'));
+            newDonations = _.clone(this.donor.get('donations'));
             newDonations.push(response.donation);
-            Donor.set({donations: newDonations});
+            this.donor.set({donations: newDonations});
           }
           else {
             console.log("subscroiptions");
-            console.log(Donor.get('subscriptions'));
-            var newSubscription = Donor.get('subscriptions');
+            console.log(this.donor.get('subscriptions'));
+            var newSubscription = _.clone(this.donor.get('subscriptions'));
             newSubscription.data[0] = response.subscription;
-            Donor.set({subscriptions: newSubscription});
-            console.log(Donor.get('subscriptions'));
+            this.donor.set({subscriptions: newSubscription});
+            console.log(this.donor.get('subscriptions'));
           }
 
           this.showSuccessMessage();
