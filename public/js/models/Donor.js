@@ -25,8 +25,6 @@ define([
     }, 
 
     isLoggedIn: function() {
-      console.log("IS the donor logged in?");
-      console.log(this.get('email'));
       if (this.get('email') ) {
         return true;
       } else

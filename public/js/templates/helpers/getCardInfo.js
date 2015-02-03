@@ -14,7 +14,6 @@ define('templates/helpers/getCardInfo', ['hbs/handlebars'], function ( Handlebar
     if (donor.cards.total_count == 0)
       return "";
 
-    console.log(donor);
     var card =  donor.cards.data[0];
     return card.brand + " " + "**** **** **** " + card.last4;
     

@@ -118,6 +118,9 @@ define([
 
     });
 
+    //The user should not need to be navigate back and forth through this app, as there
+    //are only single page areas which are delineated by whether the user is logged in or
+    //not.
     Backbone.history.start();
   
     return new Router();
