@@ -36,6 +36,13 @@ define([
       }, 
       
       thankYouPage: function() {
+        
+        //The user should not be able to access this if not logged in
+        if (!this.donor.isLoggedIn()) {
+          this.navigate('giving', {trigger: true});
+          return;
+        }
+        
         //Clear the views
         this.closeViews();
         //After removal, reintroduce the main divs into the html for filling by the views
@@ -53,8 +60,10 @@ define([
       },
 
       donationForm: function() {
+        
         //Clear the views
         this.closeViews();
+        
         //After removal, reintroduce the main divs into the html for filling by the views
         this.resetContainerElements();
         
@@ -71,6 +80,13 @@ define([
       },
       
       donorConsole: function() {
+
+        //The user should not be able to access this if not logged in
+        if (!this.donor.isLoggedIn()) {
+          this.navigate('giving', {trigger: true});
+          return;
+        }
+
         //Clear the views
         this.closeViews();
         //After removal, reintroduce the main divs into the html for filling by the views
