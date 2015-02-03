@@ -39,7 +39,6 @@ define([
       },
 
       displayError: function(error) {
-        console.log("Displaying the invalid error: ", error);
         //Display the error to the user
         this.message.set({error: error.validationError});
         
