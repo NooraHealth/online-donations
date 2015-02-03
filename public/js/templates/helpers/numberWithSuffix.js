@@ -15,7 +15,10 @@ define('templates/helpers/numberWithSuffix', ['hbs/handlebars'], function ( Hand
 
     var lastDigit = number.charAt(number.length -1); 
 
-    if ( lastDigit == "2" )
+    if ( lastDigit == "1" )
+      return number + "rst";
+    
+    else if ( lastDigit == "2" )
       return number + "nd";
 
     else if (lastDigit == "3")
