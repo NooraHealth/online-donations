@@ -25,10 +25,16 @@ define([
       
       initialize: function(options) {
     
+        console.log("initializing the donation form");
         this.donor = options.donor;
+        console.log("this is thed onro" , this.donor.attributes);
         this.router = options.router;
         this.model = new Donation();
        
+        //Set the el of the form message view now that the form has been rendered
+        //this.messageView.setElement($("#form-messages"));
+        this.message = new Message();
+        this.messageView = new MessageView({model: this.message, el: $("#form-message")}); 
         
         this.listenTo(this.model, 'invalid', this.displayError);
 
@@ -148,11 +154,6 @@ define([
       render: function() {
         var html = donationFormTemplate();
         this.$el.html(html);      
-        
-        //Set the el of the form message view now that the form has been rendered
-        //this.messageView.setElement($("#form-messages"));
-        this.message = new Message();
-        this.messageView = new MessageView({model: this.message, el: $("#form-message")}); 
         this.messageView.render();
         
         if (this.donor.isLoggedIn()) {
@@ -160,7 +161,6 @@ define([
           this.disableSubmitButton(true);
           this.message.set({error: "Please log out to register a new donor"});
         }
-        
         return this;
       }
     });
