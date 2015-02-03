@@ -22,6 +22,15 @@ define([
       else {
         return this.get('subscriptions').data[0].plan.id;
       }
+    }, 
+
+    isLoggedIn: function() {
+      console.log("IS the donor logged in?");
+      console.log(this.get('email'));
+      if (this.get('email') ) {
+        return true;
+      } else
+        return false;
     }
    }); 
   

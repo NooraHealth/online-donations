@@ -10,27 +10,26 @@ define([
         login:true,
         logout:false,
         donorConsole:false
-    }, 
+      }, 
 
       setPage: function(page) {
-        if(page == 'giving') {
+        var loggedIn = this.get('donor').isLoggedIn();
+        if(loggedIn) {
+          this.set({logout:true});
+          this.set({login:false});
+          this.set({donorConsole: true});
+        } else{
           this.set({login:true});
           this.set({logout:false});
           this.set({donorConsole:false});
         }
-        if(page == 'welcome') {
-          this.set({login:false});
-          this.set({logout:true});
-          this.set({donorConsole:true});
-        }
+        
         if(page == 'console') {
-          this.set({login:false});
-          this.set({logout:true});
           this.set({donorConsole:false});
         }
       }
     
    }); 
   
-  return new Nav();
+  return Nav;
 });

@@ -23,6 +23,8 @@ define([
         
         //Initialize the Donor that will be use throughout the entire app
         this.donor = new Donor();
+        this.navModel = new Nav();
+        this.navModel.set({donor: this.donor});
       },
 
       routes: {
@@ -39,33 +41,30 @@ define([
         //After removal, reintroduce the main divs into the html for filling by the views
         this.resetContainerElements();
 
-        console.log("Rendering the thankyouPageView");
         var page = new ThankYouPageView({router: this, model: this.donor});
-        var nav = new NavbarView({router: this, donor: this.donor});
+        var nav = new NavbarView({router: this, donor: this.donor, model: this.navModel});
         page.render();  
         nav.render();
         
-        Nav.setPage('welcome');
+        this.navModel.setPage('welcome');
 
         this.currentViews.push(page);
         this.currentViews.push(nav);
       },
 
       donationForm: function() {
-        console.log("About to render the donation form");
         //Clear the views
         this.closeViews();
         //After removal, reintroduce the main divs into the html for filling by the views
         this.resetContainerElements();
         
-        console.log("Rendering the donation form ");
         var page = new DonationFormView({router: this, donor: this.donor});
-        var nav = new NavbarView({router: this, donor: this.donor});
+        var nav = new NavbarView({router: this, donor: this.donor, model: this.navModel});
         
         page.render();  
         nav.render();
 
-        Nav.setPage('giving');
+        this.navModel.setPage('giving');
         
         this.currentViews.push(page);
         this.currentViews.push(nav);
@@ -78,11 +77,11 @@ define([
         this.resetContainerElements();
        
         var page = new DonorConsoleView({router: this, model: this.donor});
-        var nav = new NavbarView({router: this, donor: this.donor});
+        var nav = new NavbarView({router: this, donor: this.donor, model: this.navModel});
         page.render();  
         nav.render();
         
-        Nav.setPage('console');
+        this.navModel.setPage('console');
         
         this.currentViews.push(page);
         this.currentViews.push(nav);
