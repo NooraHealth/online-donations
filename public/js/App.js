@@ -21,6 +21,10 @@ define([
     
     var initialize = function() {
       console.log("initializing the app");
+      var hash = window.location.hash;
+      console.log(hash);
+
+      //Route according to the hash in the URL as well as whether the user is logged in or not
       Router.navigate('giving', {trigger: true}); 
     }
     

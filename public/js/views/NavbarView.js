@@ -7,7 +7,7 @@ define([
   'hbs!templates/nav',
   'views/LoginPageView',
   'models/Nav'
-], function($, _, Backbone, Handlebars, navTemplate, LoginPageView, Nav ){
+], function($, _, Backbone, Handlebars, navTemplate, LoginPageView){
     var NavbarView = Backbone.View.extend({
 
       el: "#nav" ,
@@ -26,7 +26,6 @@ define([
     
       initialize: function(options) {
         this.donor = options.donor;
-        this.model = Nav;
         this.listenTo(this.model, 'change', this.render);
         
         //Using this form of declaration to 
