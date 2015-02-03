@@ -140,7 +140,7 @@ define([
       },
 
       render: function() {
-        var html = giveAgainFormTemplate({successMessage: "Thank You for your support!"});
+        var html = giveAgainFormTemplate({successMessage: "Thank you for your support!"});
         this.$el.html(html);      
 
         this.successMessage().hide();

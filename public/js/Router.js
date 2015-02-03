@@ -52,6 +52,7 @@ define([
       },
 
       donationForm: function() {
+        console.log("About to render the donation form");
         //Clear the views
         this.closeViews();
         //After removal, reintroduce the main divs into the html for filling by the views
