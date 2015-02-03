@@ -20,6 +20,7 @@ define([
   };
     
     var initialize = function() {
+      console.log("initializing the app");
       Router.navigate('giving', {trigger: true}); 
     }
     

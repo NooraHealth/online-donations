@@ -16,7 +16,7 @@ define([
       el: "#modal",
       
       submitEdits: function() {
-        return $("#submit-give-again");
+        return $("#edit-membership-submit");
       },
       
       modal: function() {
@@ -59,11 +59,13 @@ define([
       showSuccessMessage: function() {
         this.editMembershipForm().hide();
         this.successMessage().show();
+        this.submitEdits().hide();
       },     
       
       showEditMembershipForm: function() {
         this.editMembershipForm().show();
         this.successMessage().hide();
+        this.submitEdits().show();
       },     
       
       submitEdit: function(e) {

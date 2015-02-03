@@ -35,6 +35,7 @@ require([
   // Load our app module and pass it to our definition function
   'App',
 ], function(App){
+  console.log("In main.js -- about to initialize the app");
   // The "app" dependency is passed in as "App"
   App.initialize();
 });

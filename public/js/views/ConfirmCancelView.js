@@ -20,7 +20,7 @@ define([
       },
       
       confirmCancelSubmit: function() {
-        return $("#confirm-cancelation");
+        return $("#confirm-cancel-membership");
       },
       
       confirmCancel: function() {
@@ -50,12 +50,16 @@ define([
       },
       
       showSuccessMessage: function(response) {
+        console.log("showing the success page");
+        console.log(this.successMessage());
         this.successMessage().show();
+        this.confirmCancelSubmit().hide();
         this.confirmCancel().hide();
       },     
       
       showConfirmCancel: function() {
         this.successMessage().hide();
+        this.confirmCancelSubmit().show();
         this.confirmCancel().show();
       },
 
