@@ -30,7 +30,7 @@ define([
       routes: {
         "login": "login",
         "giving": "donationForm",
-        "donorConsole" : "donorConsole",
+        "nooradonors" : "donorConsole",
         "thankyou" : "thankYouPage",
         "logout" : "donationForm"
       }, 

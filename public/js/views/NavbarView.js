@@ -45,7 +45,7 @@ define([
       },
 
       gotoDonorConsole: function() {
-        this.router.navigate("donorConsole", {trigger: true});
+        this.router.navigate("nooradonors", {trigger: true});
       },
 
        showLoginModal: function() {
