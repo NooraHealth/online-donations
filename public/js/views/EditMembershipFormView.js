@@ -118,7 +118,7 @@ define([
       },
 
       render: function() {
-        var html = editMembershipModal({successMessage: "Your changes have been saved!"});
+        var html = editMembershipModal({donor: this.donor.toJSON(), successMessage: "Your changes have been saved!"});
         this.$el.html(html);      
         
         this.showEditMembershipForm();

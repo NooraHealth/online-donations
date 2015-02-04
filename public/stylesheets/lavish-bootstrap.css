@@ -4909,7 +4909,7 @@ button.close {
 }
 .modal-body {
   position: relative;
-  padding: 30px 50px 30px 50px;
+  padding: 15px 50px 15px 50px;
 }
 .modal-footer {
   padding: 15px;
