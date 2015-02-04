@@ -50,8 +50,6 @@ define([
       },
       
       showSuccessMessage: function(response) {
-        console.log("showing the success page");
-        console.log(this.successMessage());
         this.successMessage().show();
         this.confirmCancelSubmit().hide();
         this.confirmCancel().hide();

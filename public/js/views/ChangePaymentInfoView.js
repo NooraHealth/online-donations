@@ -20,10 +20,30 @@ define([
         return this.$('#submit-payment-changes');
       },
       
+      form: function() {
+        return $("#change-payment-form");
+      },
+      
       modal: function() {
         return $("#change-payment-modal");
       },
       
+      successMessage: function() {
+        return $("#success-message");
+      },
+      
+      showSuccessMessage: function(response) {
+        this.successMessage().show();
+        this.submitChanges().hide();
+        this.form().hide();
+      },     
+      
+      showPaymentChangesForm: function() {
+        this.successMessage().hide();
+        this.submitChanges().show();
+        this.form().show();
+      },
+
       initialize: function(options) {
     
         this.donor = options.donor;
@@ -67,7 +87,6 @@ define([
        * Callback for Stripe.card.createToken(...)
        */
       stripeResponseHandler: function(status, response){
-        console.log("stripe response hadler");
         if(response.error) {
           this.message.set({error: response.error.message});
           this.disableSubmitButton(false);
@@ -79,7 +98,6 @@ define([
           }
 
           this.disableSubmitButton(true);
-          //this.model.save(data, {error: this.handleError.bind(this), success: this.handleResponse.bind(this)} );
 
           $.post('/donors/changeDonorCard/' + this.donor.get('id'), data)
           .done(this.handleResponse.bind(this))
@@ -88,35 +106,35 @@ define([
       },
       
       handleError: function(response) {
-        console.log("THERE WAS A ERROR: ", response);
-        //this.message.set({error: "There was an error completing your request. Please try again."});
-        //this.resetForm();  
+        this.message.set({error: "There was an error completing your request. Please try again."});
+        this.disableSubmitButton(false);
       },
 
-      handleResponse: function(model,response) {
-        console.log("THERE WAS A RESPONSE: ", response);
-        /*if ( response.error ) {*/
-          //this.message.set({error: response.error});
-          //this.resetForm();  
-        //} 
-        //if ( response.donor ) {
-          //this.donor.set(response.donor);
-          //this.message.set({success: response.success});
-          //this.router.navigate('thankyou', {trigger: true});
-        /*}*/
+      handleResponse: function(response) {
+        console.log (response);
+        if ( response.error ) {
+          this.message.set({error: response.error});
+          this.resetForm();  
+        } 
+        if ( response.donor ) {
+          console.log("got the new donor yay"); 
+          this.donor.set(response.donor);
+
+          //IMPORTANT: figure out what is making this necessary -- this should automatically update
+          //this.donor.trigger('change');
+          this.showSuccessMessage();
+        }
       },
 
       /*
        * Retrieve a CC token from Stripe
        */
       createStripeToken: function(event) {
-        console.log("creatinga stripe token");
         event.preventDefault();
-        //if ( this.verifyInput() ) {
-          this.parseExpiration();
-          this.$("#submit-changes").prop('disabled', true);
-          Stripe.card.createToken(this.form(), (this.stripeResponseHandler).bind(this));
-        //}
+        
+        this.parseExpiration();
+        this.$("#submit-changes").prop('disabled', true);
+        Stripe.card.createToken(this.form(), (this.stripeResponseHandler).bind(this));
 
         //Prevent form from submitting
         return false; 
@@ -136,7 +154,7 @@ define([
       },
 
       render: function() {
-        var html = changePaymentInfoTemplate(this.donor.toJSON());
+        var html = changePaymentInfoTemplate({donor: this.donor.toJSON(), successMessage: "Your payment information has been saved."});
         this.$el.html(html);      
         
         //Set the el of the form message view now that the form has been rendered
@@ -144,6 +162,9 @@ define([
         this.message = new Message();
         this.messageView = new MessageView({model: this.message, el: $("#change-payment-message")}); 
         this.messageView.render();
+        
+        this.showPaymentChangesForm();
+
         return this;
       }
     });
