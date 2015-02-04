@@ -11,9 +11,11 @@ define([
   'views/ChangePasswordFormView',
   'views/GiveAgainView',
   'views/ConfirmCancelView',
+  'views/ChangePaymentInfoView',
   'bootstrap'
 ], function($, _, Backbone, Handlebars, donorConsoleTemplate, 
-           MessageView, Message, EditMembershipFormView, ChangePasswordFormView, GiveAgainView, ConfirmCancelView){
+           MessageView, Message, EditMembershipFormView, ChangePasswordFormView, GiveAgainView, 
+           ConfirmCancelView, ChangePaymentInfoView){
     var DonorConsole = Backbone.View.extend({
       
       el: "#body",
@@ -29,6 +31,17 @@ define([
         "click #change-password": "showChangePasswordModal",
         "click #give-again": "showGiveAgainModal",
         "click #cancel-membership": "showCancelMembershipModal",
+        "click #change-payment-info": "showChangePaymentModel",
+      },
+
+      /**
+       * Display the modal that will allow donors to change their password
+       */
+      showChangePaymentModel: function() {
+        if(!this.changePaymentModal)
+          this.changePaymentModal = new ChangePaymentInfoView({donor: this.model});
+        this.changePaymentModal.render();
+        this.changePaymentModal.show();
       },
 
       /**

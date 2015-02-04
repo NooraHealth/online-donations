@@ -47,9 +47,8 @@ define([
           password: this.$el.find("#password").val(),
         };
 
-        $.post('/login', credentials, function() {
-          console.log("post successful"); 
-        }).done(function(response) {
+        $.post('/login', credentials)
+        .done(function(response) {
           if (response.error) {
             this.message.set({error: response.error});
             return;
