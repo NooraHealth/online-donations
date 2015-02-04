@@ -15,6 +15,15 @@ define([
      return this.get('subscriptions').data[0].id;
     },
 
+    getCard: function() {
+      if ( this.get("cards" ).total_count ==  0) {
+        return null;
+      }
+      else {
+        return this.get('cards').data[0];
+      }
+    }, 
+    
     getPlanID: function() {
       if ( this.get("subscriptions" ).total_count ==  0) {
         return null;

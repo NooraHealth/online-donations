@@ -24,16 +24,14 @@ router.get '/info/:stripeId', (req, res)->
 # Update a donors payment information on Stripe
 ###
 router.post '/changeDonorCard/:donorID', (req, res, next) ->
-  console.log req.body
   stripeToken = req.body.stripeToken
   donorID = req.params.donorID
-  console.log "changing the donor card"
-  console.log "Stripe token #{stripeToken}, donorID: #{donorID}"
 
   MyStripe.changeDonorCard donorID, stripeToken
-    .then () ->
-      res.send {success: "Payment info updated successfully"}
+    .then (donor) ->
+      res.send {donor: donor}
     .catch (err) ->
+      console.log err
       res.send {error: err.message}
 
 ###
