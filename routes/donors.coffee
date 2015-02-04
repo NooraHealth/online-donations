@@ -19,30 +19,12 @@ router.get '/info/:stripeId', (req, res)->
   promise.catch (err) ->
     console.log err
     res.send {error: err}
-
-###
-# Update a donors payment information on Stripe
-###
-router.post '/cancelmembership/:donorID', (res, req, next) ->
-  console.log "Going to cancel a donation"
-  console.log req.body
-  donorID = req.params.donorID
-  planID = req.body.planID
-  subscriptionID = req.body.subscriptionID
-  console.log "planID: #{planID}, donorID: #{donorID}, subscriptionID: #{subscriptionID}"
-
-  MyStripe.deletePlan planID
-  .then ()->
-    MyStripe.cancelMonthlyDonations donorID, subscriptionID
-  .then () ->
-    res.send {success: "Payment info updated successfully"}
-  .catch (err) ->
-    res.send {error: err.message}
       
 ###
 # Update a donors payment information on Stripe
 ###
-router.post '/changeDonorCard/:donorID', (res, req, next) ->
+router.post '/changeDonorCard/:donorID', (req, res, next) ->
+  console.log req.body
   stripeToken = req.body.stripeToken
   donorID = req.params.donorID
   console.log "changing the donor card"
