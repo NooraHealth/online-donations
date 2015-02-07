@@ -83,6 +83,7 @@ define([
       },
 
       donationForm: function() {
+        console.log("navigating to login form");
         
         //Clear the views
         this.closeViews();
@@ -145,6 +146,6 @@ define([
     //are only single page areas which are delineated by whether the user is logged in or
     //not.
     Backbone.history.start();
-  
-    return new Router();
+    
+    return Router;
   });

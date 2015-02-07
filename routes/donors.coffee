@@ -12,17 +12,32 @@ router.get '/' , (req, res) ->
 # Retrieve the donor information from stripe
 ###
 router.get '/info/:stripeId', (req, res)->
+  console.log "dONOR INFO"
   stripeId =  req.params.stripeId
+  #their donation history
+  donations = MyStripe.retrieveDonations stripeId
+  donorInfo = MyStripe.retrieveDonorInfo stripeId
 
-  promise = MyStripe.retrieveDonorInfo stripeId
+  #collect all requests into a single promise
+  all = Q.all [donations, donorInfo]
 
-  promise.then (donor)->
-    #MyStripe.retrieveDonations
-    res.send {donor: donor, error: err}
-  
-  promise.catch (err) ->
-    console.log err
+  #after all requests have returned, return the donorinfo 
+  #and the donor's donations to the client
+  all.spread (donations, donorinfo)->
+    console.log "Sending back to user"
+    res.send {donor: donorinfo, donations: donations}
+
+  all.catch (err) ->
     res.send {error: err}
+  #promise = MyStripe.retrieveDonorInfo stripeId
+
+  #promise.then (donor)->
+    ##MyStripe.retrieveDonations
+    #res.send {donor: donor, error: err}
+  
+  #promise.catch (err) ->
+    #console.log err
+    #res.send {error: err}
       
 ###
 # Update a donors payment information on Stripe

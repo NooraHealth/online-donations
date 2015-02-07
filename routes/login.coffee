@@ -20,23 +20,25 @@ router.post '/' , (req, res, next)->
       #res.redirect '/donors/info/' + user.stripeId
       #send out all requests to Stripe for needed donor info and
       #their donation history
-      donations = MyStripe.retrieveDonations user.stripeId
-      donorInfo = MyStripe.retrieveDonorInfo user.stripeId
+#      donations = MyStripe.retrieveDonations user.stripeId
+      #donorInfo = MyStripe.retrieveDonorInfo user.stripeId
 
-      #collect all requests into a single promise
-      all = Q.all [donations, donorInfo]
+      ##collect all requests into a single promise
+      #all = Q.all [donations, donorInfo]
       
-      #after all requests have returned, return the donorinfo 
-      #and the donor's donations to the client
-      all.spread (donations, donorinfo)->
-        res.send {donor: donorinfo, donations: donations}
+      ##after all requests have returned, return the donorinfo 
+      ##and the donor's donations to the client
+      #all.spread (donations, donorinfo)->
+        #res.send {donor: donorinfo, donations: donations}
 
-      all.catch (err) ->
-        res.send {error: err}
+      #all.catch (err) ->
+        #res.send {error: err}
 
       req.logIn user, (err) ->
         if err
           console.log "There was an error logging in #{err}"
+        else
+          res.redirect '/donors/info/' + user.stripeId
 
   )(req, res, next)
 
