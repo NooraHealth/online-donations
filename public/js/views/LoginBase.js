@@ -63,7 +63,6 @@ define([
           if (response.donor) {
             this.donor.set( response.donor );
             this.donor.set({donations: response.donations.data});
-            this.hide();
             this.router.navigate("nooradonors", {trigger: true});
             return;
           } 
