@@ -21,11 +21,20 @@ define([
       
     var initialize = function() {
       console.log("initializing the app");
-      var hash = window.location.hash;
-      console.log(hash);
+      var path = window.location.pathname;
+      
+      if (path == '/') {
+        Router.navigate('giving', {trigger: true}); 
+      }
 
+      if (path == '/login') {
+        Router.navigate('login', {trigger: true});
+      }
+
+      if (path == '/donors') {
+        Router.navigate('donors', {trigger: true});
+      }
       //Route according to the hash in the URL as well as whether the user is logged in or not
-      Router.navigate('giving', {trigger: true}); 
     }
     
     return {initialize: initialize}; 

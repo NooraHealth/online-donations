@@ -4,6 +4,10 @@ Donors = require '../models/Donors'
 MyStripe = require '../lib/MyStripe'
 Q = require 'q'
 
+
+router.get '/' , (req, res) ->
+   res.render 'index'
+
 ###
 # Retrieve the donor information from stripe
 ###

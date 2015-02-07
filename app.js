@@ -84,15 +84,17 @@ app.use('/donations', registerNewDonor);
 app.use('/donations', donations);
 app.use('/login', login);
 app.use('/logout', logout);
+
+app.use( function (req, res, next) {
+  if(req.user)
+    next();
+  else {
+    res.redirect('/');
+  }
+});
+
 app.use('/donors', donors);
 
-////app.use( function (req, res, next) {
-  ////if(req.user)
-    ////next();
-  ////else {
-    ////res.redirect('/');
-  ////}
-////});
 
 
 // catch 404 and forward to error handler
