@@ -4,6 +4,10 @@ passport = require 'passport'
 MyStripe = require '../lib/MyStripe'
 Q = require 'q'
 
+router.get '/', (req, res, next) ->
+  res.render 'index' 
+
+
 router.post '/' , (req, res, next)->
   
   passport.authenticate('local', (err, user, info) ->

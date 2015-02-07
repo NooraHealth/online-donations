@@ -35,6 +35,10 @@ define([
         "logout" : "donationForm"
       }, 
       
+      login: function() {
+      
+      }
+      
       thankYouPage: function() {
         
         //The user should not be able to access this if not logged in
