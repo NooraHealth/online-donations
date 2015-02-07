@@ -84,10 +84,10 @@ label {
   font-size: 20px;
 }
  
-#login-form {
-  padding-left: 40px;
-  padding-right: 40px;
-}
+/*#login-form {*/
+  /*padding-left: 40px;*/
+  /*padding-right: 40px;*/
+/*}*/
 
 .btn-group {
   width:100% !important;
