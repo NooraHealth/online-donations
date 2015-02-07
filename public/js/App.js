@@ -28,6 +28,7 @@ define([
       }
 
       if (path == '/login') {
+        console.log("trying to nav to login");
         Router.navigate('login', {trigger: true});
       }
 

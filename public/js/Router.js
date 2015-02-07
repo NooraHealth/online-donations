@@ -36,8 +36,27 @@ define([
       }, 
       
       login: function() {
-      
-      }
+        console.log("navigating to the login");
+        
+        //Clear the views
+        this.closeViews();
+        //After removal, reintroduce the main divs into the html for filling by the views
+        this.resetContainerElements();
+
+        var page = new LoginPageView({router: this, donor: this.donor});
+        var nav = new NavbarView({router: this, donor: this.donor, model: this.navModel});
+
+        //Change the el to the body so it fills the whole page rather than a modal
+        page.el = "#body";
+
+        page.render();  
+        nav.render();
+        
+        this.navModel.setPage('welcome');
+
+        this.currentViews.push(page);
+        this.currentViews.push(nav);
+      },
       
       thankYouPage: function() {
         

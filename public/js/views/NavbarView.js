@@ -5,9 +5,9 @@ define([
   'backbone',// lib/backbone/backbone
   'handlebars',
   'hbs!templates/nav',
-  'views/LoginPageView',
+  'views/LoginModalView',
   'models/Nav'
-], function($, _, Backbone, Handlebars, navTemplate, LoginPageView){
+], function($, _, Backbone, Handlebars, navTemplate, LoginModalView){
     var NavbarView = Backbone.View.extend({
 
       el: "#nav" ,
@@ -50,7 +50,7 @@ define([
 
        showLoginModal: function() {
          if (!this.loginModal) {
-          var login = new LoginPageView({router: this.router, donor: this.donor});
+          var login = new LoginModalView({router: this.router, donor: this.donor});
           this.loginModal = login
           login.render();
          }
