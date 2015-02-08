@@ -116,7 +116,9 @@ define([
           this.resetForm();  
         } 
         if ( response.donor ) {
-          this.donor.set(response.donor);
+          this.donor.set( response.donor );
+          this.donor.set( {count: response.count} );
+          this.donor.set({donations: response.donations.data});
           this.message.set({success: response.success});
           this.router.navigate('thankyou', {trigger: true});
         }
