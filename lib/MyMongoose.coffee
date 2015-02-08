@@ -17,6 +17,17 @@ class MyMongoose
 
     return deferred.promise
 
+  findOneAndRemove: (model, filter) ->
+    deferred = Q.defer()
+    
+    model.findOneAndRemove filter, (err, result) ->
+      if err
+        deferred.reject err
+      else
+        deferred.resolve result
+
+    return deferred.promise
+
   count: (model, filter) ->
     deferred = Q.defer()
     

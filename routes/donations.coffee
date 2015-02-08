@@ -68,8 +68,6 @@ router.post '/submit', (req, res, err) ->
   monthly =  req.body.monthly
   name =  req.body.name
   newsletter = req.body.newsletter
-  console.log "newsletter == true?"
-  console.log newsletter == true
   #Sign the customer up for a monthly plan with the plan
   #name as their email
 
@@ -77,27 +75,30 @@ router.post '/submit', (req, res, err) ->
   that = this
 
   if monthly == true
-    promise = MyStripe.createNewPlan email, amount
+    planID = email + new Date().getTime()
     
-    promise.then (plan) ->
-      MyStripe.createDonor token, email, email, {name: name}
-    .then (stripeDonor)->
-      #save the donor's stripe customer id to mongo
-      return MyMongoose.findOne Donors, {email: email}
-      .then (donor) ->
-        donor.stripeId = stripeDonor.id
-        donor.newsletter = (newsletter == true)
-        donor.save()
-        console.log "saved the donor"
-        return MyMongoose.count Donors, {}
-        .then (count)->
-          donor.count = count+25 #add 25 to account for previous donations made by other means
+    MyStripe.createNewPlan planID, amount
+    .then (plan) ->
+      return MyStripe.createDonor token, email, email, {name: name}
+      .then (stripeDonor)->
+        console.log "geot thje donor back"
+        #save the donor's stripe customer id to mongo
+        return MyMongoose.findOne Donors, {email: email}
+        .then (donor) ->
+          donor.stripeId = stripeDonor.id
+          donor.newsletter = (newsletter == true)
           donor.save()
-          #json the donor info back to the client
-          #res.json {error: null, donor: stripeDonor}
-          res.redirect '/donors/info/' + stripeDonor.id
-    .catch (err) ->
-      res.json {error: err.message}
+          console.log "saved the donor"
+          return MyMongoose.count Donors, {}
+          .then (count)->
+            donor.count = count+25 #add 25 to account for previous donations made by other means
+            donor.save()
+            #json the donor info back to the client
+            #res.json {error: null, donor: stripeDonor}
+            res.redirect '/donors/info/' + stripeDonor.id
+          .catch (err) ->
+            undoRegistration email, stripeDonor.id
+            res.json {error: err.message}
 
   #Charge the customer only once
   else
@@ -105,10 +106,8 @@ router.post '/submit', (req, res, err) ->
     
     promise.then (stripeDonor)->
       #Charge the customer for their onetime donation
-      return MyStripe.charge stripeDonor.id, amount
-      .then (charge) ->
         #save the stripe customer Id to mongo
-        return MyMongoose.findOne Donors, {email: email}
+      return MyMongoose.findOne Donors, {email: email}
       .then (donor) ->
         donor.stripeId = stripeDonor.id
         donor.newsletter = (newsletter == true)
@@ -118,15 +117,24 @@ router.post '/submit', (req, res, err) ->
         .then (count)->
           donor.count = count+25 #add 25 to account for previous donations made by other means
           donor.save()
-          #json the donor info back to the client
-          #res.json {error: null, donor: stripeDonor}
-          res.redirect '/donors/info/' + stripeDonor.id
-    .catch (err) ->
-      res.json {error: err.message}
+          return MyStripe.charge stripeDonor.id, amount
+        .then (charge) ->
+            #json the donor info back to the client
+            #res.json {error: null, donor: stripeDonor}
+            res.redirect '/donors/info/' + stripeDonor.id
+        .catch (err) ->
+          undoRegistration email, stripeDonor.id
+          res.json {error: err.message}
 
 
 
-undo = (email, donorID) ->
+undoRegistration = (email, donorID, chargeID) ->
+  #Delete the register user from the server
+  #so they can sign up again
+  MyMongoose.findOneAndRemove Donors, {email: email}
 
+  #remove the customer from the stripe database, so they
+  #can sign up again
+  MyStripe.removeDonor donorID
   
 module.exports = router
