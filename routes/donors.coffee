@@ -1,6 +1,7 @@
 express = require('express')
 router = express.Router()
 Donors = require '../models/Donors'
+MyMongoose = require '../lib/MyMongoose'
 MyStripe = require '../lib/MyStripe'
 Q = require 'q'
 
@@ -17,27 +18,21 @@ router.get '/info/:stripeId', (req, res)->
   #their donation history
   donations = MyStripe.retrieveDonations stripeId
   donorInfo = MyStripe.retrieveDonorInfo stripeId
+  count = MyMongoose.count Donors, {}
 
   #collect all requests into a single promise
-  all = Q.all [donations, donorInfo]
+  all = Q.all [donations, donorInfo, count]
 
   #after all requests have returned, return the donorinfo 
   #and the donor's donations to the client
-  all.spread (donations, donorinfo)->
+  all.spread (donations, donorinfo, count)->
     console.log "Sending back to user"
-    res.send {donor: donorinfo, donations: donations}
+    console.log "count: #{count}"
+    res.send {donor: donorinfo, donations: donations, count: count}
 
   all.catch (err) ->
     res.send {error: err}
-  #promise = MyStripe.retrieveDonorInfo stripeId
 
-  #promise.then (donor)->
-    ##MyStripe.retrieveDonations
-    #res.send {donor: donor, error: err}
-  
-  #promise.catch (err) ->
-    #console.log err
-    #res.send {error: err}
       
 ###
 # Update a donors payment information on Stripe

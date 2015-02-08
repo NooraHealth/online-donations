@@ -54,6 +54,7 @@ class MyStripe
     }
 
   charge: (donorID, amount) ->
+    console.log "about to charge the customer #{amount}"
     console.log "chargin customer"
     return stripe.charges.create {
       amount: amount
