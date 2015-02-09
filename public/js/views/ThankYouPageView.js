@@ -12,7 +12,6 @@ define([
       el: "#body" ,
       
       render: function() {
-        console.log("Thisdonor countL  ", this.model.get('count'));
         var html = thankYouPageTemplate(this.model.toJSON());
         this.$el.html(html);      
         return this;

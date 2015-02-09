@@ -4,73 +4,15 @@ define([
   'underscore', // lib/underscore/underscore
   'backbone',    // lib/backbone/backbone
   'handlebars',   
+  'views/LoginBase',   
   'hbs!templates/loginModal',
   'models/Message',
   'views/MessageView',
   'bootstrap'
-], function($, _, Backbone, Handlebars, loginTemplate, Message, MessageView ){
+], function($, _, Backbone, Handlebars, LoginBase, loginTemplate, Message, MessageView ){
     
-    var LoginModal = Backbone.View.extend({
+    var LoginModal = LoginBase.extend({
       el: "#modal",
-
-      events: {
-        "click #submit-login": "submitLogin"
-      },
-      
-      initialize: function(options) {
-        this.router = options.router;
-        this.donor = options.donor;
-      },
-      /*
-       * Validate login form input before submitting,
-       * post error message to user if not valid
-       */
-      submitLogin: function(e) {
-        //e.preventDefault();
-        var password = this.$el.find("#password");
-        var email = this.$el.find("#email");
-
-        if ( password.val() == "" ) {
-          this.message.set({error: "Please enter your password"});
-          //prevent the form from submitting
-          return false;
-        }
-
-        if ( email.val() == "" ) {
-          this.message.set({error: "Please enter your email address"});
-          //prevent the form from submitting
-          return false;
-        }
-
-        credentials = {
-          email: this.$el.find("#email").val(),
-          password: this.$el.find("#password").val(),
-        };
-
-        $.post('/login', credentials)
-        .done(function(response) {
-          if (response.error) {
-            this.message.set({error: response.error});
-            return;
-          }
-
-          if (response.donor) {
-            this.donor.set( response.donor );
-            this.donor.set({donations: response.donations.data});
-            this.hide();
-            this.router.navigate("nooradonors", {trigger: true});
-            return;
-          } 
-          
-          this.message.set({error: "There was an error logging in. Please try again."});
-        
-        }.bind(this)).fail(function(err) {
-          this.message.set({error: err});
-        }.bind(this));
-        
-        //Submit the form to authenticate the credentials
-        return false;
-      },
 
       hide: function() {
         $('#login-modal').modal('hide');

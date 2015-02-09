@@ -33,6 +33,7 @@ define([
 
       displayError: function(error) {
         //Display the error to the user
+        this.message.clear();
         this.message.set({error: error.validationError});
         
       },
@@ -45,17 +46,26 @@ define([
         e.preventDefault();
 
         if (this.$("input[name=currentpassword]").val() == "" ) {
+          this.message.clear();
           this.message.set({error: "Please enter your current password."});
           return false;
         }
-
+        
         if (this.$("input[name=password]").val() == "" ) {
+          this.message.clear();
           this.message.set({error: "Please enter a new password."});
           return false;
         }
         
         if (this.$("input[name=password]").val() != this.$("input[name=confirm]").val()) {
+          this.message.clear();
           this.message.set({error: "Your passwords do not match"});
+          return false;
+        }
+
+        if (this.$("input[name=password]").val().length < 6 ) {
+          this.message.clear();
+          this.message.set({error: "Your new password should be at least 6 characters long."});
           return false;
         }
           
@@ -73,22 +83,25 @@ define([
           .fail(this.handleError.bind(this))
       },
       
-      handleError: function() {
-        console.log("in the handle error");
-        this.message.set({error: "There was an error completing your request. Please try again."});
+      handleError: function(err) {
+        console.log(err);
+        this.message.clear();
+        this.message.set({error: err.message});
         this.resetChangePasswordForm();   
       },
 
       handleResponse: function(response) {
-        console.log("in the handle response");
         if ( response.error ) {
-          this.message.set({error: response.error});
+          this.message.clear();
+          this.message.set({error: response.error.message});
           this.resetChangePasswordForm();  
-        } 
-        this.showSuccessMessage();
+        } else {
+          this.showSuccessMessage();
+        }
       },
 
       showSuccessMessage: function() {
+        this.message.clear();
         this.changePasswordForm().hide();
         this.submitChangePassword().hide();
         this.successMessage().show(); 

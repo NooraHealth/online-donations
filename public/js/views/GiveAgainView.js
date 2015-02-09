@@ -98,7 +98,7 @@ define([
           //If this was a onetime donation, then update the Donor's donation array
           if (response.donation) {
             newDonations = _.clone(this.donor.get('donations'));
-            newDonations.push(response.donation);
+            newDonations.unshift(response.donation);
             this.donor.set({donations: newDonations});
           }
           else {

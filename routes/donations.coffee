@@ -138,8 +138,6 @@ router.post '/submit', (req, res, err) ->
             res.redirect '/donors/info/' + stripeDonor.id
       .catch (err) ->
         req.logout()
-        console.log "caught a onetime erro"
-        console.log err
         MyMongoose.findOneAndRemove Donors, {email: email}
         MyStripe.removeDonor stripeDonor.id
         .catch (err) ->

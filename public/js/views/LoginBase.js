@@ -32,17 +32,20 @@ define([
        * post error message to user if not valid
        */
       submitLogin: function(e) {
+        console.log("submitting the login");
         //e.preventDefault();
         var password = this.$el.find("#password");
         var email = this.$el.find("#email");
 
         if ( password.val() == "" ) {
+          this.message.clear();
           this.message.set({error: "Please enter your password"});
           //prevent the form from submitting
           return false;
         }
 
         if ( email.val() == "" ) {
+          this.message.clear();
           this.message.set({error: "Please enter your email address"});
           //prevent the form from submitting
           return false;
@@ -56,6 +59,7 @@ define([
         $.post('/login', credentials)
         .done(function(response) {
           if (response.error) {
+            this.message.clear();
             this.message.set({error: response.error});
             return;
           }
@@ -67,9 +71,11 @@ define([
             return;
           } 
           
+          this.message.clear();
           this.message.set({error: "There was an error logging in. Please try again."});
         
         }.bind(this)).fail(function(err) {
+          this.message.clear();
           this.message.set({error: err});
         }.bind(this));
         

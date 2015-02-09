@@ -57,6 +57,7 @@ define([
       },
       
       showSuccessMessage: function() {
+        this.message.clear();
         this.editMembershipForm().hide();
         this.successMessage().show();
         this.submitEdits().hide();
@@ -85,6 +86,7 @@ define([
       
       handleResponse: function(response) {
         if (response.get('error')) {
+          this.message.clear();
           this.message.set({error: response.get('error')});
           this.submitEdits().prop('disabled',false);
         } else{
@@ -100,6 +102,7 @@ define([
       },
 
       handleError: function() {
+        this.message.clear();
         this.message.set({error: "there was an error completing your request. please try again."});
         this.resetform();  
       },     
