@@ -5,15 +5,6 @@ MyMongoose = require '../lib/MyMongoose'
 Donors = require '../models/Donors'
 Q = require 'q'
 
-undoRegistration = (email, donorID, chargeID) ->
-  console.log "undoing the registration"
-  #Delete the register user from the server
-  #so they can sign up again
-  MyMongoose.findOneAndRemove Donors, {email: email}
-
-  #remove the customer from the stripe database, so they
-  #can sign up again
-  MyStripe.removeDonor donorID
 
 ###
 # Add a plan to an existing donor profile
@@ -47,7 +38,7 @@ router.post '/planchange/:donorID', (req, res, err) ->
   .then (newSubscription)->
     res.send {subscription: newSubscription}
   .catch (err) ->
-    res.send {error: err.message}
+    res.send {error: err}
 
 ###
 # Submit a one time donation from an existing donor
@@ -60,7 +51,7 @@ router.post '/onetime/:donorID', (req, res, err) ->
   .then (donation) ->
     res.send {donation:donation}
   .catch (err) ->
-    res.send {error: err.message}
+    res.send {error: err}
 
   
 ###
@@ -79,6 +70,10 @@ router.post '/submit', (req, res, err) ->
 
   #preserve the context for later use in promise callbacks
   that = this
+
+  res.json {error: {message: "Thsi should be an error message"}}
+  return
+
 
   if monthly == true
     planID = email + new Date().getTime()
@@ -107,11 +102,11 @@ router.post '/submit', (req, res, err) ->
         MyStripe.removeDonor stripeDonor.id
         .catch (err) ->
           console.log "there was an error removing the donor form stripe"
-        res.json {error: err.message}
+        res.json {error: err}
     .catch (err) ->
       req.logout()
       MyMongoose.findOneAndRemove Donors, {email: email}
-      res.json {error: err.message}
+      res.json {error: err}
      
 
   #Charge the customer only once
@@ -142,11 +137,11 @@ router.post '/submit', (req, res, err) ->
         MyStripe.removeDonor stripeDonor.id
         .catch (err) ->
           console.log "there was an error removing the donor form stripe"
-        res.json {error: err.message}
+        res.json {error: err}
     .catch (err) ->
       req.logout()
       MyMongoose.findOneAndRemove Donors, {email: email}
-      res.json {error: err.message}
+      res.json {error: err}
 
 
 

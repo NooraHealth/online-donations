@@ -47,7 +47,7 @@ router.post '/changeDonorCard/:donorID', (req, res, next) ->
       res.send {donor: donor}
     .catch (err) ->
       console.log err
-      res.send {error: err.message}
+      res.send {error: err}
 
 ###
 # Change a donor's password
