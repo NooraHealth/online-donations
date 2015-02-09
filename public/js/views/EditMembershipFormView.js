@@ -9,10 +9,11 @@ define([
   'models/Message',
   'views/MessageView',
   'models/RepeatDonation',
+  'views/FormBase',
   'bootstrap'
-], function($, _, Backbone, Handlebars, editMembershipModal, Message, MessageView, RepeatDonation ){
+], function($, _, Backbone, Handlebars, editMembershipModal, Message, MessageView, RepeatDonation, FormBase ){
     
-    var EditMembershipView = Backbone.View.extend({
+    var EditMembershipView = FormBase.extend({
       el: "#modal",
       
       submitEdits: function() {
@@ -48,20 +49,10 @@ define([
       
       initialize: function(options) {
         this.donor = options.donor;
-        console.log(this.donor.get('subscriptions'));
         this.model = new RepeatDonation();
-        this.listenTo(this.model, 'invalid', this.displayError);
+        this.listenTo(this.model, 'invalid', this.handleValidationError);
       },
 
-      displayError: function(error) {
-        //Display the error to the user
-        this.message.set({error: error.validationError});
-        
-        //enable the submit button for resubmission
-        this.submitEdits().prop('disabled',false);
-        this.confirmCancelSubmit().prop('disabled', false);
-      },
-      
       showSuccessMessage: function() {
         this.message.clear();
         this.editMembershipForm().hide();
@@ -86,16 +77,16 @@ define([
 
         //disable the submit button so they can't submit again
         this.submitEdits().prop('disabled', true);
-        this.model.save(data, {error: this.handleError.bind(this), success: this.handleResponse.bind(this)});
+        this.model.save(data, {error: this.handleServerError.bind(this), success: this.handleResponse.bind(this)});
         
       },
       
       handleResponse: function(response) {
         if (response.get('error')) {
-          this.message.clear();
-          this.message.set({error: response.get('error')});
-          this.submitEdits().prop('disabled',false);
+          this.handleServerError(response.get('error'));
+          this.model.set({error: null});
         } else{
+          console.log("about to show the successMessage");
           //Update the client side subscriptions
           var newSubscription = _.clone(this.donor.get('subscriptions'));
           newSubscription.data[0] = response.get('subscription');
@@ -106,12 +97,6 @@ define([
           this.showSuccessMessage();
         }
       },
-
-      handleError: function() {
-        this.message.clear();
-        this.message.set({error: "there was an error completing your request. please try again."});
-        this.resetform();  
-      },     
       
       resetForm: function(){
         this.editMembershipForm()[0].reset();
