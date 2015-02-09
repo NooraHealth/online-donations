@@ -71,10 +71,6 @@ router.post '/submit', (req, res, err) ->
   #preserve the context for later use in promise callbacks
   that = this
 
-  res.json {error: {message: "Thsi should be an error message"}}
-  return
-
-
   if monthly == true
     planID = email + new Date().getTime()
     

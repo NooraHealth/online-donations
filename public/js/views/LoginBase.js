@@ -13,10 +13,11 @@ define([
   'hbs!templates/login',
   'models/Message',
   'views/MessageView',
+  'views/FormBase', 
   'bootstrap'
-], function($, _, Backbone, Handlebars, loginTemplate, Message, MessageView ){
+], function($, _, Backbone, Handlebars, loginTemplate, Message, MessageView , FormBase){
     
-    var LoginBase = Backbone.View.extend({
+    var LoginBase = FormBase.extend({
 
       events: {
         "click #submit-login": "submitLogin"
@@ -26,13 +27,24 @@ define([
         this.router = options.router;
         this.donor = options.donor;
       },
+      
+      /*
+       * Returns the donation form jquery object
+       */
+      form: function() {
+        return this.$el.find("#login-form");
+      },
+      
+      resetForm: function() {
+        this.form()[0].reset();
+        $("#submit-login").prop('disabled', false);
+      },
 
       /*
        * Validate login form input before submitting,
        * post error message to user if not valid
        */
       submitLogin: function(e) {
-        console.log("submitting the login");
         //e.preventDefault();
         var password = this.$el.find("#password");
         var email = this.$el.find("#email");
@@ -59,8 +71,7 @@ define([
         $.post('/login', credentials)
         .done(function(response) {
           if (response.error) {
-            this.message.clear();
-            this.message.set({error: response.error});
+            this.handleServerError(response.error);
             return;
           }
 
@@ -71,13 +82,8 @@ define([
             return;
           } 
           
-          this.message.clear();
-          this.message.set({error: "There was an error logging in. Please try again."});
-        
-        }.bind(this)).fail(function(err) {
-          this.message.clear();
-          this.message.set({error: err.message});
-        }.bind(this));
+          this.handleServerError({error: {message: "There was an error logging in. Please try again"}});
+        }.bind(this)).fail(this.handleServerError.bind(this));
         
         //Submit the form to authenticate the credentials
         return false;
