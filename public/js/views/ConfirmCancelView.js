@@ -8,7 +8,6 @@ define([
   'models/Message',
   'views/MessageView',
   'models/RepeatDonation',
-  'models/Donor',
   'views/FormBase',
   'bootstrap'
 ], function($, _, Backbone, Handlebars, confirmCancelModal, Message, MessageView, RepeatDonation, FormBase ){
