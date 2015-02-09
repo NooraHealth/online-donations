@@ -61,7 +61,14 @@ define([
 
       events: {
         "click #submit-give-again": "giveAgain",
-        "click button[name=donationBar]": "fillDonationBox"
+        "click button[name=donationBar]": "fillDonationBox",
+        "submit #give-again-form" : "handlePressEnterEvent"
+      },      
+      
+      handlePressEnterEvent: function(event) {
+        if (event.keyCode= 13) {
+          return false;
+        }
       },
 
       giveAgain: function() {
@@ -84,8 +91,8 @@ define([
         this.model.save(data, {error: this.handleError.bind(this), success: this.handleResponse.bind(this)});
       },  
       
-      handleError: function() {
-        this.message.set({error: "There was an error completing your request. Please try again."});
+      handleError: function(err) {
+        this.message.set({error: err.message});
         this.resetForm();  
       },
 

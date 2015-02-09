@@ -37,6 +37,13 @@ define([
       
       events: {
         "click #edit-membership-submit": "submitEdit",
+        "submit #edit-membership-form" : "handlePressEnterEvent"
+      },      
+      
+      handlePressEnterEvent: function(event) {
+        if (event.keyCode= 13) {
+          return false;
+        }
       },
       
       initialize: function(options) {
@@ -47,7 +54,6 @@ define([
       },
 
       displayError: function(error) {
-        console.log("Displaying the invalid error: ", error);
         //Display the error to the user
         this.message.set({error: error.validationError});
         
