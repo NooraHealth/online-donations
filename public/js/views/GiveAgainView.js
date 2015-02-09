@@ -10,25 +10,18 @@ define([
   'views/MessageView',
   'models/Message',
   'models/RepeatDonation',
+  'views/FormBase',
   'bootstrap'
-], function($, _, Backbone, Handlebars, Stripe, giveAgainFormTemplate, MessageView, Message, RepeatDonation){
+], function($, _, Backbone, Handlebars, Stripe, giveAgainFormTemplate, MessageView, Message, RepeatDonation, FormBase){
 
-    var GiveAgainFormView = Backbone.View.extend({
+    var GiveAgainFormView = FormBase.extend({
     
       el: "#modal",
       
       initialize: function (options) {
         this.donor = options.donor;
         this.model = new RepeatDonation();
-        this.listenTo(this.model, 'invalid', this.displayError);
-      },
-
-      displayError: function(error) {
-        //Display the error to the user
-        this.message.set({error: error.validationError});
-        
-        //enable the submit button for resubmission
-        this.giveAgainSubmitButton().prop('disabled',false);
+        this.listenTo(this.model, 'invalid', this.handleValidationError);
       },
       
       giveAgainSubmitButton: function() {
@@ -49,14 +42,6 @@ define([
       
       donationBox: function() {
         return $("input[name=amount]");
-      },
-
-      displayError: function(error) {
-        //Display the error to the user
-        this.message.set({error: error.validationError});
-        
-        //enable the submit button for resubmission
-        this.giveAgainSubmitButton().prop('disabled', false);
       },
 
       events: {
@@ -88,18 +73,14 @@ define([
         //disable the submit button so they can't submit again
         this.giveAgainSubmitButton().prop('disabled', true);
 
-        this.model.save(data, {error: this.handleError.bind(this), success: this.handleResponse.bind(this)});
+        this.model.save(data, {error: this.handleServerError.bind(this), success: this.handleResponse.bind(this)});
       },  
-      
-      handleError: function(err) {
-        this.message.set({error: err.message});
-        this.resetForm();  
-      },
 
       handleResponse: function(model,response) {
+
         if ( response.error ) {
-          this.message.set({error: response.error});
-          this.resetForm();  
+          this.handleServerError(response.error);
+          return;
         } 
         else {
           //If this was a onetime donation, then update the Donor's donation array
@@ -118,7 +99,10 @@ define([
           }
 
           this.showSuccessMessage();
+          return;
         }
+
+        this.handleServerError({error: "There was an error completing your request. Please try again"})
       },
 
       
@@ -128,6 +112,7 @@ define([
       },
 
       showSuccessMessage: function() {
+        this.message.clear();
         this.giveAgainForm().hide();
         this.giveAgainSubmitButton().hide();
         this.successMessage().show(); 

@@ -9,10 +9,11 @@ define([
   'views/MessageView',
   'models/RepeatDonation',
   'models/Donor',
+  'views/FormBase',
   'bootstrap'
-], function($, _, Backbone, Handlebars, confirmCancelModal, Message, MessageView, RepeatDonation ){
+], function($, _, Backbone, Handlebars, confirmCancelModal, Message, MessageView, RepeatDonation, FormBase ){
     
-    var ConfirmCancelView = Backbone.View.extend({
+    var ConfirmCancelView = FormBase.extend({
       el: "#modal",
       
       modal: function() {
@@ -34,16 +35,9 @@ define([
       initialize: function(options) {
         this.donor = options.donor;
         this.model = new RepeatDonation();
-        this.listenTo(this.model, 'invalid', this.displayError);
+        this.listenTo(this.model, 'invalid', this.handleValidationError);
       },
 
-      displayError: function(error) {
-        //Display the error to the user
-        this.message.set({error: error.validationError});
-        
-        //enable the submit button for resubmission
-        this.confirmCancelSubmit().prop('disabled',false);
-      },
       
       events: {
         "click #confirm-cancel-membership": "cancelMembership"
@@ -74,14 +68,13 @@ define([
         //disable the submit button so they can't submit again
         this.confirmCancelSubmit().prop('disabled', true);
 
-        this.model.save(data, {error: this.handleError.bind(this), success: this.handleResponse.bind(this)});
+        this.model.save(data, {error: this.handleServerError.bind(this), success: this.handleResponse.bind(this)});
       },
 
       handleResponse: function(response) {
         if (response.get('error')) {
-          this.message.clear();
-          this.message.set({error: response.get('error')});
-          this.confirmCancelSubmit().prop('disabled',false);
+          this.handleServerError(response.get("error"));
+          this.model.set({error: null});
         } else{
           //Update the client side subscriptions
           var newSubscription = this.donor.get('subscriptions');
@@ -93,11 +86,6 @@ define([
           this.showSuccessMessage();
         }
       },
-
-      handleError: function(response) {
-        this.message.clear();
-        this.message.set({error: "there was an error completing your request. please try again."});
-      },     
 
       hide: function() {
         this.modal().modal('hide');
