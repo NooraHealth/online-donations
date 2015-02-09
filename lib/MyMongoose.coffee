@@ -13,8 +13,7 @@ class MyMongoose
       if err
         deferred.reject err
       else
-        #deferred.resolve result
-        deferred.reject "This is a test rejection"
+        deferred.resolve result
 
     return deferred.promise
 

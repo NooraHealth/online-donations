@@ -102,14 +102,15 @@ router.post '/submit', (req, res, err) ->
           #res.json {error: null, donor: stripeDonor}
           res.redirect '/donors/info/' + stripeDonor.id
       .catch (err) ->
-        console.log "caught a monthl erro"
-        console.log err
+        req.logout()
         MyMongoose.findOneAndRemove Donors, {email: email}
         MyStripe.removeDonor stripeDonor.id
         .catch (err) ->
           console.log "there was an error removing the donor form stripe"
         res.json {error: err.message}
     .catch (err) ->
+      req.logout()
+      MyMongoose.findOneAndRemove Donors, {email: email}
       res.json {error: err.message}
      
 
@@ -136,6 +137,7 @@ router.post '/submit', (req, res, err) ->
             #res.json {error: null, donor: stripeDonor}
             res.redirect '/donors/info/' + stripeDonor.id
       .catch (err) ->
+        req.logout()
         console.log "caught a onetime erro"
         console.log err
         MyMongoose.findOneAndRemove Donors, {email: email}
@@ -144,6 +146,8 @@ router.post '/submit', (req, res, err) ->
           console.log "there was an error removing the donor form stripe"
         res.json {error: err.message}
     .catch (err) ->
+      req.logout()
+      MyMongoose.findOneAndRemove Donors, {email: email}
       res.json {error: err.message}
 
 
