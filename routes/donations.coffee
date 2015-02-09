@@ -129,7 +129,7 @@ router.post '/submit', (req, res, err) ->
         #Get the number of donors so far
         return MyMongoose.count Donors, {}
         .then (count)->
-          donor.count = count+25 #add 25 to account for previous donations made by other means
+          donor.count = (count+25) #add 25 to account for previous donations made by other means
           donor.save()
           return MyStripe.charge stripeDonor.id, amount
         .then (charge) ->
