@@ -139,6 +139,9 @@ define([
       },
 
       render: function() {
+        console.log("this el payment info");
+        console.log(this.$el);
+        console.log(this.el);
         var html = changePaymentInfoTemplate({donor: this.donor.toJSON(), successMessage: "Your payment information has been saved."});
         this.$el.html(html);      
         
