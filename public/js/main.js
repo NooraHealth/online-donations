@@ -1,6 +1,7 @@
 require.config({
   paths: {
     jquery: 'libs/jquery/jquery',
+    Stripe: "https://js.stripe.com/v2/?1",
     underscore: 'libs/underscore/underscore',
     backbone: 'libs/backbone/backbone',
     handlebars: 'libs/handlebars/handlebars',
@@ -17,24 +18,29 @@ require.config({
   },
 
   shim: {
-        underscore: {
-            exports: "_"
-        },
-        backbone: {
-            deps: ["underscore", "jquery"],
-            exports: "Backbone"
-        },
-        bootstrap: {
-          deps: ['jquery'],
-        }
+     stripe:  {
+        exports: "Stripe",
+     },
+
+      underscore: {
+          exports: "_"
+      },
+      backbone: {
+          deps: ["underscore", "jquery"],
+          exports: "Backbone"
+      },
+      bootstrap: {
+        deps: ['jquery'],
+      }
     }
 });
 
 require([
-
+  "stripe",
   // Load our app module and pass it to our definition function
   'App',
-], function(App){
+], function(Stripe, App){
+  Stripe.setPublishableKey('pk_test_y4XPVW7eG98vkn2FgtsonNYt');
   console.log("In main.js -- about to initialize the app");
   // The "app" dependency is passed in as "App"
   App.initialize();
