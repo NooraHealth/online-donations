@@ -3,9 +3,7 @@ router = express.Router()
 Donors = require '../models/Donors'
 
 register = (req, res, next) ->
-  console.log "Registering a new donor"
   if req.user
-    console.log "There was a user"
     next 'route'
     return
 
@@ -17,12 +15,11 @@ register = (req, res, next) ->
   Donors.register( donor, req.body.password, (err, account) ->
     if err
       console.log err
-      res.json {error: err.message}
+      res.json {error: err}
     else
       req.logIn account, (err) ->
         if err
-          console.log "Error registering donor"
-          res.json {error: err.message}
+          res.json {error: err}
         else
           next 'route'
     )
