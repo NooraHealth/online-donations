@@ -66,7 +66,7 @@ define([
       events: {
         "click #submit-payment-changes": "createStripeToken",
       },
-      
+
       //THESE THINGS NEED TO BE MOVED INTO A SINGLE/MODEL 
       //TOO MUCH REPETITION OF CODE
       /*
