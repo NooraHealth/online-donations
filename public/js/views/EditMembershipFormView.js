@@ -28,10 +28,6 @@ define([
         return $("#edit-membership-form");
       },
 
-      successMessage: function() {
-        return $("#success-message");
-      },
-      
       amount: function() {
         return $("input[name=amount]");
       },
@@ -48,6 +44,8 @@ define([
       },
       
       initialize: function(options) {
+        console.log("this is the modal base");
+        console.log(this);
         this.donor = options.donor;
         this.model = new RepeatDonation();
         this.listenTo(this.model, 'invalid', this.handleValidationError);
@@ -101,14 +99,6 @@ define([
       resetForm: function(){
         this.editMembershipForm()[0].reset();
         this.submitEdits().prop('disabled', false);
-      },
-
-      hide: function() {
-        this.modal().modal('hide');
-      },
-
-      show: function() {
-        this.modal().modal('show');
       },
 
       render: function() {

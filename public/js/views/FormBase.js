@@ -10,11 +10,10 @@ define([
   'underscore', // lib/underscore/underscore
   'backbone',    // lib/backbone/backbone
   'handlebars',   
-  'hbs!templates/login',
   'models/Message',
   'views/MessageView',
   'bootstrap'
-], function($, _, Backbone, Handlebars, loginTemplate, Message, MessageView ){
+], function($, _, Backbone, Handlebars, Message, MessageView ){
     
     var FormBase = Backbone.View.extend({
       
@@ -34,7 +33,21 @@ define([
         
         //enable the submit button for resubmission
         this.disableSubmitButton(false);
-      }
+      },
+      
+      successMessage: function() {
+        return $("#success-message");
+      },
+      
+      hide: function() {
+        this.modal().modal('hide');
+      },
+
+      show: function() {
+        this.modal().modal('show');
+      },
+
+
     });
 
     return FormBase;
