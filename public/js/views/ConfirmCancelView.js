@@ -95,9 +95,6 @@ define([
       },
 
       render: function() {
-        console.log("this el");
-        console.log(this.$el);
-        console.log(this.el);
         var html = confirmCancelModal({successMessage: "Your monthly donation has been cancelled."});
         this.$el.html(html);      
         
