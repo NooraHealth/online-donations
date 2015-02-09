@@ -9,9 +9,10 @@ define([
   'views/MessageView',
   'models/Message',
   'models/Donation',
-], function($, _, Backbone, Handlebars, Stripe, donationFormTemplate,  MessageView, Message, Donation){
+  'views/FormBase',
+], function($, _, Backbone, Handlebars, Stripe, donationFormTemplate,  MessageView, Message, Donation, FormBase){
 
-    var DonationForm = Backbone.View.extend({
+    var DonationForm = FormBase.extend({
     
       el: "#body",
       
@@ -29,21 +30,12 @@ define([
         this.router = options.router;
         this.model = new Donation();
        
-        
-        this.listenTo(this.model, 'invalid', this.displayError);
+        this.listenTo(this.model, 'invalid', this.handleValidationError);
 
       },
 
       disableSubmitButton: function (state) {
         this.submitDonation().prop('disabled', state);
-      },
-
-      displayError: function(error) {
-        //Display the error to the user
-        this.message.set({error: error.validationError});
-        
-        //enable the submit button for resubmission
-        this.disableSubmitButton(false);
       },
 
       /*
@@ -100,27 +92,20 @@ define([
           }
 
           this.disableSubmitButton(true);
-          this.model.save(data, {error: this.handleError.bind(this), success: this.handleResponse.bind(this)} );
+          this.model.save(data, {error: this.handleServerError.bind(this), success: this.handleResponse.bind(this)} );
 
         }
-      },
-      
-      handleError: function() {
-        this.message.clear();
-        this.message.set({error: "There was an error completing your request. Please try again."});
-        this.resetForm();  
       },
 
       handleResponse: function(model,response) {
         if ( response.error ) {
-          this.message.clear();
-          this.message.set({error: response.error});
-          this.resetForm();  
+          this.handleServerError(response.error);
         } 
         if ( response.donor ) {
           this.donor.set( response.donor );
           this.donor.set( {count: response.count} );
           this.donor.set({donations: response.donations.data});
+
           this.message.clear();
           this.message.set({success: response.success});
           this.router.navigate('thankyou', {trigger: true});
@@ -133,11 +118,9 @@ define([
       createStripeToken: function(event) {
         event.preventDefault();
         var donation = new Donation();
-        //if ( this.verifyInput() ) {
-          this.parseExpiration();
-          this.$("#submit-donation").prop('disabled', true);
-          Stripe.card.createToken(this.form(), (this.stripeResponseHandler).bind(this));
-        //}
+        this.parseExpiration();
+        this.$("#submit-donation").prop('disabled', true);
+        Stripe.card.createToken(this.form(), (this.stripeResponseHandler).bind(this));
 
         //Prevent form from submitting
         return false; 
