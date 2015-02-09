@@ -5,9 +5,15 @@ MyMongoose = require '../lib/MyMongoose'
 Donors = require '../models/Donors'
 Q = require 'q'
 
-saveCustomerID = (email, id) ->
-  return Donors.findOne {email:email}
+undoRegistration = (email, donorID, chargeID) ->
+  console.log "undoing the registration"
+  #Delete the register user from the server
+  #so they can sign up again
+  MyMongoose.findOneAndRemove Donors, {email: email}
 
+  #remove the customer from the stripe database, so they
+  #can sign up again
+  MyStripe.removeDonor donorID
 
 ###
 # Add a plan to an existing donor profile
@@ -79,32 +85,39 @@ router.post '/submit', (req, res, err) ->
     
     MyStripe.createNewPlan planID, amount
     .then (plan) ->
-      return MyStripe.createDonor token, email, email, {name: name}
-      .then (stripeDonor)->
-        console.log "geot thje donor back"
-        #save the donor's stripe customer id to mongo
-        return MyMongoose.findOne Donors, {email: email}
-        .then (donor) ->
-          donor.stripeId = stripeDonor.id
-          donor.newsletter = (newsletter == true)
+      MyStripe.createDonor token, email, planID, {name: name}
+    .then (stripeDonor)->
+      #save the donor's stripe customer id to mongo
+      return MyMongoose.findOne Donors, {email: email}
+      .then (donor) ->
+        donor.stripeId = stripeDonor.id
+        donor.newsletter = (newsletter == true)
+        donor.save()
+        console.log "saved the donor"
+        return MyMongoose.count Donors, {}
+        .then (count)->
+          donor.count = count+25 #add 25 to account for previous donations made by other means
           donor.save()
-          console.log "saved the donor"
-          return MyMongoose.count Donors, {}
-          .then (count)->
-            donor.count = count+25 #add 25 to account for previous donations made by other means
-            donor.save()
-            #json the donor info back to the client
-            #res.json {error: null, donor: stripeDonor}
-            res.redirect '/donors/info/' + stripeDonor.id
-          .catch (err) ->
-            undoRegistration email, stripeDonor.id
-            res.json {error: err.message}
+          #json the donor info back to the client
+          #res.json {error: null, donor: stripeDonor}
+          res.redirect '/donors/info/' + stripeDonor.id
+      .catch (err) ->
+        console.log "caught a monthl erro"
+        console.log err
+        MyMongoose.findOneAndRemove Donors, {email: email}
+        MyStripe.removeDonor stripeDonor.id
+        .catch (err) ->
+          console.log "there was an error removing the donor form stripe"
+        res.json {error: err.message}
+    .catch (err) ->
+      res.json {error: err.message}
+     
 
   #Charge the customer only once
   else
-    promise = MyStripe.createDonor token, email, "onetime", {name: name}
     
-    promise.then (stripeDonor)->
+    MyStripe.createDonor token, email, "onetime", {name: name}
+    .then (stripeDonor)->
       #Charge the customer for their onetime donation
         #save the stripe customer Id to mongo
       return MyMongoose.findOne Donors, {email: email}
@@ -122,19 +135,18 @@ router.post '/submit', (req, res, err) ->
             #json the donor info back to the client
             #res.json {error: null, donor: stripeDonor}
             res.redirect '/donors/info/' + stripeDonor.id
+      .catch (err) ->
+        console.log "caught a onetime erro"
+        console.log err
+        MyMongoose.findOneAndRemove Donors, {email: email}
+        MyStripe.removeDonor stripeDonor.id
         .catch (err) ->
-          undoRegistration email, stripeDonor.id
-          res.json {error: err.message}
+          console.log "there was an error removing the donor form stripe"
+        res.json {error: err.message}
+    .catch (err) ->
+      res.json {error: err.message}
 
 
 
-undoRegistration = (email, donorID, chargeID) ->
-  #Delete the register user from the server
-  #so they can sign up again
-  MyMongoose.findOneAndRemove Donors, {email: email}
-
-  #remove the customer from the stripe database, so they
-  #can sign up again
-  MyStripe.removeDonor donorID
   
 module.exports = router

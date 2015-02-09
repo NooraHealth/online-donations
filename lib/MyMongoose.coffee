@@ -13,11 +13,13 @@ class MyMongoose
       if err
         deferred.reject err
       else
-        deferred.resolve result
+        #deferred.resolve result
+        deferred.reject "This is a test rejection"
 
     return deferred.promise
 
   findOneAndRemove: (model, filter) ->
+    console.log "removing a donor"
     deferred = Q.defer()
     
     model.findOneAndRemove filter, (err, result) ->
