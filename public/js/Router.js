@@ -51,7 +51,7 @@ define([
         page.render();  
         nav.render();
         
-        this.navModel.setPage('welcome');
+        this.navModel.setPage('loginpage');
 
         this.currentViews.push(page);
         this.currentViews.push(nav);

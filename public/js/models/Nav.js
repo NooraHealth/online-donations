@@ -23,6 +23,10 @@ define([
           this.set({logout:false});
           this.set({donorConsole:false});
         }
+
+        if(page == "loginpage") {
+          this.set({login: false});
+        }
         
         if(page == 'console') {
           this.set({donorConsole:false});
