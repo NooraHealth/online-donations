@@ -6,6 +6,7 @@ donorSchema =
   stripeId: String
   name:String
   newsletter: Boolean
+  count: Number
 
 DonorSchema = new Schema donorSchema
 

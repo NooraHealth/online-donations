@@ -18,15 +18,16 @@ router.get '/info/:stripeId', (req, res)->
   #their donation history
   donations = MyStripe.retrieveDonations stripeId
   donorInfo = MyStripe.retrieveDonorInfo stripeId
-  count = MyMongoose.count Donors, {}
+  donor = MyMongoose.findOne Donors, {stripeId: stripeId}
 
   #collect all requests into a single promise
-  all = Q.all [donations, donorInfo, count]
+  all = Q.all [donations, donorInfo, donor]
 
   #after all requests have returned, return the donorinfo 
   #and the donor's donations to the client
-  all.spread (donations, donorinfo, count)->
+  all.spread (donations, donorinfo, donor)->
     console.log "Sending back to user"
+    count = donor.count
     console.log "count: #{count}"
     res.send {donor: donorinfo, donations: donations, count: count}
 
