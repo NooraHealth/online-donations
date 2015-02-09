@@ -9,10 +9,11 @@ define([
   'hbs!templates/changePaymentInfo',
   'views/MessageView',
   'models/Message',
+  'views/FormBase',
   'bootstrap'
-], function($, _, Backbone, Handlebars, Stripe, changePaymentInfoTemplate,  MessageView, Message){
+], function($, _, Backbone, Handlebars, Stripe, changePaymentInfoTemplate,  MessageView, Message, FormBase){
 
-    var ChangePaymentInfo = Backbone.View.extend({
+    var ChangePaymentInfo = FormBase.extend({
     
       el: "#modal",
 
@@ -89,9 +90,7 @@ define([
        */
       stripeResponseHandler: function(status, response){
         if(response.error) {
-          this.message.clear();
-          this.message.set({error: response.error.message});
-          this.disableSubmitButton(false);
+          this.handleServerError(response.error);
         } else{
           var token = response.id;
           
@@ -103,31 +102,26 @@ define([
 
           $.post('/donors/changeDonorCard/' + this.donor.get('id'), data)
           .done(this.handleResponse.bind(this))
-          .fail(this.handleError.bind(this));
+          .fail(this.handleServerError.bind(this));
         }
       },
-      
-      handleError: function(response) {
-        this.message.clear();
-        this.message.set({error: "There was an error completing your request. Please try again."});
-        this.disableSubmitButton(false);
-      },
+
 
       handleResponse: function(response) {
-        console.log (response);
         if ( response.error ) {
-          this.message.clear();
-          this.message.set({error: response.error});
-          this.resetForm();  
+          this.handleServerError(response.error);
+          return;
         } 
         if ( response.donor ) {
-          console.log("got the new donor yay"); 
           this.donor.set(response.donor);
 
           //IMPORTANT: figure out what is making this necessary -- this should automatically update
           //this.donor.trigger('change');
           this.showSuccessMessage();
+          return;
         }
+
+        this.handleServerError({error: {message: "There was an error completing your request. Please try again"}});
       },
 
       /*
