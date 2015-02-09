@@ -13,11 +13,11 @@ router.post '/' , (req, res, next)->
     if err
       return res.send {error: err}
     if !user
-      return res.send {error: "We don't recognize those credentials. Have another go." }
+      return res.send {error: {message: "We don't recognize those credentials. Have another go."}}
     else
       req.logIn user, (err) ->
         if err
-          res.send {error: "There was an error logging in #{err}"}
+          res.send {error: err}
         else
           res.redirect '/donors/info/' + user.stripeId
 

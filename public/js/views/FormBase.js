@@ -23,7 +23,7 @@ define([
         if (error.message) {
           this.message.set({error: error.message});
         } else {
-          this.message.set({error: error});
+          this.message.set({error: "There was an error connecting to the server. Please try again."});
         }
         this.resetForm(); 
       }, 
