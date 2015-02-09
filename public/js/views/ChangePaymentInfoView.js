@@ -33,6 +33,7 @@ define([
       },
       
       showSuccessMessage: function(response) {
+        this.message.clear();
         this.successMessage().show();
         this.submitChanges().hide();
         this.form().hide();
@@ -88,6 +89,7 @@ define([
        */
       stripeResponseHandler: function(status, response){
         if(response.error) {
+          this.message.clear();
           this.message.set({error: response.error.message});
           this.disableSubmitButton(false);
         } else{
@@ -106,6 +108,7 @@ define([
       },
       
       handleError: function(response) {
+        this.message.clear();
         this.message.set({error: "There was an error completing your request. Please try again."});
         this.disableSubmitButton(false);
       },
@@ -113,6 +116,7 @@ define([
       handleResponse: function(response) {
         console.log (response);
         if ( response.error ) {
+          this.message.clear();
           this.message.set({error: response.error});
           this.resetForm();  
         } 

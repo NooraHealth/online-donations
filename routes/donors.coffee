@@ -52,14 +52,23 @@ router.post '/changeDonorCard/:donorID', (req, res, next) ->
 # Change a donor's password
 ###
 router.post '/changepassword', (req, res) ->
-  req.user.setPassword req.body.password, (err, donor, passwordErr) ->
+  req.user.authenticate req.body.currentpassword, (err, donor, passwordErr) ->
+    console.log err
+    console.log passwordErr
     if err
+      res.send {error: err}
+    if passwordErr
       res.send {error: passwordErr}
+    #set a new password
     else
-      donor.save (error)->
-        if error
-          res.send {error: error}
+      req.user.setPassword req.body.password, (err, donor, passwordErr) ->
+        if err
+          res.send {error: passwordErr}
         else
-          res.send {error: null}
+          donor.save (error)->
+            if error
+              res.send {error: error}
+            else
+              res.send {error: null}
 
 module.exports = router

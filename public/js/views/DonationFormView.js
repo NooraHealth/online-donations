@@ -106,12 +106,14 @@ define([
       },
       
       handleError: function() {
+        this.message.clear();
         this.message.set({error: "There was an error completing your request. Please try again."});
         this.resetForm();  
       },
 
       handleResponse: function(model,response) {
         if ( response.error ) {
+          this.message.clear();
           this.message.set({error: response.error});
           this.resetForm();  
         } 
@@ -119,6 +121,7 @@ define([
           this.donor.set( response.donor );
           this.donor.set( {count: response.count} );
           this.donor.set({donations: response.donations.data});
+          this.message.clear();
           this.message.set({success: response.success});
           this.router.navigate('thankyou', {trigger: true});
         }

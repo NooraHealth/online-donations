@@ -36,7 +36,6 @@ define([
       }, 
       
       login: function() {
-        console.log("navigating to the login");
         
         //Clear the views
         this.closeViews();
@@ -83,7 +82,6 @@ define([
       },
 
       donationForm: function() {
-        console.log("navigating to login form");
         
         //Clear the views
         this.closeViews();

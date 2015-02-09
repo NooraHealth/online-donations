@@ -50,6 +50,7 @@ define([
       },
       
       showSuccessMessage: function(response) {
+        this.message.clear();
         this.successMessage().show();
         this.confirmCancelSubmit().hide();
         this.confirmCancel().hide();
@@ -78,6 +79,7 @@ define([
 
       handleResponse: function(response) {
         if (response.get('error')) {
+          this.message.clear();
           this.message.set({error: response.get('error')});
           this.confirmCancelSubmit().prop('disabled',false);
         } else{
@@ -93,7 +95,7 @@ define([
       },
 
       handleError: function(response) {
-        console.log ("This is the response: ", response);
+        this.message.clear();
         this.message.set({error: "there was an error completing your request. please try again."});
       },     
 
