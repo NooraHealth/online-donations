@@ -10,12 +10,11 @@ define([
   'underscore', // lib/underscore/underscore
   'backbone',    // lib/backbone/backbone
   'handlebars',   
-  'hbs!templates/login',
   'models/Message',
   'views/MessageView',
   'views/FormBase', 
   'bootstrap'
-], function($, _, Backbone, Handlebars, loginTemplate, Message, MessageView , FormBase){
+], function($, _, Backbone, Handlebars, Message, MessageView , FormBase){
     
     var LoginBase = FormBase.extend({
 

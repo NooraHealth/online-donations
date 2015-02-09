@@ -29,10 +29,6 @@ define([
         return $("#change-payment-modal");
       },
       
-      successMessage: function() {
-        return $("#success-message");
-      },
-      
       showSuccessMessage: function(response) {
         this.message.clear();
         this.successMessage().show();
@@ -47,10 +43,8 @@ define([
       },
 
       initialize: function(options) {
-    
         this.donor = options.donor;
         this.router = options.router;
-
       },
 
       disableSubmitButton: function (state) {
@@ -138,13 +132,6 @@ define([
         return false; 
       },
 
-      hide: function() {
-        this.modal().modal('hide');
-      },
-
-      show: function() {
-        this.modal().modal('show');
-      },
       //reset form fields
       resetForm: function() {
         this.form()[0].reset();

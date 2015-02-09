@@ -35,10 +35,6 @@ define([
       giveAgainForm: function() {
         return $("#give-again-form");
       },
-
-      successMessage: function() {
-        return $("#success-message");
-      },
       
       donationBox: function() {
         return $("input[name=amount]");
@@ -121,14 +117,6 @@ define([
       resetForm: function(){
         this.giveAgainForm()[0].reset();
         this.giveAgainSubmitButton().prop('disabled', false);
-      },
-      
-      hide: function() {
-        this.modal().modal('hide');
-      },
-
-      show: function() {
-        this.modal().modal('show');
       },
 
       render: function() {

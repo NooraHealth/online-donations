@@ -9,18 +9,19 @@ define([
   'hbs!templates/changePasswordModal',
   'views/MessageView',
   'models/Message',
+  'views/FormBase',
   'bootstrap'
-], function($, _, Backbone, Handlebars, Stripe, changePasswordFormTemplate, MessageView, Message){
+], function($, _, Backbone, Handlebars, Stripe, changePasswordFormTemplate, MessageView, Message, FormBase){
 
-    var ChangePasswordFormView = Backbone.View.extend({
+    var ChangePasswordFormView = FormBase.extend({
     
       el: "#modal",
       
       initialize: function(options) {
       },
-
-      successMessage: function() {
-        return $("#success-message");
+      
+      modal: function() {
+        return $("#change-password-modal");
       },
 
       submitChangePassword: function() {
@@ -29,13 +30,6 @@ define([
 
       changePasswordForm: function() {
         return $("#change-password-form");
-      },
-
-      displayError: function(error) {
-        //Display the error to the user
-        this.message.clear();
-        this.message.set({error: error.validationError});
-        
       },
 
       events: {
@@ -80,21 +74,13 @@ define([
           console.log("posting successful");
         })
           .done(this.handleResponse.bind(this))
-          .fail(this.handleError.bind(this))
+          .fail(this.handleServerError.bind(this))
       },
-      
-      handleError: function(err) {
-        console.log(err);
-        this.message.clear();
-        this.message.set({error: err.message});
-        this.resetChangePasswordForm();   
-      },
+
 
       handleResponse: function(response) {
         if ( response.error ) {
-          this.message.clear();
-          this.message.set({error: response.error.message});
-          this.resetChangePasswordForm();  
+          this.handleServerError(response.error);
         } else {
           this.showSuccessMessage();
         }
@@ -107,17 +93,9 @@ define([
         this.successMessage().show(); 
       },
 
-      resetChangePasswordForm: function(){
+      resetForm: function(){
         $('#change-password-form')[0].reset();
         this.$("#submit-change-password").prop('disabled', false);
-      },
-      
-      hide: function() {
-        $('#change-password-modal').modal('hide');
-      },
-
-      show: function() {
-        $('#change-password-modal').modal('show');
       },
 
       render: function() {
