@@ -24,27 +24,30 @@ define([
       
       console.log("initializing the app");
       var path = window.location.pathname;
-      console.log("this is the path", path);
-      //
+      var hash = window.location.hash;
+      
       //a hack that resets the router, avoiding the problem 
       //initialize the app on a hash
-      
       if (path == '/') {
-        console.log("trying to nav to giving");
         Router.navigate('/');
-        Router.navigate('giving', {trigger: true}); 
+        if (hash == "#login") {
+          Router.navigate('login', {trigger: true});
+        }
+        else {
+          Router.navigate('giving', {trigger: true}); 
+        }
       }
 
-      if (path == '/login') {
-        console.log("trying to nav to login");
-        Router.navigate('/');
-        Router.navigate('login', {trigger: true});
-      }
+      //if (path == '/login') {
+        //console.log("trying to nav to login");
+        //Router.navigate('/');
+        //Router.navigate('login', {trigger: true});
+      //}
 
-      if (path == '/donors') {
-        Router.navigate('/');
-        Router.navigate('nooradonors', {trigger: true});
-      }
+      //if (path == '/donors') {
+        //Router.navigate('/');
+        //Router.navigate('nooradonors', {trigger: true});
+      /*}*/
 
       //Route according to the hash in the URL as well as whether the user is logged in or not
     }
