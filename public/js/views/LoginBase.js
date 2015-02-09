@@ -76,7 +76,7 @@ define([
         
         }.bind(this)).fail(function(err) {
           this.message.clear();
-          this.message.set({error: err});
+          this.message.set({error: err.message});
         }.bind(this));
         
         //Submit the form to authenticate the credentials

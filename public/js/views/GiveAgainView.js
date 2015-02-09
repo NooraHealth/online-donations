@@ -74,8 +74,8 @@ define([
             //Use the monthly donation checkbox determine whether this
             //should be ferried to create a new plan for the donor
             //or create another one time donation.
-            editMembership: $("input[name=monthly").is(':checked') ,
-            onetime: !$("input[name=monthly").is(':checked') ,
+            editMembership: $("input[name=monthly]").is(':checked') ,
+            onetime: !$("input[name=monthly]").is(':checked') ,
          }
 
         //disable the submit button so they can't submit again
