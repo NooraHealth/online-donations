@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         <div id="change-payment-message"></div>
-        <div id="change-payment-form">
+        <form id="change-payment-form">
           
             <div class="row">
                 <p><b>Current Payment Information</b></p>
@@ -21,14 +21,12 @@
             </div>
 
             <div class="row">  
-              <form role="form" class="form-inline" action="/donations/submit" method="POST" id="donation-form" >
-                <div class="row form-row">
-                  {{>cardInfoFormInputs}}
-                </div>
-              </form>
+              <div class="row form-row">
+                {{>cardInfoFormInputs}}
+              </div>
             </div>
           <!-- END DIV id="change-payment-form" -->
-        </div>
+        </form>
         
         {{>successMessage}}
       </div>
