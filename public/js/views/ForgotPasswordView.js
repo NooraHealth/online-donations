@@ -10,11 +10,10 @@ define([
   'bootstrap'
 ], function($, _, Backbone, Handlebars, forgotPasswordTemplate, Message, MessageView ){
     
-    var ForgotPasswordModal = Backbone.View.extend({
+    var ForgotPassword = Backbone.View.extend({
       el: "#body",
 
       render: function() {
-        console.log("rendering the forgot password");
         var html = forgotPasswordTemplate();
         this.$el.html(html);      
        
@@ -24,5 +23,5 @@ define([
       }
     });
 
-    return ForgotPasswordModal;
+    return ForgotPassword;
   });

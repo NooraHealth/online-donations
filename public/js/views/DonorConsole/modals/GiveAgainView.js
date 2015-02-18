@@ -10,7 +10,7 @@ define([
   'views/MessageView',
   'models/Message',
   'models/RepeatDonation',
-  'views/FormBase',
+  'views/Bases/FormBase',
   'bootstrap'
 ], function($, _, Backbone, Handlebars, Stripe, giveAgainFormTemplate, MessageView, Message, RepeatDonation, FormBase){
 

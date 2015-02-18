@@ -12,7 +12,7 @@ define([
   'handlebars',   
   'models/Message',
   'views/MessageView',
-  'views/FormBase', 
+  'views/Bases/FormBase', 
   'bootstrap'
 ], function($, _, Backbone, Handlebars, Message, MessageView , FormBase){
     
