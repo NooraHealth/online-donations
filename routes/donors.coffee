@@ -53,6 +53,7 @@ router.post '/changeDonorCard/:donorID', (req, res, next) ->
 # Change a donor's password
 ###
 router.post '/changepassword', (req, res) ->
+  console.log "in the change password"
   req.user.authenticate req.body.currentpassword, (err, donor, passwordErr) ->
     if err
       res.send {error: err}
@@ -74,6 +75,8 @@ router.post '/changepassword', (req, res) ->
 # Send donor a reset password token which they can use to reset their password
 ###
 router.post "/forgotpassword", (req, res) ->
+  console.log "the email: "
+  console.log req.body.email
   console.log "in the reset password route!"
 
 module.exports = router
