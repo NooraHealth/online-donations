@@ -37,19 +37,6 @@ define([
           Router.navigate('giving', {trigger: true}); 
         }
       }
-
-      //if (path == '/login') {
-        //console.log("trying to nav to login");
-        //Router.navigate('/');
-        //Router.navigate('login', {trigger: true});
-      //}
-
-      //if (path == '/donors') {
-        //Router.navigate('/');
-        //Router.navigate('nooradonors', {trigger: true});
-      /*}*/
-
-      //Route according to the hash in the URL as well as whether the user is logged in or not
     }
     
     return {initialize: initialize}; 

@@ -3,10 +3,10 @@ define([
   'jquery',     // lib/jquery/jquery
   'underscore', // lib/underscore/underscore
   'backbone',    // lib/backbone/backbone
-  'views/DonationFormView',
+  'views/DonationPage/DonationFormView',
   'views/ThankYouPageView',
   'views/LoginPageView',
-  'views/DonorConsoleView',
+  'views/DonorConsole/DonorConsoleView',
   'views/ForgotPasswordView',
   'views/NavbarView',
   'views/MessageView',

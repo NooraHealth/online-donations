@@ -9,7 +9,7 @@ define([
   'hbs!templates/changePasswordModal',
   'views/MessageView',
   'models/Message',
-  'views/FormBase',
+  'views/Bases/FormBase',
   'bootstrap'
 ], function($, _, Backbone, Handlebars, Stripe, changePasswordFormTemplate, MessageView, Message, FormBase){
 

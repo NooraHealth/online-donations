@@ -5,7 +5,7 @@ define([
   'underscore', // lib/underscore/underscore
   'backbone',    // lib/backbone/backbone
   'handlebars',   
-  'views/LoginBase',
+  'views/Bases/LoginBase',
   'hbs!templates/loginPageTemplate',
   'models/Message',
   'views/MessageView',

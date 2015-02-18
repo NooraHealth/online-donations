@@ -9,7 +9,7 @@ define([
   'hbs!templates/changePaymentInfo',
   'views/MessageView',
   'models/Message',
-  'views/FormBase',
+  'views/Bases/FormBase',
   'bootstrap'
 ], function($, _, Backbone, Handlebars, Stripe, changePaymentInfoTemplate,  MessageView, Message, FormBase){
 

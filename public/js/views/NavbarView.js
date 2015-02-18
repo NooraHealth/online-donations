@@ -5,7 +5,7 @@ define([
   'backbone',// lib/backbone/backbone
   'handlebars',
   'hbs!templates/nav',
-  'views/LoginModalView',
+  'views/DonationPage/modals/LoginModalView',
   'models/Nav'
 ], function($, _, Backbone, Handlebars, navTemplate, LoginModalView){
     var NavbarView = Backbone.View.extend({

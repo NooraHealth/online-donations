@@ -4,32 +4,32 @@ define([
   'underscore', // lib/underscore/underscore
   'backbone',    // lib/backbone/backbone
   'handlebars',   
-  'views/LoginBase',   
-  'hbs!templates/forgotPasswordModal',
+  'views/Bases/LoginBase',   
+  'hbs!templates/loginModal',
   'models/Message',
   'views/MessageView',
   'bootstrap'
-], function($, _, Backbone, Handlebars, forgotPasswordTemplate, Message, MessageView ){
+], function($, _, Backbone, Handlebars, LoginBase, loginTemplate, Message, MessageView ){
     
-    var ForgotPassword = Backbone.View.extend({
+    var LoginModal = LoginBase.extend({
       el: "#modal",
 
       hide: function() {
-        $('#forgot-password-modal').modal('hide');
+        $('#login-modal').modal('hide');
       },
 
       show: function() {
-        $('#forgot-password-modal').modal('show');
+        $('#login-modal').modal('show');
       },
 
       render: function() {
-        var html = forgotPasswordTemplate();
+        var html = loginTemplate();
         this.$el.html(html);      
        
         this.message = new Message();
-        this.messageView = new MessageView({model: this.message, el: $("#forgot-password-message")}); 
+        this.messageView = new MessageView({model: this.message, el: $("#login-message")}); 
         this.messageView.render();
       }
     });
-    return ForgotPassword;
+    return LoginModal;
   });

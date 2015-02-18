@@ -9,7 +9,7 @@ define([
   'views/MessageView',
   'models/Message',
   'models/Donation',
-  'views/FormBase',
+  'views/Bases/FormBase',
 ], function($, _, Backbone, Handlebars, Stripe, donationFormTemplate,  MessageView, Message, Donation, FormBase){
 
     var DonationForm = FormBase.extend({
