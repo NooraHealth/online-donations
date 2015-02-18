@@ -9,12 +9,13 @@ define([
   'models/Message',
   'views/DonorConsole/modals/EditMembershipFormView',
   'views/DonorConsole/modals/ChangePasswordFormView',
+  'views/DonorConsole/modals/ChangeEmailModal',
   'views/DonorConsole/modals/GiveAgainView',
   'views/DonorConsole/modals/ConfirmCancelView',
   'views/DonorConsole/modals/ChangePaymentInfoView',
   'bootstrap'
 ], function($, _, Backbone, Handlebars, donorConsoleTemplate, 
-           MessageView, Message, EditMembershipFormView, ChangePasswordFormView, GiveAgainView, 
+           MessageView, Message, EditMembershipFormView, ChangePasswordFormView, ChangeEmailModalView,
            ConfirmCancelView, ChangePaymentInfoView){
     var DonorConsole = Backbone.View.extend({
       
@@ -29,6 +30,7 @@ define([
       events: {
         "click #edit-membership": "showEditMembershipModal", 
         "click #change-password": "showChangePasswordModal",
+        "click #change-email": "showChangeEmailModal",
         "click #give-again": "showGiveAgainModal",
         "click #cancel-membership": "showCancelMembershipModal",
         "click #change-payment-info": "showChangePaymentModel",
@@ -72,6 +74,16 @@ define([
           this.changePasswordModal = new ChangePasswordFormView({donor: this.model});
         this.changePasswordModal.render();
         this.changePasswordModal.show();
+      },      
+      
+      /**
+       * Display the modal that will allow donors to change their email
+       */
+      showChangeEmailModal: function() {
+        if(!this.changeEmailModal)
+          this.changeEmailModal = new ChangeEmailModalView({donor: this.model});
+        this.changeEmailModal.render();
+        this.changeEmailModal.show();
       },
 
       /**

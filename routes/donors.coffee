@@ -50,7 +50,7 @@ router.post '/changeDonorCard/:donorID', (req, res, next) ->
       res.send {error: err}
 
 ###
-# Change a donor's password
+# Change a donor's email
 ###
 router.post '/changepassword', (req, res) ->
   console.log "in the change password"
@@ -70,6 +70,22 @@ router.post '/changepassword', (req, res) ->
               res.send {error: error}
             else
               res.send {error: null}
+
+###
+# Change a donor's password
+###
+router.post '/changeemail', (req, res) ->
+  console.log "in the change email "
+  MyPassport.authenticateUser req.user req.body.password
+    .then (donor) ->
+      donor.email = req.body.newemail
+      donor.save (err) ->
+        if err
+          res.send {error: err}
+        else
+          res.send {success: donor}
+    .catch (err) ->
+      res.send {error: err}
 
 ###
 # Send donor a reset password token which they can use to reset their password
