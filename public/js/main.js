@@ -1,5 +1,6 @@
 require.config({
   paths: {
+    main: 'main-built',
     jquery: 'libs/jquery/jquery',
     Stripe: "https://js.stripe.com/v2/?1",
     underscore: 'libs/underscore/underscore',
