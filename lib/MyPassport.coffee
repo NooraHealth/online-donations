@@ -8,15 +8,22 @@ passport = require 'passport'
 class MyPassport
   
   authenticateUser: (user, password) ->
+    console.log "authenticating the user via MyPassport"
     deferred = Q.defer()
 
     user.authenticate password, (err, donor, passwordErr) ->
+      console.log "recieved an answer about "
+      console.log err
+      console.log donor
+      console.log passwordErr
       if err
         deferred.reject err
       if passwordErr
         deferred.reject passwordErr
       else
        deferred.resolve donor
+
+    return deferred.promise
 
   setPassword: (user, password) ->
     deferred = Q.defer()
@@ -31,7 +38,7 @@ class MyPassport
           else
             deferred.resolve donor
 
-    return deferred
+    return deferred.promise
     
 
 

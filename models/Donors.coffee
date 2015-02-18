@@ -20,4 +20,12 @@ options =
 
 DonorSchema.plugin passportLocalMongoose, options
 
-module.exports = mongoose.model 'noora_donors' , DonorSchema
+Donors =  mongoose.model 'noora_donors' , DonorSchema
+
+####
+## Before saving, check that the email does not already exist in the database
+#donorSchema.pre 'save', (next) ->
+  #self = @
+  #Donors.count {email: self.email}
+
+module.exports = Donors

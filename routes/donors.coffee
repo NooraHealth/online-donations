@@ -76,15 +76,21 @@ router.post '/changepassword', (req, res) ->
 ###
 router.post '/changeemail', (req, res) ->
   console.log "in the change email "
-  MyPassport.authenticateUser req.user req.body.password
+  console.log req.user
+  console.log req.body.password
+  MyPassport.authenticateUser req.user, req.body.password
     .then (donor) ->
+      console.log "recieved a donor"
+      console.log req.body.newemail
       donor.email = req.body.newemail
+      console.log "about to save donor"
       donor.save (err) ->
         if err
           res.send {error: err}
         else
           res.send {success: donor}
     .catch (err) ->
+      console.log "This was the error: ", err
       res.send {error: err}
 
 ###
