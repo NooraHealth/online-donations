@@ -19,7 +19,8 @@ define([
     var LoginBase = FormBase.extend({
 
       events: {
-        "click #submit-login": "submitLogin"
+        "click #submit-login": "submitLogin",
+        "click .forgot": "showForgotPasswordModal"
       },
       
       initialize: function(options) {
@@ -33,6 +34,13 @@ define([
       form: function() {
         return this.$el.find("#login-form");
       },
+      
+      /*
+       * Shows modal which allows users to request a new password token
+       */
+      showForgotPasswordModal: function () {
+         this.router.navigate('forgotpassword', {trigger: true});
+       },
       
       resetForm: function() {
         this.form()[0].reset();
