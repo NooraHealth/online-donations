@@ -37,6 +37,13 @@ label {
   color: grey;
 }
 
+@media screen and (max-height: 700px) { 
+  .navbar-fixed-bottom{
+    position: relative !important;
+    margin-top: 20px;
+  }
+} 
+
 .skinny, .silver {
   font-weight: 400;
 }
