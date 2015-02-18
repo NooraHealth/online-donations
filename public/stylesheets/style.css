@@ -203,7 +203,7 @@ h6,
   border: solid #BBABAE 1px;
 }
 
-@media (max-width: 500px) {
+@media screen and (max-width: 700px) {
   .panel-img {
     display: hidden;
   }
