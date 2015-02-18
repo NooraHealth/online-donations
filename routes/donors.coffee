@@ -75,22 +75,19 @@ router.post '/changepassword', (req, res) ->
 # Change a donor's password
 ###
 router.post '/changeemail', (req, res) ->
-  console.log "in the change email "
-  console.log req.user
-  console.log req.body.password
+  oldEmail = req.user.email
+  email = req.body.newemail
   MyPassport.authenticateUser req.user, req.body.password
     .then (donor) ->
-      console.log "recieved a donor"
-      console.log req.body.newemail
-      donor.email = req.body.newemail
-      console.log "about to save donor"
-      donor.save (err) ->
-        if err
-          res.send {error: err}
-        else
-          res.send {success: donor}
+      MyStripe.updateDonor donor.stripeId, {email: email}
+        .then (stripeProfile) ->
+          console.log "got the stripeProfile, about to save donor"
+          donor.email = email
+          MyMongoose.save donor
+        .then () ->
+          res.send {donor: donor}
     .catch (err) ->
-      console.log "This was the error: ", err
+      console.log "this is the error: ", err
       res.send {error: err}
 
 ###

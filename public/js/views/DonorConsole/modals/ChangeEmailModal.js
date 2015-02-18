@@ -64,6 +64,7 @@ define([
         if ( response.error ) {
           this.handleServerError(response.error);
         } else {
+          this.donor.set(response.donor);
           this.showSuccessMessage();
         }
       },
