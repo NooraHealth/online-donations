@@ -3,6 +3,7 @@ router = express.Router()
 Donors = require '../models/Donors'
 MyMongoose = require '../lib/MyMongoose'
 MyStripe = require '../lib/MyStripe'
+MyPassport = require '../lib/MyPassport'
 Q = require 'q'
 
 
@@ -13,7 +14,6 @@ router.get '/' , (req, res) ->
 # Retrieve the donor information from stripe
 ###
 router.get '/info/:stripeId', (req, res)->
-  console.log "dONOR INFO"
   stripeId =  req.params.stripeId
   #their donation history
   donations = MyStripe.retrieveDonations stripeId
@@ -54,8 +54,6 @@ router.post '/changeDonorCard/:donorID', (req, res, next) ->
 ###
 router.post '/changepassword', (req, res) ->
   req.user.authenticate req.body.currentpassword, (err, donor, passwordErr) ->
-    console.log err
-    console.log passwordErr
     if err
       res.send {error: err}
     if passwordErr
@@ -71,5 +69,11 @@ router.post '/changepassword', (req, res) ->
               res.send {error: error}
             else
               res.send {error: null}
+
+###
+# Send donor a reset password token which they can use to reset their password
+###
+router.post "/forgotpassword", (req, res) ->
+  console.log "in the reset password route!"
 
 module.exports = router

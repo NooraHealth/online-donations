@@ -31,6 +31,7 @@ define([
         if(page == 'console') {
           this.set({donorConsole:false});
         }
+
       }
     
    }); 

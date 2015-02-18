@@ -11,18 +11,6 @@ define([
     var NavbarView = Backbone.View.extend({
 
       el: "#nav" ,
-
-      loginBtn: function() {
-        return this.$el.find('.login');
-      },
-      
-      logoutBtn: function() {
-        return this.$el.find('.logout');
-      },
-
-      gotoConsole: function() {
-        return this.$el.find('.gotoConsole');
-      },
     
       initialize: function(options) {
         this.donor = options.donor;
@@ -41,7 +29,7 @@ define([
       events: {
        "click .login": "showLoginModal",
        "click .logout": "logoutDonor",
-       "click .gotoConsole": "gotoDonorConsole"
+       "click .gotoConsole": "gotoDonorConsole",
       },
 
       gotoDonorConsole: function() {
@@ -51,12 +39,12 @@ define([
        showLoginModal: function() {
          if (!this.loginModal) {
           var login = new LoginModalView({router: this.router, donor: this.donor});
-          this.loginModal = login
+          this.loginModal = login;
           login.render();
          }
          this.loginModal.show();
        },
-       
+      
        logoutDonor: function(e){
           e.preventDefault();
           

@@ -7,13 +7,14 @@ define([
   'views/ThankYouPageView',
   'views/LoginPageView',
   'views/DonorConsoleView',
+  'views/ForgotPasswordView',
   'views/NavbarView',
   'views/MessageView',
   'models/Message',
   'models/Nav',
   'models/Donor',
 ], function($, _, Backbone, DonationFormView, ThankYouPageView, 
-            LoginPageView, DonorConsoleView, NavbarView, MessageView, Message, Nav, Donor){
+            LoginPageView, DonorConsoleView, ForgotPasswordView, NavbarView, MessageView, Message, Nav, Donor){
     var Router = Backbone.Router.extend({ 
 
       initialize: function() {
@@ -32,21 +33,20 @@ define([
         "giving": "donationForm",
         "nooradonors" : "donorConsole",
         "thankyou" : "thankYouPage",
-        "logout" : "donationForm"
+        "logout" : "donationForm",
+        "forgotpassword" : "forgotPassword"
       }, 
-      
+     
+      /* 
+       * Navigate to the login page
+       */
       login: function() {
         
         //Clear the views
         this.closeViews();
-        //After removal, reintroduce the main divs into the html for filling by the views
-        this.resetContainerElements();
 
         var page = new LoginPageView({router: this, donor: this.donor});
         var nav = new NavbarView({router: this, donor: this.donor, model: this.navModel});
-
-        //Change the el to the body so it fills the whole page rather than a modal
-        page.el = "#body";
 
         page.render();  
         nav.render();
@@ -57,6 +57,9 @@ define([
         this.currentViews.push(nav);
       },
       
+      /* 
+       * Navigate to the donor's thank you page
+       */
       thankYouPage: function() {
         
         //The user should not be able to access this if not logged in
@@ -67,8 +70,6 @@ define([
         
         //Clear the views
         this.closeViews();
-        //After removal, reintroduce the main divs into the html for filling by the views
-        this.resetContainerElements();
 
         var page = new ThankYouPageView({router: this, model: this.donor});
         var nav = new NavbarView({router: this, donor: this.donor, model: this.navModel});
@@ -81,13 +82,13 @@ define([
         this.currentViews.push(nav);
       },
 
+      /* 
+       * Navigate to the main Donation Form page
+       */
       donationForm: function() {
         
         //Clear the views
         this.closeViews();
-        
-        //After removal, reintroduce the main divs into the html for filling by the views
-        this.resetContainerElements();
         
         var page = new DonationFormView({router: this, donor: this.donor});
         var nav = new NavbarView({router: this, donor: this.donor, model: this.navModel});
@@ -101,6 +102,9 @@ define([
         this.currentViews.push(nav);
       },
       
+      /* 
+       * Navigate to the Donor Console page
+       */
       donorConsole: function() {
 
         //The user should not be able to access this if not logged in
@@ -111,8 +115,6 @@ define([
 
         //Clear the views
         this.closeViews();
-        //After removal, reintroduce the main divs into the html for filling by the views
-        this.resetContainerElements();
        
         var page = new DonorConsoleView({router: this, model: this.donor});
         var nav = new NavbarView({router: this, donor: this.donor, model: this.navModel});
@@ -123,26 +125,49 @@ define([
         
         this.currentViews.push(page);
         this.currentViews.push(nav);
+      },      
+      
+      
+      /* 
+       * Navigate to the Forgot Password page
+       */
+      forgotPassword: function() {
+        //Clear the views
+        this.closeViews();
+       
+        var page = new ForgotPasswordView({router: this, model: this.donor});
+        var nav = new NavbarView({router: this, donor: this.donor, model: this.navModel});
+        page.render();  
+        nav.render();
+        
+        this.navModel.setPage('forgotpassword');
+        
+        this.currentViews.push(page);
+        this.currentViews.push(nav);
       },
 
-      //Closes all the views currently in effect
+      /* 
+       * Close all of the open pages, to avoid zombie pages and overlapping event binding
+       */
       closeViews: function() {
         for(var i=0; i<this.currentViews.length; i++) {
           this.currentViews[i].close();
         }
 
         this.currentViews = [];
+        this.resetContainerElements();
       },
 
+      /* 
+       * After closing all the views and removing them from the page, readmit the 
+       * primary container elements, which can then be filled with views. 
+       */
       resetContainerElements: function() {
         $('.container').html("<div id='nav'></div><div id='body'></div><div id='modal'></div>");
       }
 
     });
 
-    //The user should not need to be navigate back and forth through this app, as there
-    //are only single page areas which are delineated by whether the user is logged in or
-    //not.
     Backbone.history.start();
     
     return Router;
