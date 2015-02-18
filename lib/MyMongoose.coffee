@@ -29,6 +29,17 @@ class MyMongoose
 
     return deferred.promise
 
+  save: (model) ->
+    deferred = Q.defer()
+    
+    model.save (err) ->
+      if err
+        deferred.reject err
+      else
+        deferred.resolve model
+
+    return deferred.promise
+
   count: (model, filter) ->
     deferred = Q.defer()
     

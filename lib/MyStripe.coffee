@@ -34,8 +34,11 @@ class MyStripe
     console.log "Deleting plan #{planID}"
     return stripe.plans.del planID
 
+  updateDonor: (donorID, updates) ->
+    console.log "Updating the donor on stripe"
+    return stripe.customers.update donorID, updates
+
   updatePlan: (donorID, subscriptionID, planID) ->
-    console.log "Updating the donor's plan subscription #{subscriptionID}"
     return stripe.customers.updateSubscription donorID, subscriptionID, {plan: planID}
 
   changeDonorCard: (donorID, stripeToken) ->
