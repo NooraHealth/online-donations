@@ -79,13 +79,17 @@ router.post '/changeemail', (req, res) ->
   email = req.body.newemail
   MyPassport.authenticateUser req.user, req.body.password
     .then (donor) ->
-      MyStripe.updateDonor donor.stripeId, {email: email}
-        .then (stripeProfile) ->
-          console.log "got the stripeProfile, about to save donor"
-          donor.email = email
-          MyMongoose.save donor
-        .then () ->
-          res.send {donor: donor}
+      MyMongoose.exists Donors, {email: email}
+        .then (exists) ->
+          if exists
+            res.send {error: {message: "A donor with that email already exists. Please login as that donor or chose another email."}}
+          else
+            MyStripe.updateDonor donor.stripeId, {email: email}
+              .then (stripeProfile) ->
+                donor.email = email
+                MyMongoose.save donor
+              .then () ->
+                res.send {donor: donor}
     .catch (err) ->
       console.log "this is the error: ", err
       res.send {error: err}
