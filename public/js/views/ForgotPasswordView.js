@@ -13,6 +13,14 @@ define([
     var ForgotPassword = Backbone.View.extend({
       el: "#body",
 
+      events: {
+        "submit #forgot-password-form": "requestResetToken"
+      },
+      
+      requestResetToken:  function() {
+      
+      },
+      
       render: function() {
         var html = forgotPasswordTemplate();
         this.$el.html(html);      
