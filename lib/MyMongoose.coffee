@@ -6,6 +6,21 @@ Q = require 'q'
 ###
 class MyMongoose
   
+  exists: (model, filter) ->
+    deferred = Q.defer()
+    
+    model.findOne filter, (err, result) ->
+      console.log "figuring out if model exists"
+      console.log result
+      if err
+        deferred.reject err
+      else if result
+        deferred.resolve true
+      else
+        deferred.resolve false
+
+    return deferred.promise
+
   findOne: (model, filter) ->
     deferred = Q.defer()
     

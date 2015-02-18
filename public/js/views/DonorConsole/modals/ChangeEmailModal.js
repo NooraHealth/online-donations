@@ -25,7 +25,7 @@ define([
       },
 
       submitChangeEmail: function() {
-        return $("#submit-change-password");
+        return $("#submit-change-email");
       },  
 
       changeEmailForm: function() {
@@ -64,7 +64,7 @@ define([
         if ( response.error ) {
           this.handleServerError(response.error);
         } else {
-          this.donor.set(response.donor);
+          this.donor.set("email",  response.donor.email);
           this.showSuccessMessage();
         }
       },
