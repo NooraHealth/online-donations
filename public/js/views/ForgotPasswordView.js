@@ -36,7 +36,7 @@ define([
         
         this.$("#submit-forgot-password").prop('disabled', true);
         
-        $.post('/donors/changepassword', data, function() {
+        $.post('login/forgotpassword', data, function() {
           console.log("posting successful");
         })
           .done(this.handleResponse.bind(this))

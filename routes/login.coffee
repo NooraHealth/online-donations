@@ -23,5 +23,13 @@ router.post '/' , (req, res, next)->
 
   )(req, res, next)
 
+###
+# Send donor a reset password token which they can use to reset their password
+###
+router.post "/forgotpassword", (req, res) ->
+  console.log "the email: "
+  console.log req.body.email
+  console.log "in the reset password route!"
+
 
 module.exports = router
