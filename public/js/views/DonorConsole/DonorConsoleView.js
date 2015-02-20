@@ -97,6 +97,35 @@ define([
         this.editMembershipModal.show();
       },
 
+      rotatePhotoCarousel: function() {
+        var index = 0;
+        var photos = $(".noora-carousel");
+        photos.slice(1).each(function(index, photo) {
+          $(photo).hide();
+        });
+        
+        rotate = function() {
+          var previous = photos[index];
+          $(previous).fadeOut(1000);
+
+          var nextIndex;
+          if (index >= photos.length - 1 ) {
+            nextIndex = 0;
+          } else {
+            nextIndex = ++index;
+          }
+          
+          console.log("nextIndex", nextIndex);
+          var next = photos[nextIndex];
+          $(next).fadeIn(1000);
+          
+          index = nextIndex;
+        }
+
+        rotate();
+        setInterval(rotate,  4000); 
+      },
+
       render: function() {
         var html = donorConsoleTemplate(this.model.toJSON());
         this.$el.html(html);      
@@ -104,6 +133,8 @@ define([
         this.message = new Message();
         this.messageView = new MessageView({model: this.message, el: $("#console-message")}); 
         this.messageView.render();
+
+        this.rotatePhotoCarousel();
         
         return this;
       },

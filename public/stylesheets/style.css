@@ -24,6 +24,11 @@ input {
 
 }
 
+.noora-carousel {
+  position: absolute;
+  width: 485px !important;
+}
+
 .end-tag {
   text-align: center;
 }
@@ -199,7 +204,6 @@ h6,
 
 .panel-img{
   width: 100%;
-  height: 100%;
   border: solid #BBABAE 1px;
 }
 
