@@ -123,7 +123,7 @@ define([
         }
 
         rotate();
-        setInterval(rotate,  4000); 
+        setInterval(rotate,  6000); 
       },
 
       render: function() {
