@@ -79,6 +79,9 @@ label {
 
 .white-panel, .donation-card {
   background-color: #FFFFFF;
+}
+
+.scroll {
   overflow-y: scroll;
 }
 
