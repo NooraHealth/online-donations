@@ -36,7 +36,7 @@ mongoose.connect(process.env.MONGO_URL
 app.engine("html", require('ejs').renderFile);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
-app.set('stripe secret key', process.env.STRIPE_SECRET_KEY_TESTING)
+app.set('stripe secret key', process.env.STRIPE_SECRET_KEY)
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));

@@ -1,4 +1,4 @@
-stripe = require('stripe')( process.env.STRIPE_SECRET_KEY_TESTING )
+stripe = require('stripe')( process.env.STRIPE_SECRET_KEY )
 
 ###
 # My wrappers around the Stripe api
