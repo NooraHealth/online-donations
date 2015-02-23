@@ -21,7 +21,12 @@ input {
 .nav-elements {
   color: #7BD0D0 !important;
   border: solid 1px #7BD0D0 !important;
-
+  cursor: pointer;
+  user-select:none;
+  -moz-user-select: none;
+  -o-user-select:none;
+  -webkit-user-select:none;
+  -ms-user-select:none;
 }
 
 .noora-carousel {
