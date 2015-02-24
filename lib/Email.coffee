@@ -1,6 +1,8 @@
 
+define = require '../lib/define'
 Q = require 'q'
 nodemailer = require 'nodemailer'
+crypto = require 'crypto'
 
 ###
 # My promise wrappers around the Mongoose library
@@ -19,11 +21,22 @@ class Email
     return deferred.promise
 
   sendEmail: (mail) ->
+    deferred = Q.defer()
+
     smtpTransport = nodemailer.createTransport 'smtp', {
-      service: 'SendGrid',
+      service: 'Gmail',
       auth:
-        user: 
+        user: define.smtpUser
+        pass: define.smtpPass
     }
 
+    smtpTransport.sendMail mail, (err) ->
+      if err
+        deferred.reject err
+      else
+        deferred.resolve "email has been sent"
 
-module.exports = new MyMongoose
+    return deferred.promise
+
+
+module.exports = new Email

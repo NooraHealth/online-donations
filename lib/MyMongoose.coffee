@@ -10,8 +10,6 @@ class MyMongoose
     deferred = Q.defer()
     
     model.findOne filter, (err, result) ->
-      console.log "figuring out if model exists"
-      console.log result
       if err
         deferred.reject err
       else if result
