@@ -9,14 +9,17 @@ crypto = require 'crypto'
 ###
 class Email
   
-  uniqueToken: ()->
+  uniqueToken: (donor)->
     deferred = Q.defer()
 
     crypto.randomBytes 20, (err, buf) ->
       if err
         deferred.reject err
       else
-        deferred.resolve buf.toString 'hex'
+        token =  buf.toString 'hex'
+        donor.resetPasswordToken = token
+        donor.resetPasswordExpires = Date.now() + 3600000
+        deferred.resolve token
 
     return deferred.promise
 
