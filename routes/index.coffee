@@ -18,8 +18,13 @@ router.get '/', (req, res) ->
 router.post "/forgot", (req, res) ->
   email = req.body.email
   console.log "this is the email #{email}"
-
-  Email.uniqueToken()
+  
+  MyMongoose.findOne Donors, {email: email}
+    .then (donor) ->
+      if !donor
+        throw new Error "This email is not registered with us. Please register at donate.noorahealth.org"
+      else
+        return Email.setUniqueToken()
     .then (token) ->
       mail =  define.resetEmail(email, token)
       return Email.sendEmail mail, req.app.mailer
@@ -32,10 +37,9 @@ router.post "/forgot", (req, res) ->
 router.get '/forgot/:token', (req, res) ->
   token = req.params.token
   password = req.body.password
-  console.log "TOKEN"
-  console.log token
-  MyMongoose.findOne Donors, {resetPasswordToken: tokeni, resetPasswordExpires: { $gt: Date.now() } }
+  MyMongoose.findOne Donors, {resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }
     .then (donor) ->
+      console.log donor
       if !donor
         res.send {error: {message: "We're sorry, your token is invalid or has expired." }}
       else
