@@ -1,6 +1,6 @@
 
 define = {
-  host: 'donate.noorahealth.org'
+  host: 'https://localhost:3000'
 
   smtpService: "SendGrid"
   smtpUser: 'lucyannerichards@gmail.com'
