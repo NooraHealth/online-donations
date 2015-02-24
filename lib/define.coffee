@@ -11,7 +11,7 @@ define = {
       to: email
       from: 'tech@noorahealth.org'
       subject: 'Password Reset'
-      text: "Hello, /n/n
+      body: "Hello, /n/n
         You are recieving this email because someone has requested a password reset
         for your membership account at Noora Health./n
         Please click on this link, or paste it into your browser, to complete the process./n/n
@@ -22,10 +22,11 @@ define = {
 
   confirmationEmail: (email) ->
     return {
+      from: "tech@noorahealth.org"
       to: email
       from: 'tech@noorahealth.org'
       subject: 'Your Noora Health password has changed!'
-      text: "Hello! /n/n Your Noora Health member password has changed./n
+      body: "Hello! /n/n Your Noora Health member password has changed./n
         Please log in to Noora Health with your new password. /n /n
         donate.noorahealth.org/#login /n "
     }
