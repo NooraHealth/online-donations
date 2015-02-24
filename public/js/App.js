@@ -21,22 +21,7 @@ define([
       
     var initialize = function() {
       Router = new Router();
-      
-      console.log("initializing the app");
-      var path = window.location.pathname;
-      var hash = window.location.hash;
-      
-      //a hack that resets the router, avoiding the problem 
-      //initialize the app on a hash
-      if (path == '/') {
-        Router.navigate('/');
-        if (hash == "#login") {
-          Router.navigate('login', {trigger: true});
-        }
-        else {
-          Router.navigate('giving', {trigger: true}); 
-        }
-      }
+      Backbone.history.loadUrl(Backbone.history.fragment );
     }
     
     return {initialize: initialize}; 
