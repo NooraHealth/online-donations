@@ -46,6 +46,7 @@ define([
       handleResponse: function(response) {
         if ( response.error ) {
           console.log("response error");
+          console.log(response.error);
           this.handleServerError(response.error);
         } else {
           this.showSuccessMessage();

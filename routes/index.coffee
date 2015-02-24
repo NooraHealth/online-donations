@@ -17,12 +17,11 @@ router.get '/', (req, res) ->
 ###
 router.post "/forgot", (req, res) ->
   email = req.body.email
-  console.log "this is the email #{email}"
   
   MyMongoose.findOne Donors, {email: email}
     .then (donor) ->
       if !donor
-        throw new Error "This email is not registered with us. Please register at donate.noorahealth.org"
+        throw {message:"This email is not registered with us. Please register at donate.noorahealth.org"}
       else
         return Email.setUniqueToken()
     .then (token) ->
@@ -31,8 +30,8 @@ router.post "/forgot", (req, res) ->
     .then (msg) ->
       res.send {success: "An email containing a link to reset your email has been sent."}
     .catch (err) ->
-      console.log "ERROR: ", err
-      res.send {error: "There was an error sending a reset email. Please try again."}
+      console.log err
+      res.send {error: err}
 
 router.get '/forgot/:token', (req, res) ->
   token = req.params.token
