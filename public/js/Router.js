@@ -8,13 +8,14 @@ define([
   'views/LoginPageView',
   'views/DonorConsole/DonorConsoleView',
   'views/ForgotPasswordView',
+  'views/ResetPasswordForm',
   'views/NavbarView',
   'views/MessageView',
   'models/Message',
   'models/Nav',
   'models/Donor',
 ], function($, _, Backbone, DonationFormView, ThankYouPageView, 
-            LoginPageView, DonorConsoleView, ForgotPasswordView, NavbarView, MessageView, Message, Nav, Donor){
+            LoginPageView, DonorConsoleView, ForgotPasswordView, ResetPasswordForm, NavbarView, MessageView, Message, Nav, Donor){
     var Router = Backbone.Router.extend({ 
 
       initialize: function() {
@@ -38,6 +39,25 @@ define([
         "forgot/:token" : "resetPasswordForm"
       }, 
      
+      /* 
+       * Navigate to the reset password form page
+       */
+      resetPasswordForm: function(token) {
+        
+        //Clear the views
+        this.closeViews();
+
+        var page = new ResetPasswordForm({router: this, token: token});
+        var nav = new NavbarView({router: this, donor: this.donor, model: this.navModel});
+
+        page.render();  
+        nav.render();
+        
+        this.navModel.setPage('loginpage');
+
+        this.currentViews.push(page);
+        this.currentViews.push(nav);
+      },
       /* 
        * Navigate to the login page
        */
