@@ -39,7 +39,6 @@ router.get '/forgot/:token', (req, res) ->
   console.log token
   MyMongoose.findOne Donors, {resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }
     .then (donor) ->
-      console.log donor
       if !donor
         res.send {error: {message: "We're sorry, your token is invalid or has expired." }}
       else

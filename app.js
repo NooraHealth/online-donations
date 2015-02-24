@@ -19,6 +19,7 @@ var Donor = require('./models/Donors');
 //ROUTES
 var routes = require('./routes/index');
 var donations = require('./routes/donations');
+var images = require('./routes/images');
 var registerNewDonor = require('./routes/register');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
@@ -82,6 +83,7 @@ passport.deserializeUser(Donor.deserializeUser());
 //});
 
 app.use('/', routes);
+app.use('/images', images);
 app.use('/donations', registerNewDonor);
 app.use('/donations', donations);
 app.use('/login', login);
