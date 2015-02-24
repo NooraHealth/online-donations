@@ -38,7 +38,7 @@ router.post "/forgot", (req, res) ->
   Email.uniqueToken()
     .then (token) ->
       mail =  define.resetEmail(email, token)
-      return Email.sendEmail mail
+      return Email.sendEmail mail, req.app.mailer
     .then (msg) ->
       res.send {success: "An email containing a link to reset your email has been sent."}
     .catch (err) ->

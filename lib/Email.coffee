@@ -20,18 +20,10 @@ class Email
 
     return deferred.promise
 
-  sendEmail: (mail) ->
+  sendEmail: (mail, mailer) ->
     deferred = Q.defer()
 
-    smtpTransport = nodemailer.createTransport 'smtp', {
-      service: define.smtpService,
-      auth:
-        user: define.smtpUser
-        pass: define.smtpPass
-      }
-    console.log "smtp: ", smtpTransport
-
-    smtpTransport.sendMail mail, (err) ->
+    mailer.send 'email', mail , (err) ->
       if err
         deferred.reject err
       else
