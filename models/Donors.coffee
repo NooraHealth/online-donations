@@ -7,8 +7,8 @@ donorSchema =
   name:String
   newsletter: Boolean
   count: Number
-  forgotPasswordToken: String
-  forgotPasswordExpires: Date
+  resetPasswordToken: String
+  resetPasswordExpires: Date
 
 
 DonorSchema = new Schema donorSchema

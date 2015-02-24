@@ -23,7 +23,7 @@ router.post "/forgot", (req, res) ->
       if !donor
         throw {message:"This email is not registered with us. Please register at donate.noorahealth.org"}
       else
-        return Email.setUniqueToken()
+        return Email.setUniqueToken(donor)
     .then (token) ->
       mail =  define.resetEmail(email, token)
       return Email.sendEmail mail, req.app.mailer
@@ -36,6 +36,7 @@ router.post "/forgot", (req, res) ->
 router.get '/forgot/:token', (req, res) ->
   token = req.params.token
   password = req.body.password
+  console.log token
   MyMongoose.findOne Donors, {resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }
     .then (donor) ->
       console.log donor
