@@ -34,7 +34,8 @@ define([
         "nooradonors" : "donorConsole",
         "thankyou" : "thankYouPage",
         "logout" : "donationForm",
-        "forgotpassword" : "forgotPassword"
+        "forgotpassword" : "forgotPassword",
+        "forgot/:token" : "resetPasswordForm"
       }, 
      
       /* 
