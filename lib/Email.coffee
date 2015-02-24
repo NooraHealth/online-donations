@@ -24,11 +24,12 @@ class Email
     deferred = Q.defer()
 
     smtpTransport = nodemailer.createTransport 'smtp', {
-      service: 'Gmail',
+      service: define.smtpService,
       auth:
         user: define.smtpUser
         pass: define.smtpPass
-    }
+      }
+    console.log "smtp: ", smtpTransport
 
     smtpTransport.sendMail mail, (err) ->
       if err

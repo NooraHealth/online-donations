@@ -11,6 +11,7 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 var passportLocalMongoose = require('passport-local-mongoose');
+var mailer = require('express-mailer');
 
 //Mongoose models
 var Donor = require('./models/Donors');
@@ -97,7 +98,6 @@ app.use( function (req, res, next) {
 app.use('/donors', donors);
 
 
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -129,5 +129,7 @@ app.use(function(err, req, res, next) {
     });
 });
 
+//Express-mailer config
+mailer.extend (app, require('./lib/MailerConfig'));
 
 module.exports = app;
