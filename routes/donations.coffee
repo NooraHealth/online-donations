@@ -39,10 +39,12 @@ router.post '/planchange/:donorID', (req, res, err) ->
   deferred.promise.then () ->
     MyStripe.updatePlan donorID, subscriptionID, newPlanID
   .then (newSubscription)->
-    emailtemplate = define.monthlyDonorConfirmation email, amount
-    Email.sendEmail 'RecurringDonorEmail', emailtemplate , req.app.mailer
-      .then ()->
-        res.send {subscription: newSubscription}
+    if amount > 0
+      emailtemplate = define.monthlyDonorConfirmation email, amount
+      Email.sendEmail 'RecurringDonorEmail', emailtemplate , req.app.mailer
+    
+    res.send {subscription: newSubscription}
+
   .catch (err) ->
     res.send {error: err}
 
@@ -54,7 +56,6 @@ router.post '/onetime/:donorID', (req, res, err) ->
   donorID = req.params.donorID
   email = req.body.email
 
-  console.log email
   MyStripe.charge donorID, amount
   .then (donation) ->
     emailtemplate = define.onetimeConfirmationEmail(email, amount)
