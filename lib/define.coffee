@@ -1,6 +1,6 @@
 
 define = {
-  host: 'localhost:3000'
+  host: 'donate.noorahealth.org'
   
   humanReadableCents: (amount) ->
     amount = amount.toString()
