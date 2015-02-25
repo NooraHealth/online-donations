@@ -57,6 +57,7 @@ define([
             amount: $("input[name=amount]").val() * 100,
             donorID: this.donor.get('id'),
             planID: this.donor.getPlanID(),
+            email: this.donor.get('email'),
             subscriptionID: this.donor.getSubscriptionID(),
 
             //Use the monthly donation checkbox determine whether this
@@ -65,6 +66,7 @@ define([
             editMembership: $("input[name=monthly]").is(':checked') ,
             onetime: !$("input[name=monthly]").is(':checked') ,
          }
+         console.log(this.donor.get('email'));
 
         //disable the submit button so they can't submit again
         this.giveAgainSubmitButton().prop('disabled', true);

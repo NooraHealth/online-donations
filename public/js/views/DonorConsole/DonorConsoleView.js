@@ -15,7 +15,7 @@ define([
   'views/DonorConsole/modals/ChangePaymentInfoView',
   'bootstrap'
 ], function($, _, Backbone, Handlebars, donorConsoleTemplate, 
-           MessageView, Message, EditMembershipFormView, ChangePasswordFormView, ChangeEmailModalView,
+           MessageView, Message, EditMembershipFormView, ChangePasswordFormView, ChangeEmailModalView, GiveAgainView, 
            ConfirmCancelView, ChangePaymentInfoView){
     var DonorConsole = Backbone.View.extend({
       
@@ -60,6 +60,7 @@ define([
        * Display the modal that will allow donors to change their password
        */
       showCancelMembershipModal: function() {
+        console.log("cancel membership click!");
         if(!this.cancelMembershipModal)
           this.cancelMembershipModal = new ConfirmCancelView({donor: this.model});
         this.cancelMembershipModal.render();
