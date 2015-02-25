@@ -70,6 +70,7 @@ define([
             donorID: this.donor.get('id'),
             planID: this.donor.getPlanID(),
             subscriptionID: this.donor.getSubscriptionID(),
+            email: this.donor.get('email'),
             editMembership: true
          }
 

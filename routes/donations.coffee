@@ -18,6 +18,7 @@ router.post '/planchange/:donorID', (req, res, err) ->
   donorID = req.params.donorID
   planID = req.body.planID
   subscriptionID = req.body.subscriptionID
+  email = req.body.email
   newPlanID = if amount == 0 then 'onetime' else donorID + new Date().getTime()
     
   #create a deferred promise to handle the planID = 'onetime' case, in which I 
@@ -38,7 +39,10 @@ router.post '/planchange/:donorID', (req, res, err) ->
   deferred.promise.then () ->
     MyStripe.updatePlan donorID, subscriptionID, newPlanID
   .then (newSubscription)->
-    res.send {subscription: newSubscription}
+    emailtemplate = define.monthlyDonorConfirmation email, amount
+    Email.sendEmail 'RecurringDonorEmail', emailtemplate , req.app.mailer
+      .then ()->
+        res.send {subscription: newSubscription}
   .catch (err) ->
     res.send {error: err}
 
