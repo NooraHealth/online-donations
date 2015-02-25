@@ -27,10 +27,10 @@ class Email
 
     return deferred.promise
 
-  sendEmail: (mail, mailer) ->
+  sendEmail: (template, mail, mailer) ->
     deferred = Q.defer()
 
-    mailer.send 'email', mail , (err) ->
+    mailer.send template, mail , (err) ->
       if err
         deferred.reject err
       else

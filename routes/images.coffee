@@ -4,8 +4,6 @@ MyFS= require '../lib/MyFs'
 Q = require 'q'
 
 router.get '/:image', (req, res) ->
-  console.log "getting image1"
-  console.log "promisify"
   imgName = req.params.image
   MyFS.readFile './public/images/' + imgName
     .then (img)->

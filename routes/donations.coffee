@@ -2,7 +2,9 @@ express = require('express')
 router = express.Router()
 MyStripe = require '../lib/MyStripe'
 MyMongoose = require '../lib/MyMongoose'
+Email = require '../lib/Email'
 Donors = require '../models/Donors'
+define = require '../lib/define'
 Q = require 'q'
 
 
@@ -124,10 +126,15 @@ router.post '/submit', (req, res, err) ->
           donor.save()
           return MyStripe.charge stripeDonor.id, amount
         .then (charge) ->
-            #json the donor info back to the client
-            #res.json {error: null, donor: stripeDonor}
-            res.redirect '/donors/info/' + stripeDonor.id
+          console.log req.app.mailer
+          emailtemplate = define.onetimeConfirmationEmail(email, amount)
+          Email.sendEmail 'OneTimeDonorConfirmation', emailtemplate , req.app.mailer
+        .then ()->
+          #json the donor info back to the client
+          #res.json {error: null, donor: stripeDonor}
+          res.redirect '/donors/info/' + stripeDonor.id
       .catch (err) ->
+        console.log err
         req.logout()
         MyMongoose.findOneAndRemove Donors, {email: email}
         MyStripe.removeDonor stripeDonor.id
@@ -135,6 +142,7 @@ router.post '/submit', (req, res, err) ->
           console.log "there was an error removing the donor form stripe"
         res.json {error: err}
     .catch (err) ->
+      console.log err
       req.logout()
       MyMongoose.findOneAndRemove Donors, {email: email}
       res.json {error: err}

@@ -34,13 +34,37 @@ define([
       resetPassword:  function(e) {
         e.preventDefault();
 
-        data = {
-          password: $("input[name=email]").val(),
-        };
+        if (this.$("input[name=currentpassword]").val() == "" ) {
+          this.message.clear();
+          this.message.set({error: "Please enter your current password."});
+          return false;
+        }
         
+        if (this.$("input[name=password]").val() == "" ) {
+          this.message.clear();
+          this.message.set({error: "Please enter a new password."});
+          return false;
+        }
+        
+        if (this.$("input[name=password]").val() != this.$("input[name=confirm]").val()) {
+          this.message.clear();
+          this.message.set({error: "Your passwords do not match"});
+          return false;
+        }
+
+        if (this.$("input[name=password]").val().length < 6 ) {
+          this.message.clear();
+          this.message.set({error: "Your new password should be at least 6 characters long."});
+          return false;
+        }
+          
+        data = {
+          password: $("input[name=password]").val(),
+        };
+        console.log(data); 
         this.$("#submit-reset-password").prop('disabled', true);
         
-        $.post('/forgot/'+ this.token, data, function() {
+        $.post('/reset/'+ this.token, data, function() {
           console.log("posting successful");
         })
           .done(this.handleResponse.bind(this))
@@ -67,7 +91,7 @@ define([
       },
 
       render: function() {
-        var html = resetPasswordTemplate({token: this.token});
+        var html = resetPasswordTemplate();
         this.$el.html(html);      
        
         this.successMessage().hide();

@@ -32,6 +32,7 @@ define([
       routes: {
         "login": "login",
         "giving": "donationForm",
+        "": "donationForm",
         "nooradonors" : "donorConsole",
         "thankyou" : "thankYouPage",
         "logout" : "donationForm",

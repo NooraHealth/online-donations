@@ -1,6 +1,6 @@
 
 define = {
-  host: 'https://localhost:3000'
+  host: 'localhost:3000'
 
   smtpService: "SendGrid"
   smtpUser: 'lucyannerichards@gmail.com'
@@ -15,22 +15,28 @@ define = {
         You are recieving this email because someone has requested a password reset
         for your membership account at Noora Health./n
         Please click on this link, or paste it into your browser, to complete the process./n/n
-        http://#{this.host}/forgot/#{token} /n/n 
+        http://#{this.host}/#forgot/#{token} /n/n 
         If you did not request a change, then please ignore this email and your password will
         remain unchanged"
     }
 
-  confirmationEmail: (email) ->
+  onetimeConfirmationEmail: (email, amount) ->
+    amount = amount.toString()
+    console.log amount
+    first = amount.slice(0, amount.length-2)
+    console.log first
+    second = amount.slice amount.length-2
+    console.log second
+    dollars = "$#{first}.#{second}"
+    console.log dollars
+    console.log "DOLLARDS #{dollars}"
     return {
       from: "tech@noorahealth.org"
       to: email
       from: 'tech@noorahealth.org'
-      subject: 'Your Noora Health password has changed!'
-      body: "Hello! /n/n Your Noora Health member password has changed./n
-        Please log in to Noora Health with your new password. /n /n
-        donate.noorahealth.org/#login /n "
-    }
+      subject: 'Thank you for giving to Noora Health!'
+      amount: dollars
+      }
 
 }
-
 module.exports = define
