@@ -4,7 +4,7 @@ config = {
   secureConnection: true
   port: 465
   auth: {
-    user: 'lucy@noorahealth.org'
+    user: 'founders@noorahealth.org'
     pass: process.env.MAILER_PASS
   }
 }
