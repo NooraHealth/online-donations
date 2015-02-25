@@ -26,6 +26,16 @@ define = {
         remain unchanged"
     }
 
+  monthlyDonorConfirmation: (email, amount) ->
+    dollars = this.humanReadableCents amount
+    return {
+      from: "tech@noorahealth.org"
+      to: email
+      from: 'tech@noorahealth.org'
+      subject: 'Thank you for giving to Noora Health!'
+      amount: dollars
+      }
+  
   onetimeConfirmationEmail: (email, amount) ->
     dollars = this.humanReadableCents amount
     return {

@@ -51,7 +51,10 @@ router.post '/onetime/:donorID', (req, res, err) ->
 
   MyStripe.charge donorID, amount
   .then (donation) ->
-    res.send {donation:donation}
+    emailtemplate = define.onetimeConfirmationEmail(email, amount)
+    Email.sendEmail 'OneTimeDonorConfirmation', emailtemplate , req.app.mailer
+      .then ()->
+        res.send {donation:donation}
   .catch (err) ->
     res.send {error: err}
 
@@ -86,15 +89,18 @@ router.post '/submit', (req, res, err) ->
         donor.stripeId = stripeDonor.id
         donor.newsletter = (newsletter == true)
         donor.save()
-        console.log "saved the donor"
         return MyMongoose.count Donors, {}
         .then (count)->
           donor.count = count+25 #add 25 to account for previous donations made by other means
           donor.save()
+          emailtemplate = define.monthlyDonorConfirmation email, amount
+          Email.sendEmail 'MonthlyDonorConfirmation', emailtemplate , req.app.mailer
+        .then ()->
           #json the donor info back to the client
           #res.json {error: null, donor: stripeDonor}
           res.redirect '/donors/info/' + stripeDonor.id
       .catch (err) ->
+        console.log err
         req.logout()
         MyMongoose.findOneAndRemove Donors, {email: email}
         MyStripe.removeDonor stripeDonor.id
@@ -102,6 +108,7 @@ router.post '/submit', (req, res, err) ->
           console.log "there was an error removing the donor form stripe"
         res.json {error: err}
     .catch (err) ->
+      console.log err
       req.logout()
       MyMongoose.findOneAndRemove Donors, {email: email}
       res.json {error: err}
