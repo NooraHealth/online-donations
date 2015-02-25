@@ -59,6 +59,7 @@ define([
          var data = {
             amount: 0,
             donorID: this.donor.get('id'),
+            email: this.donor.get('email'),
             planID: this.donor.getPlanID(),
             subscriptionID: this.donor.getSubscriptionID(),
             editMembership: true
@@ -72,6 +73,7 @@ define([
 
       handleResponse: function(response) {
         if (response.get('error')) {
+          console.log(response);
           this.handleServerError(response.get("error"));
           this.model.set({error: null});
         } else{

@@ -52,14 +52,18 @@ router.post '/planchange/:donorID', (req, res, err) ->
 router.post '/onetime/:donorID', (req, res, err) ->
   amount = req.body.amount
   donorID = req.params.donorID
+  email = req.body.email
 
+  console.log email
   MyStripe.charge donorID, amount
   .then (donation) ->
     emailtemplate = define.onetimeConfirmationEmail(email, amount)
+    console.log emailtemplate
     Email.sendEmail 'OneTimeDonorConfirmation', emailtemplate , req.app.mailer
       .then ()->
         res.send {donation:donation}
   .catch (err) ->
+    console.log err
     res.send {error: err}
 
   
