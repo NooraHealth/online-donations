@@ -114,8 +114,7 @@ define([
           } else {
             nextIndex = ++index;
           }
-          
-          console.log("nextIndex", nextIndex);
+
           var next = photos[nextIndex];
           $(next).fadeIn(1000);
           

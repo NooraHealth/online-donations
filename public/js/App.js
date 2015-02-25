@@ -21,7 +21,7 @@ define([
       
     var initialize = function() {
       Router = new Router();
-      Backbone.history.loadUrl(Backbone.history.fragment );
+      Backbone.history.loadUrl(Backbone.history.fragment);
     }
     
     return {initialize: initialize}; 
