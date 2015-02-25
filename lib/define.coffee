@@ -1,11 +1,17 @@
 
 define = {
   host: 'localhost:3000'
+  
+  humanReadableCents: (amount) ->
+    amount = amount.toString()
+    first = amount.slice(0, amount.length-2)
+    second = amount.slice amount.length-2
+    return "$#{first}.#{second}"
 
   smtpService: "SendGrid"
   smtpUser: 'lucyannerichards@gmail.com'
   smtpPass: process.env.NODEMAILER_PASS
-
+  
   resetEmail: (email, token) ->
     return {
       to: email
@@ -21,15 +27,7 @@ define = {
     }
 
   onetimeConfirmationEmail: (email, amount) ->
-    amount = amount.toString()
-    console.log amount
-    first = amount.slice(0, amount.length-2)
-    console.log first
-    second = amount.slice amount.length-2
-    console.log second
-    dollars = "$#{first}.#{second}"
-    console.log dollars
-    console.log "DOLLARDS #{dollars}"
+    dollars = this.humanReadableCents amount
     return {
       from: "tech@noorahealth.org"
       to: email
@@ -37,6 +35,5 @@ define = {
       subject: 'Thank you for giving to Noora Health!'
       amount: dollars
       }
-
 }
 module.exports = define
