@@ -41,9 +41,8 @@ require([
   // Load our app module and pass it to our definition function
   'App',
 ], function(Stripe, App){
-  Stripe.setPublishableKey('pk_test_wgnlG9SWZYbwIHTseFsrN7sA');
-  //Stripe.setPublishableKey('pk_live_UfNNEjCQdIbLsrVImH1uCUnP');
-  console.log("In main.js -- about to initialize the app");
+  //Stripe.setPublishableKey('pk_test_wgnlG9SWZYbwIHTseFsrN7sA');
+  Stripe.setPublishableKey('pk_live_UfNNEjCQdIbLsrVImH1uCUnP');
   // The "app" dependency is passed in as "App"
   App.initialize();
 });
