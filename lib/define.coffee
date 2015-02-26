@@ -8,10 +8,6 @@ define = {
     second = amount.slice amount.length-2
     return "$#{first}.#{second}"
 
-  smtpService: "SendGrid"
-  smtpUser: 'lucyannerichards@gmail.com'
-  smtpPass: process.env.NODEMAILER_PASS
-  
   resetEmail: (email, token) ->
     return {
       to: email
