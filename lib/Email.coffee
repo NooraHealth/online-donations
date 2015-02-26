@@ -1,7 +1,6 @@
 
 define = require '../lib/define'
 Q = require 'q'
-nodemailer = require 'nodemailer'
 crypto = require 'crypto'
 
 ###
