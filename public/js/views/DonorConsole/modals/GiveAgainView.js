@@ -66,7 +66,6 @@ define([
             editMembership: $("input[name=monthly]").is(':checked') ,
             onetime: !$("input[name=monthly]").is(':checked') ,
          }
-         console.log(this.donor.get('email'));
 
         //disable the submit button so they can't submit again
         this.giveAgainSubmitButton().prop('disabled', true);

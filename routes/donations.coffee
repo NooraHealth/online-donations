@@ -40,7 +40,7 @@ router.post '/planchange/:donorID', (req, res, err) ->
     MyStripe.updatePlan donorID, subscriptionID, newPlanID
   .then (newSubscription)->
     if amount > 0
-      emailtemplate = define.monthlyDonorConfirmation email, amount
+      emailtemplate = define.confirmationEmail email, amount
       Email.sendEmail 'RecurringDonorEmail', emailtemplate , req.app.mailer
     
     res.send {subscription: newSubscription}
@@ -58,7 +58,7 @@ router.post '/onetime/:donorID', (req, res, err) ->
 
   MyStripe.charge donorID, amount
   .then (donation) ->
-    emailtemplate = define.onetimeConfirmationEmail(email, amount)
+    emailtemplate = define.confirmationEmail(email, amount)
     console.log emailtemplate
     Email.sendEmail 'OneTimeDonorConfirmation', emailtemplate , req.app.mailer
       .then ()->
@@ -102,7 +102,7 @@ router.post '/submit', (req, res, err) ->
         .then (count)->
           donor.count = count+25 #add 25 to account for previous donations made by other means
           donor.save()
-          emailtemplate = define.monthlyDonorConfirmation email, amount
+          emailtemplate = define.confirmationEmail email, amount
           Email.sendEmail 'MonthlyDonorConfirmation', emailtemplate , req.app.mailer
         .then ()->
           #json the donor info back to the client
@@ -143,7 +143,7 @@ router.post '/submit', (req, res, err) ->
           return MyStripe.charge stripeDonor.id, amount
         .then (charge) ->
           console.log req.app.mailer
-          emailtemplate = define.onetimeConfirmationEmail(email, amount)
+          emailtemplate = define.confirmationEmail(email, amount)
           Email.sendEmail 'OneTimeDonorConfirmation', emailtemplate , req.app.mailer
         .then ()->
           #json the donor info back to the client

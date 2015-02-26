@@ -1,6 +1,6 @@
 
 define = {
-  host: 'donate.noorahealth.org'
+  host: process.env.HOST
   
   humanReadableCents: (amount) ->
     amount = amount.toString()
@@ -11,35 +11,19 @@ define = {
   resetEmail: (email, token) ->
     return {
       to: email
-      from: 'tech@noorahealth.org'
+      from: 'founders@noorahealth.org'
       subject: 'Password Reset'
-      body: "Hello, /n/n
-        You are recieving this email because someone has requested a password reset
-        for your membership account at Noora Health./n
-        Please click on this link, or paste it into your browser, to complete the process./n/n
-        http://#{this.host}/#forgot/#{token} /n/n 
-        If you did not request a change, then please ignore this email and your password will
-        remain unchanged"
+      link: "http://#{host}/forgot/#{token}"
     }
 
-  monthlyDonorConfirmation: (email, amount) ->
+  confirmationEmail: (email, amount) ->
     dollars = this.humanReadableCents amount
     return {
-      from: "tech@noorahealth.org"
+      from: "founders@noorahealth.org"
       to: email
-      from: 'tech@noorahealth.org'
-      subject: 'Thank you for giving to Noora Health!'
+      subject: 'Thank you for your contribution to Noora Health!'
       amount: dollars
       }
-  
-  onetimeConfirmationEmail: (email, amount) ->
-    dollars = this.humanReadableCents amount
-    return {
-      from: "tech@noorahealth.org"
-      to: email
-      from: 'tech@noorahealth.org'
-      subject: 'Thank you for giving to Noora Health!'
-      amount: dollars
-      }
+
 }
 module.exports = define
