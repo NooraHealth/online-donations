@@ -5,6 +5,7 @@ module.exports = (grunt) ->
     env:
       dev:
         src: '.env/dev.json'
+        PORT: 90
 
       prod:
         src: '.env/production.json'

@@ -43,6 +43,7 @@ require([
 ], function(Stripe, App){
   //Stripe.setPublishableKey('pk_test_wgnlG9SWZYbwIHTseFsrN7sA');
   Stripe.setPublishableKey($("#STRIPE_PUBLIC_KEY").val());
+  console.log("STRIPE: ", $("#STRIPE_PUBLIC_KEY").val());
   // The "app" dependency is passed in as "App"
   App.initialize();
 });

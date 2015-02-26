@@ -10,6 +10,7 @@ Q = require 'q'
 
 # GET home page.
 router.get '/', (req, res) ->
+  console.log process.env.STRIPE_PUBLIC_KEY
   res.render 'index', { title: 'NooraHealth' , stripe_key: process.env.STRIPE_PUBLIC_KEY }
 
 ###
