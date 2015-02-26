@@ -10,7 +10,7 @@ Q = require 'q'
 
 # GET home page.
 router.get '/', (req, res) ->
-  res.render 'index', { title: 'NooraHealth' }
+  res.render 'index', { title: 'NooraHealth' , stripe_key: process.env.STRIPE_PUBLIC_KEY }
 
 ###
 # Send donor a reset password token which they can use to reset their password
