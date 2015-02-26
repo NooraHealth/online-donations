@@ -11,7 +11,6 @@ define = {
   resetEmail: (email, token) ->
     return {
       to: email
-      from: 'founders@noorahealth.org'
       subject: 'Password Reset'
       link: "http://#{host}/forgot/#{token}"
     }
@@ -19,7 +18,6 @@ define = {
   confirmationEmail: (email, amount) ->
     dollars = this.humanReadableCents amount
     return {
-      from: "founders@noorahealth.org"
       to: email
       subject: 'Thank you for your contribution to Noora Health!'
       amount: dollars

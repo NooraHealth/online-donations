@@ -10,6 +10,7 @@ module.exports = (grunt) ->
         src: '.env/production.json'
 
     nodemon:
+      nodeArgs: ['--debug']
       dev:
         script: 'bin/www'
 
