@@ -8,5 +8,6 @@ config = {
     pass: process.env.MAILER_PASS
   }
 }
+console.log config
 
 module.exports = config
