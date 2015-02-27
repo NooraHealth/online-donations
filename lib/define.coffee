@@ -9,6 +9,7 @@ define = {
     return "$#{first}.#{second}"
 
   resetEmail: (email, token) ->
+    host = this.host
     return {
       to: email
       subject: 'Password Reset'
