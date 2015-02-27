@@ -46,7 +46,7 @@ router.post '/reset/:token', (req, res) ->
         donor.resetPasswordToken = undefined
         MyPassport.setPassword donor, password
           .then (donor) ->
-            Email.sendEmail define.confirmationEmail(donor.email)
+            Email.sendEmail 'ConfirmReset', define.confirmResetPasswordEmail(donor.email), req.app.mailer
           .then () ->
             res.send {success: "Your password has been changed. Please log in using your new password."}
     .catch (err) ->
