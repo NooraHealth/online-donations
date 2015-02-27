@@ -20,6 +20,7 @@ define([
     };
       
     var initialize = function() {
+      console.log("Back bone fragmrt");
       Router = new Router();
       Backbone.history.loadUrl(Backbone.history.fragment);
     }

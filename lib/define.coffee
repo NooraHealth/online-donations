@@ -13,7 +13,7 @@ define = {
     return {
       to: email
       subject: 'Password Reset'
-      link: "http://#{host}/forgot/#{token}"
+      link: "http://#{host}/#forgot/#{token}"
     }
 
   confirmationEmail: (email, amount) ->
