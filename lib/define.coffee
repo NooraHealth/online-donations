@@ -16,6 +16,12 @@ define = {
       link: "http://#{host}/#forgot/#{token}"
     }
 
+  confirmResetPasswordEmail: (email) ->
+    return {
+      to: email
+      subject: 'Your password has been changed'
+      }
+
   confirmationEmail: (email, amount) ->
     dollars = this.humanReadableCents amount
     return {
