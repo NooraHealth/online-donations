@@ -54,7 +54,7 @@ define([
         page.render();  
         nav.render();
         
-        this.navModel.setPage('loginpage');
+        this.navModel.setPage('forgotpassword');
 
         this.currentViews.push(page);
         this.currentViews.push(nav);
