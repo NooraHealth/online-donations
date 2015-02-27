@@ -24,5 +24,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-nodemon'
 
   grunt.registerTask 'default', ['env:dev', 'nodemon']
+  grunt.registerTask 'production', ['env:prod', 'nodemon']
   grunt.registerTask 'build:dev', ['env:dev']
   grunt.registerTask 'build:prod', ['env:prod']
