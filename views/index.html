@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name=viewport content="width=device-width, initial-scale=1">
     <title> Noora Health</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     
@@ -14,15 +15,14 @@
   <body>
     <input class="hidden" id="STRIPE_PUBLIC_KEY" value=<%=stripe_key %> >
     
-    <div class="container">
+    <div id="container">
       <div id="nav"></div>
       <div id="body"></div>
       <div id="modal"></div> 
     </div>
-    
+
     <div class="row navbar-fixed-bottom padding-bottom-lg">
-      <p class="silver text-center">Noora Health is a 501c3 non-profit</p>
+        <p class="silver text-center">Noora Health is a 501c3 non-profit</p>
     </div>
-    
-  </body>
+  <body>
 </html>

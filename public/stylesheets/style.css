@@ -1,6 +1,12 @@
+html, body, #container {
+  height: 100%;
+}
+
+body > #container { height: auto; min-height: 100%; }
+
 body {
   /*padding: 50px;*/
-  font-size: 14px;
+  font-size: 16px;
   font-family: 'Quicksand', sans-serif !important;
   font-weight: 500;
   background-color: #F5FFFF !important;
@@ -12,6 +18,14 @@ input:-webkit-autofill {
 
 input {
   background: #F5FFFF;
+}
+
+#footer {
+ clear: both;
+ position: relative;
+ z-index: 10;
+ height: 3em;
+ margin-top: -3em;
 }
 
 .donation-form-message {
@@ -92,7 +106,6 @@ label {
 
 .donation-card {
   padding: 10px;
-  height: 420px;
 }
 
 .donation-card input:not([type='submit']) {
@@ -139,8 +152,20 @@ h6,
   line-height: 1.1;
 }
 
-.container {
-  padding: 0px 80px 0px 80px !important;
+.navbar-blue {
+  background-color: #F5FFFF;
+}
+
+@media screen (max-width:768) {
+  #container {
+    padding: 0px 0px 0px 0px !important;
+  }
+}
+
+@media screen (min-width:769) {
+  #container {
+    padding: 0px 80px 0px 80px !important;
+  }
 }
 
 .form-row {
@@ -158,7 +183,9 @@ h6,
   padding: 5px;
   border: solid 2px;
   height: 40px;
-  width: 100px;
+  width: 115px;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
 }
 
 .donation-input {
@@ -181,9 +208,19 @@ h6,
  padding-bottom: 20px;
 }
 
-.fixed-panel {
-  width: 485px;
+@media screen and (max-width: 1199px) {
+  .fixed-panel {
+    width: 100%;
+    height: 451px;
+  }
 }
+
+@media screen and (min-width: 1200px) {
+  .fixed-panel {
+    width: 50%;
+    height: 451px;
+  }
+}*/
 
 .padding-bottom {
   padding-bottom: 30px;
@@ -210,19 +247,89 @@ h6,
   color: #ffd25c;
 }
 
-.panel-img{
-  width: 100%;
-  border: solid #BBABAE 1px;
+.navbar-transparent {
+  background-color: transparent !important;
+  border-color: transparent !important;
 }
 
-@media screen and (max-width: 700px) {
-  .panel-img {
-    display: hidden;
+/*.embed-container {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+}
+
+.embed-container div{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.ratio-16-9 {
+  padding-bottom: 56.25%;
+}
+
+.ratio-4-3 {
+  padding-bottom: 75%;
+}
+
+.ratio-1-1 {
+  padding-bottom: 100%;
+}*/
+
+#panel-img div{
+  background-image: url('../images/silkbaby.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  /*border: solid #BBABAE 1px;*/
+}
+
+@media screen and (max-width: 767px) {
+  .screen-lg {
+    display: none;
   }
 }
 
+@media screen and (min-width: 768px) {
+  .screen-sm {
+    display: none;
+  }
+}
+
+.height-hundred {
+  height: auto !important;
+}
+
+.text-contain {
+  text-align: center !important;
+  padding: 0px 0px !important;
+}
+
+/*@media screen and (max-width: 767px) {
+  .btn-responsive {
+    padding:2px 4px !important;
+    font-size:80%;
+    line-height: 1;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .btn-responsive {
+    padding:4px 9pxi !important;
+    font-size:90%;
+    line-height: 1.2;
+  }
+}*/
+
+.btn {
+  width: 20%;
+}
+
 .no-border {
-  /*width:100%;*/
+  width:100%;
   border:0px !important;
   box-shadow: none !important;
 }
@@ -389,6 +496,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .input-group-btn:last-child > .btn-group {
   margin-left: -1px;
 }
+
+.inline-block {
+  display: inline block;
+}
+
 .btn-toolbar > .input-group {
   margin-left: 5px;
 }
