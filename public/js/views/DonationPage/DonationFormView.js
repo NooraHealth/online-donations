@@ -10,7 +10,9 @@ define([
   'models/Message',
   'models/Donation',
   'views/Bases/FormBase',
-], function($, _, Backbone, Handlebars, Stripe, donationFormTemplate,  MessageView, Message, Donation, FormBase){
+  'hbs!templates/partials/cardInfoFormInputsLargeScreen',
+  'hbs!templates/partials/cardInfoFormInputsSmallScreen'
+], function($, _, Backbone, Handlebars, Stripe, donationFormTemplate,  MessageView, Message, Donation, FormBase, largeScreenCardInputs, smallScreenCardInputs){
 
     var DonationForm = FormBase.extend({
     
@@ -24,15 +26,16 @@ define([
         return this.$('#submit-donation');
       },
       
+
       initialize: function(options) {
     
         this.donor = options.donor;
         this.router = options.router;
         this.model = new Donation();
-       
         this.listenTo(this.model, 'invalid', this.handleValidationError);
-
+        $(window).on('resize', this.sizeDependentLayout);
       },
+
 
       disableSubmitButton: function (state) {
         this.submitDonation().prop('disabled', state);
@@ -46,8 +49,18 @@ define([
       },
 
       events: {
-        "submit #donation-form": "createStripeToken",
+        "click #submit-donation": "createStripeToken",
         "click button[name=donationBar]": "fillDonationBox"
+      },
+
+      sizeDependentLayout: function () {
+        if (window.innerWidth < 768) {
+          $("#screenMessage").text("Every dollar you donate goes directly toward helping patients");
+          $("#formFields").html(smallScreenCardInputs());
+        } else {
+          $("#screenMessage").text("Every dollar you donate goes directly toward helping patients like Adi");
+          $("#formFields").html(largeScreenCardInputs());
+        }
       },
 
       fillDonationBox: function(e) {
@@ -59,7 +72,7 @@ define([
        * Parse expiration input for use by Stripe
        */
       parseExpiration: function() {
-        var exp = $("#expiration").val();
+        var exp = $("input[name=expiration]").val();
         if (exp.length < 7)
           return;
 
@@ -135,6 +148,7 @@ define([
       render: function() {
         var html = donationFormTemplate();
         this.$el.html(html);      
+        this.sizeDependentLayout();
         
         //Set the el of the form message view now that the form has been rendered
         //this.messageView.setElement($("#form-messages"));
