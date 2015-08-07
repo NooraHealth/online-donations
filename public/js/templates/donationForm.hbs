@@ -5,18 +5,6 @@
   <div class="col-lg-12 col-md-12 col-sm-12">
     <h3 class="text-center" id="screenMessage"></h3>
   </div>
-  
-  <!--{{#smallScreen this}}
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <h3 class="text-center" id="screenMessage">Every dollar you donate goes directly toward helping patients</h3>
-    </div>
-  {{else}}
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <h3 class="text-center" id="screenMessage">Every dollar you donate goes directly toward helping patients like Adi</h3>
-    </div>
-  {{/smallScreen}}-->
-</div>
-
 
 <div class="row"> 
   <div class="col-lg-12 col-md-12 col-sm-12">
@@ -28,7 +16,9 @@
     <div class="pull-right fixed-panel donation-card height-hundred">
 
       <div id="form-message" class="text-center"></div>
-      {{>donationBar}} <form role="form" class="form-inline" action="/donations/submit" method="POST" id="donation-form"> 
+      
+      <form role="form" class="form-inline" action="/donations/submit" method="POST" id="donation-form"> 
+        {{>donationBar}} 
         <div> <p class="message-box" id="message-box"> </p></div>
 
         <div class="row">
@@ -50,16 +40,6 @@
         </div>
         
         <div id="formFields"></div>
-
-        <!--{{#smallScreen this}}
-          <div id="formFields">
-            {{>cardInfoFormInputsSmallScreen}}
-          </div>
-        {{else}}
-          <div id="formFields">
-            {{>cardInfoFormInputsLargeScreen}}
-          </div>
-        {{/smallScreen}}-->
        
        <div class="row padding-top-sm">
           <input type="checkbox" name="newsletter"/>

@@ -144,7 +144,7 @@ router.post '/submit', (req, res, err) ->
         .then (charge) ->
           console.log req.app.mailer
           emailtemplate = define.confirmationEmail(email, amount)
-          Email.sendEmail 'OneTimeDonorConfirmation', emailtemplate , req.app.mailer
+          Email.sendEmail 'OneTimeDonorConfirmation', emailtemplate , req.app.mailer  #error here? 
         .then ()->
           #json the donor info back to the client
           #res.json {error: null, donor: stripeDonor}
