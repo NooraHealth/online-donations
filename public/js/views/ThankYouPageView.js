@@ -12,21 +12,8 @@ define([
       el: "#body",
       
       render: function() {
-        console.log("thank you form this is ");
-        console.log(this);
-        console.log("rendering thank you page");
         var html = thankYouPageTemplate(this.model.toJSON());
-        console.log("html for thank you page");
-        console.log(html);
-        console.log("this.el before render thank you");
-        console.log(this.$el);
-        console.log("this.el.html before render thank you");
-        console.log(this.$el.html());
         this.$el.html(html);
-        console.log("this.el before after thank you");
-        console.log(this.$el);
-        console.log("after this.el.html is rendered");
-        console.log(this.$el.html());
         return this;
       }
     });
