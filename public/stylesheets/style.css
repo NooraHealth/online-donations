@@ -45,7 +45,7 @@ input {
 
 .noora-carousel {
   position: absolute;
-  width: 100%;
+  width: 50%;
 }
 
 .end-tag {
@@ -252,7 +252,7 @@ h6,
   border-color: transparent !important;
 }
 
-#panel-img div{
+#login-img div{
   background-image: url('../images/silkbaby.png');
   background-repeat: no-repeat;
   background-size: contain;
