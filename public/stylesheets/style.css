@@ -252,31 +252,6 @@ h6,
   border-color: transparent !important;
 }
 
-/*.embed-container {
-  position: relative;
-  height: 0;
-  overflow: hidden;
-}
-
-.embed-container div{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
-.ratio-16-9 {
-  padding-bottom: 56.25%;
-}
-
-.ratio-4-3 {
-  padding-bottom: 75%;
-}
-
-.ratio-1-1 {
-  padding-bottom: 100%;
-}*/
-
 #panel-img div{
   background-image: url('../images/silkbaby.png');
   background-repeat: no-repeat;
