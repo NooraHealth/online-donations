@@ -146,8 +146,18 @@ define([
       },
 
       render: function() {
+        console.log("donation form this is");
+        console.log(this);
         var html = donationFormTemplate();
+        console.log("this.el before render");
+        console.log(this.$el);
+        console.log("this.el.html before render on donation page view");
+        console.log(this.$el.html());
         this.$el.html(html);      
+        console.log("this.el after render");
+        console.log(this.$el);
+        console.log("this.el.html after render on donation page view");
+        console.log(this.$el.html());
         this.sizeDependentLayout();
         
         //Set the el of the form message view now that the form has been rendered

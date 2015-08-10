@@ -85,19 +85,30 @@ define([
       thankYouPage: function() {
         
         //The user should not be able to access this if not logged in
+        
         if (!this.donor.isLoggedIn()) {
+          console.log("user is not logged in");
           this.navigate('giving', {trigger: true});
           return;
         }
         
         //Clear the views
+        console.log("closing views");
         this.closeViews();
 
+        console.log("donation form this is");
+        console.log(this);
         var page = new ThankYouPageView({router: this, model: this.donor});
         var nav = new NavbarView({router: this, donor: this.donor, model: this.navModel});
+        console.log("page before render is ");
+        console.log(page);
         page.render();  
         nav.render();
-        
+        console.log("page is ");
+        console.log(page);
+        console.log("nav is ");
+        console.log(nav);
+
         this.navModel.setPage('welcome');
 
         this.currentViews.push(page);
@@ -111,12 +122,18 @@ define([
         
         //Clear the views
         this.closeViews();
-        
+       
+        console.log("donation form this is");
+        console.log(this);
         var page = new DonationFormView({router: this, donor: this.donor});
         var nav = new NavbarView({router: this, donor: this.donor, model: this.navModel});
+        console.log("page before render is");
+        console.log(page);
         
         page.render();  
         nav.render();
+        console.log("page is ");
+        console.log(page);
 
         this.navModel.setPage('giving');
         
