@@ -55,7 +55,11 @@ input {
 }
 
 .text-left {
-  text-align: left !important;
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
 }
 
 .text-inline {
