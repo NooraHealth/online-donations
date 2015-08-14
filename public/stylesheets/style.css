@@ -47,7 +47,7 @@ input {
 .noora-carousel {
   position: relative;
   width: 100%;
-  height: relative;
+  height: 100%;
 }
 
 .end-tag {
@@ -116,7 +116,7 @@ label {
 }
 
 .scroll {
-  overflow-y: scroll;
+  overflow: scroll;
 }
 
 .donation-card {
