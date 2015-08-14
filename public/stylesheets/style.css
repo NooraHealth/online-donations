@@ -29,8 +29,17 @@ input {
  margin-top: -3em;
 }
 
-.font-size-responsive {
-  font-size: 4vw !important;
+
+@media screen and (max-width: 767px) {
+  .font-size-responsive {
+    font-size: 4vw !important;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .font-size-responsive {
+    font-size: 27px !important;
+  }
 }
 
 .donation-form-message {
