@@ -54,6 +54,15 @@ input {
   text-align: center;
 }
 
+.text-left {
+  text-align: left !important;
+}
+
+.text-inline {
+  display: inline-block;
+
+}
+
 .monthly-checkbox {
   color: #ffd25c;
   font-size: 17px;
@@ -95,7 +104,7 @@ label {
 
 .white-panel {
   height: 600px;
-  padding: 10px;
+  padding: 2px;
 }
 
 .white-panel, .donation-card {
