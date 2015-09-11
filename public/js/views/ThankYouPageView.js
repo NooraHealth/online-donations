@@ -9,13 +9,13 @@ define([
 ], function($, _, Backbone, Handlebars, thankYouPageTemplate){
     var ThankYouPageView = Backbone.View.extend({
 
-      el: "#body" ,
+      el: "#body",
       
       render: function() {
         var html = thankYouPageTemplate(this.model.toJSON());
-        this.$el.html(html);      
+        this.$el.html(html);
         return this;
-      },
+      }
     });
     return ThankYouPageView;
   });

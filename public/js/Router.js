@@ -85,6 +85,7 @@ define([
       thankYouPage: function() {
         
         //The user should not be able to access this if not logged in
+        
         if (!this.donor.isLoggedIn()) {
           this.navigate('giving', {trigger: true});
           return;
@@ -97,7 +98,7 @@ define([
         var nav = new NavbarView({router: this, donor: this.donor, model: this.navModel});
         page.render();  
         nav.render();
-        
+
         this.navModel.setPage('welcome');
 
         this.currentViews.push(page);
@@ -111,7 +112,7 @@ define([
         
         //Clear the views
         this.closeViews();
-        
+       
         var page = new DonationFormView({router: this, donor: this.donor});
         var nav = new NavbarView({router: this, donor: this.donor, model: this.navModel});
         

@@ -3,27 +3,27 @@
 
 <div class="row padding-bottom">
   <div class="col-lg-12 col-md-12 col-sm-12">
-    <h3> Every dollar you donate goes directly toward helping patients like Adi</h3>
+    <h3 class="text-center font-size-responsive" id="screenMessage"></h3>
   </div>
 </div>
-
 
 <div class="row"> 
   <div class="col-lg-12 col-md-12 col-sm-12">
 
-    <div class="pull-left fixed-panel">
-      <img class="panel-img" src="./images/silkbaby.png"/>
+    <div class="pull-left fixed-panel screen-lg" id="login-img">
+        <div> </div>
     </div>
 
-    <div class="pull-right fixed-panel donation-card">
+    <div class="pull-right fixed-panel donation-card height-auto">
 
       <div id="form-message" class="text-center"></div>
-      {{>donationBar}} <form role="form" class="form-inline" action="/donations/submit" method="POST" id="donation-form"> 
+      
+      {{>donationBar}}<form role="form" class="form-inline" action="/donations/submit" method="POST" id="donation-form"> 
         <div> <p class="message-box" id="message-box"> </p></div>
 
         <div class="row">
           <div class="col-lg-3 col-md-3 col-sm-3 donation-field">
-            <input class="donation-input" name="amount" placeholder= "0.00" size="6">
+            <input class="donation-input" name="amount" placeholder= "0.00" size="7">
           </div>
 
           <div class="monthly-checkbox col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-8 col-sm-offset-1">
@@ -38,16 +38,9 @@
         <div class="row form-row">
           <input  type="text" class="no-border col-lg-6 col-sm-6 col-md-6" name="email" class="" placeholder="Your Email"/>
         </div>
-
-        <div class="row form-row">
-          <input type="password"  class="no-border col-lg-5 col-sm-6 col-md-6" name="password" class="" placeholder="Password"/>
-          <input type="password"  class="no-border col-lg-6 col-sm-6 col-md-6" name="confirm" class="" placeholder="Confirm Password"/>
-        </div>
         
-        <div class="row form-row">
-          {{>cardInfoFormInputs}}
-        </div>
-
+        <div id="formFields"></div>
+       
        <div class="row padding-top-sm">
           <input type="checkbox" name="newsletter"/>
           <label class="silver">Sign me up for Noora Health's newsletter</label>
@@ -62,7 +55,6 @@
         </div>
       </form>
     </div>
-
   </div>
 </div>
 

@@ -1,6 +1,6 @@
 # Noora Donations #
 
-Noora Health's Online Donation Platform. 
+Noora Health's Online Donor Portal. 
 
 ### Built Using... ###
 

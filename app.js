@@ -27,10 +27,6 @@ var donors = require('./routes/donors');
 
 var app = express();
 
-//Mongoose config
-//mongoose.connect(process.env.MONGO_URL 
-                 //|| 'mongodb://lucyanne:artichokes@lighthouse.0.mongolayer.com:10104/production');
-
 mongoose.connect(process.env.MONGO_URL 
                  || "mongodb://localhost/");
                  
