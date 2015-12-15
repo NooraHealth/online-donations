@@ -27,10 +27,12 @@ class Email
     return deferred.promise
 
   sendEmail: (template, mail, mailer) ->
+    console.log "Sedning an email"
     deferred = Q.defer()
 
     mailer.send template, mail , (err) ->
       if err
+        console.log "error sending email", err
         deferred.reject err
       else
         deferred.resolve "email has been sent"
