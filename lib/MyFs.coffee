@@ -1,5 +1,4 @@
 
-define = require '../lib/define'
 fs = require 'fs'
 Q = require 'q'
 
