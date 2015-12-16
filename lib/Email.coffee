@@ -66,14 +66,14 @@ class Email
 
   confirmationEmail: (email, amount) ->
     dollars = lib.humanReadableCents amount
+    console.log "This is the dollars", dollars
     subject = 'Thank you for your contribution to Noora Health!'
-    html = @getHtml(@template, { email: email, amount: amount, subject: subject })
+    html = @getHtml(@template, { email: email, amount: dollars, subject: subject })
     return {
       from: "founders@noorahealth.org"
       html: html
       to: email
       subject: subject
-      amount: dollars
     }
 
 
