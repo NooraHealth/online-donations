@@ -5,6 +5,7 @@ MyMongoose = require '../lib/MyMongoose'
 MyStripe = require '../lib/MyStripe'
 MyPassport = require '../lib/MyPassport'
 Q = require 'q'
+Email = require '../lib/Email'
 
 
 router.get '/' , (req, res) ->
@@ -69,6 +70,9 @@ router.post '/changepassword', (req, res) ->
             if error
               res.send {error: error}
             else
+              emailer = new Email 'ConfirmReset', req.app.locals.mailer
+              email = emailer.confirmResetPasswordEmail donor.email
+              emailer.send( email )
               res.send {error: null}
 
 ###
