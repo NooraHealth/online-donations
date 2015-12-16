@@ -15,7 +15,6 @@ class Email
   constructor: ( @template, @mailer )->
 
   @setUniqueToken: (donor)->
-    console.log "Setting unique token"
     deferred = Q.defer()
 
     crypto.randomBytes 20, (err, buf) ->
@@ -34,7 +33,6 @@ class Email
     return deferred.promise
 
   send: ( mail ) ->
-    console.log "Sedning an email"
     deferred = Q.defer()
 
     @mailer.sendMail mail, (err) ->
@@ -50,13 +48,10 @@ class Email
   resetEmail: (email, token) ->
     host = lib.host
     html = @getHtml(@template, { to: email, link: "http://#{host}/#forgot/#{token}" })
-    console.log "Reset email"
-    console.log html
     return {
       from: "founders@noorahealth.org"
       to: email
       subject: 'Password Reset'
-      
       html: html
     }
 
@@ -71,12 +66,13 @@ class Email
 
   confirmationEmail: (email, amount) ->
     dollars = lib.humanReadableCents amount
-    html = @getHtml(@template, {email: email, amount: amount })
+    subject = 'Thank you for your contribution to Noora Health!'
+    html = @getHtml(@template, { email: email, amount: amount, subject: subject })
     return {
       from: "founders@noorahealth.org"
       html: html
       to: email
-      subject: 'Thank you for your contribution to Noora Health!'
+      subject: subject
       amount: dollars
     }
 
@@ -84,7 +80,6 @@ class Email
   getHtml: (templateName, data)->
     templatePath = "./views/emails/#{templateName}.html"
     templateContent = fs.readFileSync(templatePath, encoding="utf8")
-    console.log templateContent
     tmpl = _.template templateContent
     return tmpl data
 
