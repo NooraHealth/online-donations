@@ -37,23 +37,26 @@ class Email
     console.log "Sedning an email"
     deferred = Q.defer()
 
-    @mailer.send mail, (err) ->
+    @mailer.sendMail mail, (err) ->
       if err
         console.log "error sending email", err
         deferred.reject err
       else
+        console.log "success sending email"
         deferred.resolve "email has been sent"
 
     return deferred.promise
 
   resetEmail: (email, token) ->
     host = lib.host
-    html = @getHtml(@template, { to: email })
+    html = @getHtml(@template, { to: email, link: "http://#{host}/#forgot/#{token}" })
+    console.log "Reset email"
+    console.log html
     return {
       from: "founders@noorahealth.org"
       to: email
       subject: 'Password Reset'
-      link: "http://#{host}/#forgot/#{token}"
+      
       html: html
     }
 
@@ -81,6 +84,8 @@ class Email
   getHtml: (templateName, data)->
     templatePath = "./views/emails/#{templateName}.html"
     templateContent = fs.readFileSync(templatePath, encoding="utf8")
-    _.template templateContent, data
+    console.log templateContent
+    tmpl = _.template templateContent
+    return tmpl data
 
 module.exports = Email

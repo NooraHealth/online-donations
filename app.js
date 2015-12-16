@@ -53,6 +53,8 @@ var mailer = nodemailer.createTransport(({
     }
 }));
 
+app.locals.mailer = mailer
+
 console.log("This is the mailer", mailer);
 
 // uncomment after placing your favicon in /public
@@ -67,6 +69,7 @@ app.use(session({
   secret: "Noora Health donors",
   maxAge: 6000
 }));
+
 app.use(flash());
 //app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 86400000 }));

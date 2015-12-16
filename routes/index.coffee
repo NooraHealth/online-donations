@@ -28,8 +28,7 @@ router.post "/forgot", (req, res) ->
     .then (token) ->
       console.log token
       console.log "1"
-      console.log req.app.mailer
-      emailer = new Email 'ResetPassword', req.app.mailer
+      emailer = new Email 'ResetPassword', req.app.locals.mailer
       console.log "2"
       email = emailer.resetEmail donorEmail, token
       console.log "3"
@@ -43,7 +42,6 @@ router.post "/forgot", (req, res) ->
 router.post '/reset/:token', (req, res) ->
   token = req.params.token
   password = req.body.password
-  console.log req.app.mailer
   MyMongoose.findOne Donors, {resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }
     .then (donor) ->
       if !donor
@@ -53,7 +51,7 @@ router.post '/reset/:token', (req, res) ->
         donor.resetPasswordToken = undefined
         MyPassport.setPassword donor, password
           .then (donor) ->
-            emailer = new Email 'ConfirmReset', req.app.mailer
+            emailer = new Email 'ConfirmReset', req.app.locals.mailer
             email = emailer.confirmResetPasswordEmail donor.email
             emailer.send( email )
           .then () ->
