@@ -1,6 +1,5 @@
 express = require 'express'
 router = express.Router()
-define = require '../lib/define'
 Donors = require '../models/Donors'
 Email = require '../lib/Email'
 MyStripe = require '../lib/MyStripe'
@@ -16,19 +15,27 @@ router.get '/', (req, res) ->
 # Send donor a reset password token which they can use to reset their password
 ###
 router.post "/forgot", (req, res) ->
-  email = req.body.email
+  donorEmail = req.body.email
+  console.log "in the forgot route"
   
-  MyMongoose.findOne Donors, {email: email}
+  MyMongoose.findOne Donors, { email: donorEmail }
     .then (donor) ->
       if !donor
-        throw {message:"This email is not registered with us. Please register at donate.noorahealth.org"}
+        throw { message:"This email is not registered with us. Please register at donate.noorahealth.org" }
       else
+        console.log "Trying to set unique token"
         return Email.setUniqueToken(donor)
     .then (token) ->
-      mail =  define.resetEmail(email, token)
-      return Email.sendEmail 'ResetPassword', mail, req.app.mailer
+      console.log token
+      console.log "1"
+      console.log req.app.mailer
+      emailer = new Email 'ResetPassword', req.app.mailer
+      console.log "2"
+      email = emailer.resetEmail donorEmail, token
+      console.log "3"
+      emailer.send( email )
     .then (msg) ->
-      res.send {success: "An email containing a link to reset your email has been sent."}
+      res.send { success: "An email containing a link to reset your email has been sent."}
     .catch (err) ->
       console.log err
       res.send {error: err}
@@ -46,7 +53,9 @@ router.post '/reset/:token', (req, res) ->
         donor.resetPasswordToken = undefined
         MyPassport.setPassword donor, password
           .then (donor) ->
-            Email.sendEmail 'ConfirmReset', define.confirmResetPasswordEmail(donor.email), req.app.mailer
+            emailer = new Email 'ConfirmReset', req.app.mailer
+            email = emailer.confirmResetPasswordEmail donor.email
+            emailer.send( email )
           .then () ->
             res.send {success: "Your password has been changed. Please log in using your new password."}
     .catch (err) ->

@@ -11,7 +11,8 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 var passportLocalMongoose = require('passport-local-mongoose');
-var mailer = require('express-mailer');
+var nodemailer = require('nodemailer');
+var oauth = require('xoauth2')
 
 //Mongoose models
 var Donor = require('./models/Donors');
@@ -37,7 +38,22 @@ app.set('view engine', 'html');
 app.set('stripe secret key', process.env.STRIPE_SECRET_KEY)
 
 //Express-mailer config
-mailer.extend (app, require('./lib/MailerConfig'));
+var generator = oauth.createXOAuth2Generator({
+    user: process.env.MAILER_USER,
+    clientId: process.env.OAUTH_CLIENT_ID,
+    clientSecret: process.env.OAUTH_CLIENT_SECRET,
+    refreshToken: process.env.OAUTH_REFRESH_TOKEN
+});
+
+// login
+var mailer = nodemailer.createTransport(({
+    service: 'gmail',
+    auth: {
+        xoauth2: generator
+    }
+}));
+
+console.log("This is the mailer", mailer);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
