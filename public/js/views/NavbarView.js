@@ -34,7 +34,6 @@ define([
       },
 
       gotoDonorConsole: function() {
-        console.log("Navigating to nooradonors");
         this.router.navigate("nooradonors", {trigger: true});
       },
 
@@ -64,7 +63,6 @@ define([
        render: function() {
          var html = navTemplate(this.model.toJSON());
           if( !this.initialLoad ) {
-            console.log("It is not initialLoad, rendering nav");
             this.$el.html(html);      
             this.initialLoad = false;
           }
