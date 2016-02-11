@@ -21,6 +21,7 @@ define([
       initialize: function() {
         //Keep track of all the views currently open, so they can be 
         //closed upon moving to a new view
+        this.initialLoad = true;
         this.currentViews = [];
         
         //Initialize the Donor that will be use throughout the entire app
@@ -51,13 +52,13 @@ define([
         var page = new ResetPasswordForm({router: this, token: token});
         var nav = new NavbarView({router: this, donor: this.donor, model: this.navModel});
 
-        page.render();  
         nav.render();
+        page.render();  
         
         this.navModel.setPage('forgotpassword');
 
-        this.currentViews.push(page);
         this.currentViews.push(nav);
+        this.currentViews.push(page);
       },
       /* 
        * Navigate to the login page
@@ -111,10 +112,12 @@ define([
       donationForm: function() {
         
         //Clear the views
-        this.closeViews();
+        if( !this.initialLoad ) {
+          this.closeViews();
+        }
        
-        var page = new DonationFormView({router: this, donor: this.donor});
-        var nav = new NavbarView({router: this, donor: this.donor, model: this.navModel});
+        var page = new DonationFormView({router: this, initialLoad: this.initialLoad, donor: this.donor});
+        var nav = new NavbarView({router: this, donor: this.donor, initialLoad: this.initialLoad, model: this.navModel});
         
         page.render();  
         nav.render();
@@ -123,6 +126,8 @@ define([
         
         this.currentViews.push(page);
         this.currentViews.push(nav);
+
+        this.initialLoad = false;
       },
       
       /* 
@@ -186,6 +191,7 @@ define([
        * primary container elements, which can then be filled with views. 
        */
       resetContainerElements: function() {
+        console.log("Resetting the container elements");
         $('.container').html("<div id='nav'></div><div id='body'></div><div id='modal'></div>");
       }
 
