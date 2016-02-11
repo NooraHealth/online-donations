@@ -14,9 +14,111 @@
   <body>
     <input class="hidden" id="STRIPE_PUBLIC_KEY" value=<%=stripe_key %> >
     
+
     <div class="container">
-      <div id="nav"></div>
-      <div id="body"></div>
+      <div id='nav' class="navbar navbar-transparent navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span> 
+            </button>
+            <a class="navbar-brand" href="http://www.noorahealth.org">
+              <img alt="Brand" src="../images/NHlogo.png" width="155px" height="92px"/>
+            </a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a class="nav-elements login btn-default navbar-right" ><i class="fa fa-lg fa-mail-reply"></i>  Login </a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="body">
+        <div class="row padding-bottom">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <h3 class="text-center font-size-responsive" id="screenMessage">Every dollar you donate goes directly toward helping patients like Adi</h3>
+          </div>
+        </div>
+
+        <div class="row"> 
+          <div class="col-lg-12 col-md-12 col-sm-12">
+
+            <div class="pull-left fixed-panel screen-lg" id="login-img">
+                <div> </div>
+            </div>
+
+            <div class="pull-right fixed-panel donation-card height-auto">
+
+              <div id="form-message" class="text-center"></div>
+              
+              <div class="btn-toolbar padding-bottom-sm" role="toolbar" aria-label="...">
+                <div class="btn-group" role="group" aria-label="...">
+                  <button name="donationBar" type="button" class="width-btn text-contain btn btn-default donation-bar" value="10.00">$10</button>
+                  <button name="donationBar" type="button" class="width-btn text-contain btn btn-default donation-bar" value="25.00">$25</button>
+                  <button name="donationBar" type="button" class="width-btn text-contain btn btn-default donation-bar" value="50.00">$50</button>
+                  <button name="donationBar" type="button" class="width-btn text-contain btn btn-default donation-bar" value="100.00">$100</button>
+                  <button name="donationBar" type="button" class="width-btn text-contain btn btn-default donation-bar" value="250.00">$250</button>
+                  <button name="donationBar" type="button" class="width-btn text-contain btn btn-default donation-bar" value="500.00">$500</button>
+                  <button name="donationBar" type="button" class="width-btn text-contain btn btn-default donation-bar" value="1000.00">$1000</button>
+                </div>
+              </div>
+
+              <form role="form" class="form-inline" action="/donations/submit" method="POST" id="donation-form"> 
+                <div> <p class="message-box" id="message-box"> </p></div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3 donation-field">
+                    <input class="donation-input" name="amount" placeholder= "0.00" size="7">
+                  </div>
+
+                  <div class="monthly-checkbox col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-8 col-sm-offset-1">
+                    <input type="checkbox" name="monthly" size="20"/> Make this donation monthly!
+                  </div>
+                </div>
+              
+                <div class="row form-row">
+                  <input type="text" class="no-border col-lg-12 col-md-12 col-sm-12" name="name" class="" placeholder="Full Name"/>
+                </div>
+
+                <div class="row form-row">
+                  <input  type="text" class="no-border col-lg-6 col-sm-6 col-md-6" name="email" class="" placeholder="Your Email"/>
+                </div>
+                
+              <div class="row form-row">
+                <input type="password"  class="no-border col-lg-5 col-sm-6 col-md-6" name="password" class="" placeholder="Password"/>
+                <input type="password"  class="no-border col-lg-6 col-sm-6 col-md-6" name="confirm" class="" placeholder="Confirm Password"/>
+              </div>
+
+              <div class="row form-row">
+                <input type="text" class="no-border col-lg-6 col-md-6 col-sm-6" size="20" placeholder="Card Number" data-stripe="number"/>
+                <input type="text" class="no-border col-lg-2 col-md-2 col-sm-2" size="4" placeholder="CVC" data-stripe="cvc"/>
+                <input type="text" name="expiration" class="no-border col-lg-4 col-md-4 col-sm-4" size="7" placeholder="exp (MM/YYYY)" />
+
+                <input type="hidden" value="" id="expmonth" data-stripe="exp-month"/>
+                <input type="hidden" value="" id="expyear" data-stripe="exp-year"/>
+              </div>
+              
+              <div class="row padding-top-sm">
+                  <input type="checkbox" name="newsletter"/>
+                  <label class="silver">Sign me up for Noora Health's newsletter</label>
+                </div>        
+                
+                <div class="row padding-top-sm">
+                  <input type="submit" class="btn btn-primary form-control" id="submit-donation" value="DONATE"/>
+                </div>
+              
+                <div class="end-tag row padding-top-sm">
+                  <img src="images/outline.png"/>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div id="modal"></div> 
     </div>
 

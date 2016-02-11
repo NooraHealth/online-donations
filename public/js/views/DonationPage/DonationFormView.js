@@ -31,9 +31,10 @@ define([
     
         this.donor = options.donor;
         this.router = options.router;
+        this.initialLoad = options.initialLoad;
         this.model = new Donation();
         this.listenTo(this.model, 'invalid', this.handleValidationError);
-        $(window).on('resize', this.sizeDependentLayout);
+        $(window).on('resize', this.sizeDependentLayout.bind(this));
       },
 
 
@@ -57,7 +58,7 @@ define([
         if (window.innerWidth < 768) {
           $("#screenMessage").text("Every dollar you donate goes directly toward helping patients");
           $("#formFields").html(smallScreenCardInputs());
-        } else {
+        } else if ( !this.initialLoad ) {
           $("#screenMessage").text("Every dollar you donate goes directly toward helping patients like Adi");
           $("#formFields").html(largeScreenCardInputs());
         }
@@ -145,13 +146,17 @@ define([
         $("#submit-donation").prop('disabled', false);
       },
 
-      render: function() {
-        var html = donationFormTemplate();
-        this.$el.html(html);      
+      render: function( initialLoad ) {
+        console.log("Rendering initialLoad");
+        if( !this.initialLoad ) {
+          var html = donationFormTemplate();
+          this.$el.html(html);      
+          this.initialLoad = false;
+        }
+
         this.sizeDependentLayout();
         
         //Set the el of the form message view now that the form has been rendered
-        //this.messageView.setElement($("#form-messages"));
         this.message = new Message();
         this.messageView = new MessageView({model: this.message, el: $("#form-message")}); 
         this.messageView.render();

@@ -14,6 +14,7 @@ define([
     
       initialize: function(options) {
         this.donor = options.donor;
+        this.initialLoad = options.initialLoad;
         this.listenTo(this.model, 'change', this.render);
         
         //Using this form of declaration to 
@@ -33,6 +34,7 @@ define([
       },
 
       gotoDonorConsole: function() {
+        console.log("Navigating to nooradonors");
         this.router.navigate("nooradonors", {trigger: true});
       },
 
@@ -60,8 +62,12 @@ define([
        },
        
        render: function() {
-          var html = navTemplate(this.model.toJSON());
-          this.$el.html(html);      
+         var html = navTemplate(this.model.toJSON());
+          if( !this.initialLoad ) {
+            console.log("It is not initialLoad, rendering nav");
+            this.$el.html(html);      
+            this.initialLoad = false;
+          }
        },
 
     });
