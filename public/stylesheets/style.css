@@ -2,7 +2,11 @@ html, body, #container {
   height: 100%;
 }
 
-body > #container { height: auto; min-height: 100%; }
+body > #container { 
+  height: auto; 
+  min-height: 100%;
+  padding-bottom: 100px;
+}
 
 body {
   /*padding: 50px;*/
@@ -93,12 +97,10 @@ label {
   color: grey;
 }
 
-@media screen and (max-height: 800px) { 
-  .navbar-fixed-bottom{
-    position: relative !important;
-    margin-top: 20px;
-  }
-} 
+.navbar-fixed-bottom{
+  background-color: #F5FFFF !important;
+  margin-top: 20px;
+}
 
 .skinny, .silver {
   font-weight: 400;
@@ -188,15 +190,15 @@ h6,
   background-color: #F5FFFF;
 }
 
-@media screen (max-width:768) {
+@media screen and (max-width:768) {
   #container {
-    padding: 0px 0px 0px 0px !important;
+    padding: 0px 0px 50px 0px !important;
   }
 }
 
-@media screen (min-width:769) {
+@media screen and (min-width:769) {
   #container {
-    padding: 0px 80px 0px 80px !important;
+    padding: 0px 80px 50px 80px !important;
   }
 }
 
