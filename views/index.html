@@ -46,11 +46,11 @@
         <div class="row"> 
           <div class="col-lg-12 col-md-12 col-sm-12">
 
-            <div class="pull-left fixed-panel screen-lg" id="login-img">
-                <div> </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 screen-lg hidden-sm hidden-xs" id="login-img">
+                <img src='images/silkbaby.png'/>
             </div>
 
-            <div class="pull-right fixed-panel donation-card height-auto">
+            <div class="panel col-md-6 col-lg-6 donation-card height-auto">
 
               <div id="form-message" class="text-center"></div>
               
@@ -87,19 +87,14 @@
                   <input  type="text" class="no-border col-lg-6 col-sm-6 col-md-6" name="email" class="" placeholder="Your Email"/>
                 </div>
                 
-              <div class="row form-row">
-                <input type="password"  class="no-border col-lg-5 col-sm-6 col-md-6" name="password" class="" placeholder="Password"/>
-                <input type="password"  class="no-border col-lg-6 col-sm-6 col-md-6" name="confirm" class="" placeholder="Confirm Password"/>
-              </div>
-
-              <div class="row form-row">
-                <input type="text" class="no-border col-lg-6 col-md-6 col-sm-6" size="20" placeholder="Card Number" data-stripe="number"/>
-                <input type="text" class="no-border col-lg-2 col-md-2 col-sm-2" size="4" placeholder="CVC" data-stripe="cvc"/>
-                <input type="text" name="expiration" class="no-border col-lg-4 col-md-4 col-sm-4" size="7" placeholder="exp (MM/YYYY)" />
+                <div class="row form-row">
+                  <input type="text" class="no-border col-lg-6 col-md-6 col-sm-6" size="20" class="" placeholder="Card Number" data-stripe="number"/>
+                  <input type="text" class="no-border col-lg-2 col-md-2 col-sm-2" size="4" class="" placeholder="CVC" data-stripe="cvc"/>
+                  <input type="text" id="expiration" class="no-border col-lg-4 col-md-4 col-sm-4" size="7" class="" placeholder="exp (MM/YYYY)" />
+                </div>
 
                 <input type="hidden" value="" id="expmonth" data-stripe="exp-month"/>
                 <input type="hidden" value="" id="expyear" data-stripe="exp-year"/>
-              </div>
               
               <div class="row padding-top-sm">
                   <input type="checkbox" name="newsletter"/>

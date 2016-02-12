@@ -327,14 +327,8 @@ h6,
   border-color: transparent !important;
 }
 
-#login-img div{
-  background-image: url('../images/silkbaby.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
+#login-img > img{
   width: 100%;
-  height: 100%;
-  /*border: solid #BBABAE 1px;*/
 }
 
 @media screen and (max-width: 767px) {

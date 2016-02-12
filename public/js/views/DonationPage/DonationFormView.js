@@ -9,10 +9,8 @@ define([
   'views/MessageView',
   'models/Message',
   'models/Donation',
-  'views/Bases/FormBase',
-  'hbs!templates/partials/cardInfoFormInputsLargeScreen',
-  'hbs!templates/partials/cardInfoFormInputsSmallScreen'
-], function($, _, Backbone, Handlebars, Stripe, donationFormTemplate,  MessageView, Message, Donation, FormBase, largeScreenCardInputs, smallScreenCardInputs){
+  'views/Bases/FormBase'
+], function($, _, Backbone, Handlebars, Stripe, donationFormTemplate,  MessageView, Message, Donation, FormBase ){
 
     var DonationForm = FormBase.extend({
     
@@ -28,13 +26,11 @@ define([
       
 
       initialize: function(options) {
-    
         this.donor = options.donor;
         this.router = options.router;
         this.initialLoad = options.initialLoad;
         this.model = new Donation();
         this.listenTo(this.model, 'invalid', this.handleValidationError);
-        $(window).on('resize', this.sizeDependentLayout.bind(this));
       },
 
 
@@ -52,16 +48,6 @@ define([
       events: {
         "click #submit-donation": "createStripeToken",
         "click button[name=donationBar]": "fillDonationBox"
-      },
-
-      sizeDependentLayout: function () {
-        if (window.innerWidth < 768) {
-          $("#screenMessage").text("Every dollar you donate goes directly toward helping patients");
-          $("#formFields").html(smallScreenCardInputs());
-        } else if ( !this.initialLoad ) {
-          $("#screenMessage").text("Every dollar you donate goes directly toward helping patients like Adi");
-          $("#formFields").html(largeScreenCardInputs());
-        }
       },
 
       fillDonationBox: function(e) {
@@ -154,8 +140,6 @@ define([
           this.initialLoad = false;
         }
 
-        this.sizeDependentLayout();
-        
         //Set the el of the form message view now that the form has been rendered
         this.message = new Message();
         this.messageView = new MessageView({model: this.message, el: $("#form-message")}); 

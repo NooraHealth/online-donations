@@ -130,7 +130,7 @@ define([
         var html = donorConsoleTemplate(this.model.toJSON());
         this.$el.html(html);      
         // start carousel
-        $("#carousel").carousel({interval: 2000});
+        $("#carousel").carousel({interval: 3000});
         
         this.message = new Message();
         this.messageView = new MessageView({model: this.message, el: $("#console-message")}); 
