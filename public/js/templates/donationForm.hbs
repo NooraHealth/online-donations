@@ -39,7 +39,19 @@
           <input  type="text" class="no-border col-lg-6 col-sm-6 col-md-6" name="email" class="" placeholder="Your Email"/>
         </div>
         
-        <div id="formFields"></div>
+        <div class="row form-row hidden-xs">
+          <input type="text" class="no-border col-lg-6 col-md-6 col-sm-6 col-xs-12" size="20" class="" placeholder="Card Number" data-stripe="number"/>
+          <input type="text" class="no-border col-lg-2 col-md-6 col-sm-2 col-xs-12" size="4" class="" placeholder="CVC" data-stripe="cvc"/>
+          <input type="text" id="expiration" class="no-border col-lg-4 col-md-4 col-sm-4 col-xs-12" size="7" class="" placeholder="exp (MM/YYYY)" />
+        </div>
+
+        <div class="row form-row visible-xs">
+          <input type="text" class="no-border col-lg-6 col-md-6 col-sm-6 col-xs-12" size="20" class="" placeholder="Card Number" data-stripe="number"/>
+        </div>
+        <div class="row form-row visible-xs">
+          <input type="text" class="no-border col-xs-4" size="4" class="" placeholder="CVC" data-stripe="cvc"/>
+          <input type="text" id="expiration" class="no-border col-xs-8" size="7" class="" placeholder="exp (MM/YYYY)" />
+        </div>
        
        <div class="row padding-top-sm">
           <input type="checkbox" name="newsletter"/>
