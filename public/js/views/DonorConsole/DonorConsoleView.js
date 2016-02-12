@@ -129,6 +129,8 @@ define([
       render: function() {
         var html = donorConsoleTemplate(this.model.toJSON());
         this.$el.html(html);      
+        // start carousel
+        $("#carousel").carousel({interval: 2000});
         
         this.message = new Message();
         this.messageView = new MessageView({model: this.message, el: $("#console-message")}); 

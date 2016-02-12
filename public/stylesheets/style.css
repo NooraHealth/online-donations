@@ -37,6 +37,35 @@ input {
   margin-top: 60px;
 }
 
+/*.carousel-inner > .item {*/
+    /*transition-property: opacity;*/
+  /*}*/
+  
+  /*.item,*/
+  /*.active.left,*/
+  /*.active.right {*/
+    /*opacity: 0;*/
+  /*}*/
+
+  /*.active,*/
+  /*.next.left,*/
+  /*.prev.right {*/
+    /*opacity: 1;*/
+  /*}*/
+
+  /*.next,*/
+  /*.prev,*/
+  /*.active.left,*/
+  /*.active.right {*/
+    /*left: 0;*/
+    /*transform: translate3d(0, 0, 0);*/
+  /*}*/
+/*}*/
+
+/*.carousel-inner >.carousel-control {*/
+    /*z-index: 2;*/
+/*}*/
+
 @media screen and (max-width: 767px) {
   .font-size-responsive {
     font-size: 4vw !important;
