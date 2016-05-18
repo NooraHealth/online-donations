@@ -60,9 +60,9 @@ router.post '/onetime/:donorID', (req, res, err) ->
   .then (donation) ->
     emailer = new Email 'OneTimeDonorConfirmation', req.app.locals.mailer
     email = emailer.confirmationEmail donorEmailAddr, amount
-    emailer.send( email )
-      .then ()->
-        res.send {donation:donation}
+    #emailer.send( email )
+      #.then ()->
+        #res.send {donation:donation}
   .catch (err) ->
     console.log err
     res.send {error: err}
@@ -147,18 +147,22 @@ router.post '/submit', (req, res, err) ->
           emailer = new Email 'OneTimeDonorConfirmation', req.app.locals.mailer
           email = emailer.confirmationEmail donorEmailAddr, amount
           emailer.send( email )
+          console.log "Sent the email"
         .then ()->
           #json the donor info back to the client
           #res.json {error: null, donor: stripeDonor}
           res.redirect '/donors/info/' + stripeDonor.id
       .catch (err) ->
         console.log err
-        req.logout()
-        MyMongoose.findOneAndRemove Donors, { email: donorEmailAddr }
-        MyStripe.removeDonor stripeDonor.id
-        .catch (err) ->
-          console.log "there was an error removing the donor form stripe"
-        res.json {error: err}
+        console.log err.code
+        ## If this is not an oauth2 authentication problem
+        if err.code != "EAUTH"
+          req.logout()
+          MyMongoose.findOneAndRemove Donors, { email: donorEmailAddr }
+          MyStripe.removeDonor stripeDonor.id
+          .catch (err) ->
+            console.log "there was an error removing the donor form stripe"
+          res.json {error: err}
     .catch (err) ->
       console.log err
       req.logout()

@@ -34,8 +34,9 @@ class Email
 
   send: ( mail ) ->
     deferred = Q.defer()
-
+    console.log "sending the amil"
     @mailer.sendMail mail, (err) ->
+      console.log "in the callback", err
       if err
         console.log "error sending email", err
         deferred.reject err

@@ -53,7 +53,7 @@ var mailer = nodemailer.createTransport(({
     }
 }));
 
-app.locals.mailer = mailer
+app.locals.mailer = mailer;
 
 console.log("This is the mailer", mailer);
 
