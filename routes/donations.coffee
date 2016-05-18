@@ -147,22 +147,26 @@ router.post '/submit', (req, res, err) ->
           emailer = new Email 'OneTimeDonorConfirmation', req.app.locals.mailer
           email = emailer.confirmationEmail donorEmailAddr, amount
           emailer.send( email )
-          console.log "Sent the email"
         .then ()->
           #json the donor info back to the client
           #res.json {error: null, donor: stripeDonor}
           res.redirect '/donors/info/' + stripeDonor.id
       .catch (err) ->
+        console.log "in the catch"
         console.log err
         console.log err.code
+        console.log err.code
         ## If this is not an oauth2 authentication problem
-        if err.code != "EAUTH"
+        console.log err.code isnt "EAUTH"
+        if err.code isnt "EAUTH"
           req.logout()
           MyMongoose.findOneAndRemove Donors, { email: donorEmailAddr }
           MyStripe.removeDonor stripeDonor.id
           .catch (err) ->
             console.log "there was an error removing the donor form stripe"
           res.json {error: err}
+        else
+          res.redirect '/donors/info/' + stripeDonor.id
     .catch (err) ->
       console.log err
       req.logout()

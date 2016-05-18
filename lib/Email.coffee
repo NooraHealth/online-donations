@@ -36,12 +36,11 @@ class Email
     deferred = Q.defer()
     console.log "sending the amil"
     @mailer.sendMail mail, (err) ->
-      console.log "in the callback", err
       if err
-        console.log "error sending email", err
+        console.log "error sending email"
         deferred.reject err
       else
-        console.log "success sending email"
+        console.log "in the resolve in email"
         deferred.resolve "email has been sent"
 
     return deferred.promise
