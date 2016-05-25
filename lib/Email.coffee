@@ -49,7 +49,7 @@ class Email
     host = lib.host
     html = @getHtml(@template, { to: email, link: "http://#{host}/#forgot/#{token}" })
     return {
-      from: "founders@noorahealth.org"
+      from: "donations@noorahealth.org"
       to: email
       subject: 'Password Reset'
       html: html
@@ -58,7 +58,7 @@ class Email
   confirmResetPasswordEmail: ( email ) ->
     html = @getHtml(@template, { email: email })
     return {
-      from: "founders@noorahealth.org"
+      from: "donations@noorahealth.org"
       to: email
       subject: 'Your password has been changed'
       html: html
@@ -70,7 +70,7 @@ class Email
     subject = 'Thank you for your contribution to Noora Health!'
     html = @getHtml(@template, { email: email, amount: dollars, subject: subject })
     return {
-      from: "founders@noorahealth.org"
+      from: "donations@noorahealth.org"
       html: html
       to: email
       subject: subject

@@ -1,5 +1,5 @@
 config = {
-  from:'founders@noorahealth.org'
+  from:'donations@noorahealth.org'
   host: 'smtp.gmail.com'
   secureConnection: true
   port: 465
@@ -9,6 +9,5 @@ config = {
     pass: process.env.MAILER_PASS
   }
 }
-console.log config
 
 module.exports = config
