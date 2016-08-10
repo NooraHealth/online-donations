@@ -53,6 +53,7 @@ define([
       },
 
       giveAgain: function() {
+        console.log("Giving again!!");
          var data = {
             amount: $("input[name=amount]").val() * 100,
             donorID: this.donor.get('id'),
@@ -65,7 +66,7 @@ define([
             //or create another one time donation.
             editMembership: $("input[name=monthly]").is(':checked') ,
             onetime: !$("input[name=monthly]").is(':checked') ,
-         }
+         };
 
         //disable the submit button so they can't submit again
         this.giveAgainSubmitButton().prop('disabled', true);
@@ -74,6 +75,9 @@ define([
       },  
 
       handleResponse: function(model,response) {
+        console.log("In the handleResponse!!");
+        console.log(model);
+        console.log(response);
 
         if ( response.error ) {
           this.handleServerError(response.error);

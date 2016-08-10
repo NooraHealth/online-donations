@@ -60,6 +60,7 @@ router.post '/onetime/:donorID', (req, res, err) ->
   .then (donation) ->
     emailer = new Email 'OneTimeDonorConfirmation', req.app.locals.mailer
     email = emailer.confirmationEmail donorEmailAddr, amount
+    res.send {donation: donation}
     #emailer.send( email )
       #.then ()->
         #res.send {donation:donation}

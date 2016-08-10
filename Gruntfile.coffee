@@ -1,7 +1,16 @@
 module.exports = (grunt) ->
   grunt.initConfig(
     pkg: grunt.file.readJSON 'package.json'
+
+    ec2: '../aws-credentials.json'
     
+    forever:
+      server1:
+        options:
+          logDir: "logs"
+          outFile: "OUTFILE"
+          logFile: "LOGFILE"
+
     env:
       dev:
         src: '.env/dev.json'
@@ -22,6 +31,7 @@ module.exports = (grunt) ->
 
   grunt.loadNpmTasks 'grunt-env'
   grunt.loadNpmTasks 'grunt-nodemon'
+  grunt.loadNpmTasks 'grunt-ec2'
 
   grunt.registerTask 'default', ['env:dev', 'nodemon']
   grunt.registerTask 'production', ['env:prod', 'nodemon']

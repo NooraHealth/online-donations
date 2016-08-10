@@ -64,6 +64,8 @@ define([
         if ( response.error ) {
           this.handleServerError(response.error);
         } else {
+          console.log("The response fromt he server");
+          console.log(response);
           this.donor.set("email",  response.donor.email);
           this.showSuccessMessage();
         }
