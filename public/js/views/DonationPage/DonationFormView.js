@@ -122,12 +122,12 @@ define([
        */
       createStripeToken: function(event) {
         event.preventDefault();
+        $("div:hidden").remove();
         console.log("creating stripe token");
         var donation = new Donation();
         this.parseExpiration();
         this.$("#submit-donation").prop('disabled', true);
         //hack to deal with hidden form fields with data-stripe
-        $("div:hidden").remove();
         Stripe.card.createToken(this.form(), (this.stripeResponseHandler).bind(this));
 
         //Prevent form from submitting
