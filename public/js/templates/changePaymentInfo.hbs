@@ -8,26 +8,34 @@
       <div class="modal-body">
         <div id="change-payment-message"></div>
         <form id="change-payment-form">
-          
+
             <div class="row">
                 <p><b>Current Payment Information</b></p>
             </div>
             <div class="row">
                 <p class="silver">{{getCardInfo this.donor}}</p>
             </div>
-            
+
             <div class="row padding-top">
               <p><b>New Payment Information</b></p>
             </div>
 
-            <div class="row">  
+            <div class="row">
               <div class="row form-row">
-                {{>cardInfoFormInputs}}
+                <input type="text" class="no-border col-lg-6 col-md-6 col-sm-6 col-xs-12" size="20" class="" placeholder="Card Number" data-stripe="number"/>
               </div>
+
+              <div class="row form-row">
+                <input type="text" class="no-border col-xs-4" size="4" class="" placeholder="CVC" data-stripe="cvc"/>
+                <input type="text" id="expiration" class="no-border col-xs-8" size="7" class="" placeholder="exp (MM/YYYY)" />
+              </div>
+
+              <input type="hidden" value="" id="expmonth" data-stripe="exp-month"/>
+              <input type="hidden" value="" id="expyear" data-stripe="exp-year"/>
             </div>
           <!-- END DIV id="change-payment-form" -->
         </form>
-        
+
         {{>successMessage}}
       </div>
       <div class="modal-footer">
