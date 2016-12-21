@@ -4,8 +4,8 @@
     <meta name=viewport content="width=device-width, initial-scale=1">
     <title> Noora Health</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    
-    <link href='https://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'> 
+
+    <link href='https://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
     <link rel='stylesheet' href='/stylesheets/lavish-bootstrap.css' />
     <!--<link rel='stylesheet' href='/stylesheets/bootstrap.css' />-->
 
@@ -13,7 +13,7 @@
   </head>
   <body>
     <input class="hidden" id="STRIPE_PUBLIC_KEY" value=<%=stripe_key %> >
-    
+
 
     <div id="container" class="container">
       <div id='nav' class="navbar navbar-transparent navbar-default">
@@ -22,7 +22,7 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
-              <span class="icon-bar"></span> 
+              <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="http://www.noorahealth.org">
               <img alt="Brand" src="../images/NHlogo.png" width="155px" height="92px"/>
@@ -43,17 +43,17 @@
           </div>
         </div>
 
-        <div class="row"> 
+        <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12">
 
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 screen-lg hidden-sm hidden-xs" id="login-img">
+            <div class="col-lg-6 hidden-sm hidden-xs hidden-md" id="login-img">
                 <img src='images/silkbaby.png'/>
             </div>
 
-            <div class="panel col-md-6 col-lg-6 donation-card height-auto">
+            <div class="panel col-lg-6 donation-card height-auto">
 
               <div id="form-message" class="text-center"></div>
-              
+
               <div class="btn-toolbar padding-bottom-sm" role="toolbar" aria-label="...">
                 <div class="btn-group" role="group" aria-label="...">
                   <button name="donationBar" type="button" class="width-btn text-contain btn btn-default donation-bar" value="10.00">$10</button>
@@ -66,7 +66,7 @@
                 </div>
               </div>
 
-              <form role="form" class="form-inline" action="/donations/submit" method="POST" id="donation-form"> 
+              <form role="form" class="form-inline" action="/donations/submit" method="POST" id="donation-form">
                 <div> <p class="message-box" id="message-box"> </p></div>
 
                 <div class="row">
@@ -78,7 +78,7 @@
                     <input type="checkbox" name="monthly" size="20"/> Make this donation monthly!
                   </div>
                 </div>
-              
+
                 <div class="row form-row">
                   <input type="text" class="no-border col-lg-12 col-md-12 col-sm-12" name="name" class="" placeholder="Full Name"/>
                 </div>
@@ -86,33 +86,47 @@
                 <div class="row form-row">
                   <input  type="text" class="no-border col-lg-6 col-sm-6 col-md-6" name="email" class="" placeholder="Your Email"/>
                 </div>
-                
+
                 <div class="row form-row hidden-xs">
-                  <input type="text" class="no-border col-lg-6 col-md-6 col-sm-6 col-xs-12" size="20" class="" placeholder="Card Number" data-stripe="number"/>
-                  <input type="text" class="no-border col-lg-2 col-md-6 col-sm-2 col-xs-12" size="4" class="" placeholder="CVC" data-stripe="cvc"/>
-                  <input type="text" id="expiration" class="no-border col-lg-4 col-md-4 col-sm-4 col-xs-12" size="7" class="" placeholder="exp (MM/YYYY)" />
+                  <input  type="password" class="no-border col-lg-6 col-sm-6 col-md-6 col-xs-12" name="password" class="" placeholder="Password"/>
+                  <input  type="password" class="no-border col-lg-6 col-sm-6 col-md-6 col-xs-12" name="confirm" class="" placeholder="Confirm Password"/>
                 </div>
 
-                <div class="row form-row visible-xs">
+                <div class="row form-row hidden-sm hidden-md hidden-lg">
+                  <input  type="password" class="no-border col-lg-6 col-sm-6 col-md-6 col-xs-12" name="password" class="" placeholder="Password"/>
+                </div>
+
+                <div class="row form-row hidden-sm hidden-md hidden-lg">
+                  <input  type="password" class="no-border col-lg-6 col-sm-6 col-md-6 col-xs-12" name="confirm" class="" placeholder="Confirm Password"/>
+                </div>
+
+                <div class="row form-row hidden-xs">
+                  <input type="text" class="no-border col-lg-6 col-md-6 col-sm-6 col-xs-12" size="20" class="" placeholder="Card Number" data-stripe="number"/>
+                  <input type="text" class="no-border col-lg-2 col-md-2 col-sm-2 col-xs-12" size="4" class="" placeholder="CVC" data-stripe="cvc"/>
+                  <input type="text" name="expiration" class="no-border col-lg-4 col-md-4 col-sm-4 col-xs-12" size="7" class="" placeholder="exp (MM/YYYY)" />
+                </div>
+
+                <div class="row form-row hidden-sm hidden-md hidden-lg">
                   <input type="text" class="no-border col-lg-6 col-md-6 col-sm-6 col-xs-12" size="20" class="" placeholder="Card Number" data-stripe="number"/>
                 </div>
-                <div class="row form-row visible-xs">
+
+                <div class="row form-row hidden-sm hidden-md hidden-lg">
                   <input type="text" class="no-border col-xs-4" size="4" class="" placeholder="CVC" data-stripe="cvc"/>
-                  <input type="text" id="expiration" class="no-border col-xs-8" size="7" class="" placeholder="exp (MM/YYYY)" />
+                  <input type="text" name="expiration" class="no-border col-xs-8" size="7" class="" placeholder="exp (MM/YYYY)" />
                 </div>
 
                 <input type="hidden" value="" id="expmonth" data-stripe="exp-month"/>
                 <input type="hidden" value="" id="expyear" data-stripe="exp-year"/>
-              
+
               <div class="row padding-top-sm">
                   <input type="checkbox" name="newsletter"/>
                   <label class="silver">Sign me up for Noora Health's newsletter</label>
-                </div>        
-                
+                </div>
+
                 <div class="row padding-top-sm">
                   <input type="submit" class="btn btn-primary form-control" id="submit-donation" value="DONATE"/>
                 </div>
-              
+
                 <div class="end-tag row padding-top-sm">
                   <img src="images/outline.png"/>
                 </div>
@@ -122,7 +136,7 @@
         </div>
       </div>
 
-      <div id="modal"></div> 
+      <div id="modal"></div>
     </div>
 
     <div class="row navbar-fixed-bottom padding-bottom">
